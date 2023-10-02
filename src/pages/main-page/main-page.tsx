@@ -6,7 +6,7 @@ export type MainPageProps = {
   date: number;
 }
 
-export default function Main({ filmName, date, genre }: MainPageProps): JSX.Element {
+export default function MainPage({ filmName, date, genre }: MainPageProps): JSX.Element {
   return (
     <>
       <section className="film-card">

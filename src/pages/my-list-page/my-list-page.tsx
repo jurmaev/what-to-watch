@@ -1,4 +1,4 @@
-export default function MyList(): JSX.Element {
+export default function MyListPage(): JSX.Element {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">

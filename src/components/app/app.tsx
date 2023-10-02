@@ -1,8 +1,8 @@
-import Main from '../../pages/main/main';
-import { MainPageProps } from '../../pages/main/main';
+import MainPage from '../../pages/main-page/main-page';
+import { MainPageProps } from '../../pages/main-page/main-page';
 
 export default function App(props: MainPageProps): JSX.Element {
   return (
-    <Main filmName={props.filmName} genre={props.genre} date={props.date} />
+    <MainPage filmName={props.filmName} genre={props.genre} date={props.date} />
   );
 }

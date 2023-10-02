@@ -1,4 +1,4 @@
-export default function AddReview(): JSX.Element {
+export default function ReviewPage(): JSX.Element {
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
