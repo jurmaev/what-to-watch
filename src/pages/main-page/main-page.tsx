@@ -4,9 +4,10 @@ export type MainPageProps = {
   filmName: string;
   genre: string;
   date: number;
+  cardsCount: number;
 }
 
-export default function MainPage({ filmName, date, genre }: MainPageProps): JSX.Element {
+export default function MainPage(props: MainPageProps): JSX.Element {
   return (
     <>
       <section className="film-card">
@@ -44,10 +45,10 @@ export default function MainPage({ filmName, date, genre }: MainPageProps): JSX.
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{filmName}</h2>
+              <h2 className="film-card__title">{props.filmName}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{genre}</span>
-                <span className="film-card__year">{date}</span>
+                <span className="film-card__genre">{props.genre}</span>
+                <span className="film-card__year">{props.date}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -108,26 +109,7 @@ export default function MainPage({ filmName, date, genre }: MainPageProps): JSX.
           </ul>
 
           <div className="catalog__films-list">
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
+            {Array.from({ length: props.cardsCount }, (_, index) => (<MovieCard key={index} />))}
           </div>
 
           <div className="catalog__more">
