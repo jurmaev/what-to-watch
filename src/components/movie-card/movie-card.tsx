@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import {Link} from 'react-router-dom';
 
 type MovieCardProps = {
@@ -6,7 +5,7 @@ type MovieCardProps = {
   imgLink: string;
 }
 
-export default function MovieCard(props: MovieCardProps): ReactNode {
+export default function MovieCard(props: MovieCardProps): JSX.Element {
   return (
     <article className="small-film-card catalog__films-card">
       <div className="small-film-card__image">

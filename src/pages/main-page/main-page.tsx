@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import MovieCard from '../../components/movie-card/movie-card';
 import { Movies } from '../../const';
 import { Helmet } from 'react-helmet-async';
@@ -9,7 +8,7 @@ export type MainPageProps = {
   date: number;
 }
 
-export default function MainPage(props: MainPageProps): ReactNode {
+export default function MainPage(props: MainPageProps): JSX.Element {
   return (
     <>
       <Helmet><title>Main</title></Helmet>

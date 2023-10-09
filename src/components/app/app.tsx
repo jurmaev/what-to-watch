@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { MainPageProps } from '../../pages/main-page/main-page';
@@ -13,7 +12,7 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
 
-export default function App(props: MainPageProps): ReactNode {
+export default function App(props: MainPageProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>

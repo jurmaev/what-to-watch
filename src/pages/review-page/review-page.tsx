@@ -1,7 +1,6 @@
-import { ReactNode } from 'react';
 import { Helmet } from 'react-helmet-async';
 
-export default function ReviewPage(): ReactNode {
+export default function ReviewPage(): JSX.Element {
   return (
     <section className="film-card film-card--full">
       <Helmet><title>Review</title></Helmet>

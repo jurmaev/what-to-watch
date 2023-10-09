@@ -1,12 +1,11 @@
-import { ReactNode } from 'react';
 import { Navigate } from 'react-router-dom';
 
 type PrivateRouteProps = {
   authorized: boolean;
-  children: ReactNode;
+  children: JSX.Element;
 }
 
-export default function PrivateRoute(props: PrivateRouteProps): ReactNode {
+export default function PrivateRoute(props: PrivateRouteProps): JSX.Element {
   return (
     props.authorized ? props.children : <Navigate to='/login' />
   );
