@@ -1,6 +1,11 @@
-export default function LoginPage(): JSX.Element {
+import { ReactNode } from 'react';
+import { Helmet } from 'react-helmet-async';
+
+export default function LoginPage(): ReactNode {
   return (
     <div className="user-page">
+      <Helmet><title>Login</title></Helmet>
+
       <header className="page-header user-page__head">
         <div className="logo">
           <a href="main.html" className="logo__link">

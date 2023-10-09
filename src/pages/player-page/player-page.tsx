@@ -1,6 +1,11 @@
-export default function PlayerPage(): JSX.Element {
+import { ReactNode } from 'react';
+import { Helmet } from 'react-helmet-async';
+
+export default function PlayerPage(): ReactNode {
   return (
     <div className="player">
+      <Helmet><title>Player</title></Helmet>
+
       <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
 
       <button type="button" className="player__exit">Exit</button>

@@ -1,6 +1,11 @@
-export default function MyListPage(): JSX.Element {
+import { ReactNode } from 'react';
+import { Helmet } from 'react-helmet-async';
+
+export default function MyListPage(): ReactNode {
   return (
     <div className="user-page">
+      <Helmet><title>My List</title></Helmet>
+
       <header className="page-header user-page__head">
         <div className="logo">
           <a href="main.html" className="logo__link">
