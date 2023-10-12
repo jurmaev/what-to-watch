@@ -1,6 +1,9 @@
+import { Helmet } from 'react-helmet-async';
+
 export default function MoviePage(): JSX.Element {
   return (
     <>
+      <Helmet><title>Movie</title></Helmet>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">

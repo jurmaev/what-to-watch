@@ -1,15 +1,17 @@
 import MovieCard from '../../components/movie-card/movie-card';
+import { Movies } from '../../const';
+import { Helmet } from 'react-helmet-async';
 
 export type MainPageProps = {
   filmName: string;
   genre: string;
   date: number;
-  cardsCount: number;
 }
 
 export default function MainPage(props: MainPageProps): JSX.Element {
   return (
     <>
+      <Helmet><title>Main</title></Helmet>
       <section className="film-card">
         <div className="film-card__bg">
           <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
@@ -109,7 +111,7 @@ export default function MainPage(props: MainPageProps): JSX.Element {
           </ul>
 
           <div className="catalog__films-list">
-            {Array.from({ length: props.cardsCount }, (_, index) => (<MovieCard key={index} />))}
+            {Movies.map(({ title, imgLink }) => <MovieCard key={title} title={title} imgLink={imgLink} />)}
           </div>
 
           <div className="catalog__more">
