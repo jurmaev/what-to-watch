@@ -9,11 +9,10 @@ type MovieListProps = {
 
 export default function MovieList(props: MovieListProps) {
   const movies = props.films.slice(0, props.length);
-  const [hoverCardId, setHoverCardId] = useState('');
+  const [, setHoverCardId] = useState('');
 
   function onCardHover(id: string): void {
     setHoverCardId(id);
-    console.log(hoverCardId);
   }
 
   return (
