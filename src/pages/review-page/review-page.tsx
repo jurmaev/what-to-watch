@@ -1,21 +1,21 @@
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import ReviewForm from '../../components/review-form/review-form';
+import { movieData } from '../../mocks/movie';
+import { Movie } from '../../types/movies';
 
-type ReviewPageProps = {
-  title: string;
-  imgLink: string;
-  filmId: number;
-}
 
-export default function ReviewPage(props: ReviewPageProps): JSX.Element {
+export default function ReviewPage(): JSX.Element {
+  const { id } = useParams();
+  const movie = movieData.find((m) => m.id === id) as Movie;
+
   return (
-    <section className="film-card film-card--full">
+    <section className="film-card film-card--full" style={{ backgroundColor: movie.backgroundColor }}>
       <Helmet><title>Review</title></Helmet>
 
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt={props.title} />
+          <img src={movie.backgroundImage} alt={movie.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -32,7 +32,7 @@ export default function ReviewPage(props: ReviewPageProps): JSX.Element {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={`/films/${props.filmId}`} className="breadcrumbs__link">{props.title}</Link>
+                <Link to={`/films/${movie.id}`} className="breadcrumbs__link">{movie.name}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>
@@ -53,7 +53,7 @@ export default function ReviewPage(props: ReviewPageProps): JSX.Element {
         </header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src={props.imgLink} alt={`${props.title} poster`} width="218" height="327" />
+          <img src={movie.posterImage} alt={`${movie.name} poster`} width="218" height="327" />
         </div>
       </div>
 

@@ -1,31 +1,28 @@
 import { Helmet } from 'react-helmet-async';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { movieData } from '../../mocks/movie';
+import { Movie } from '../../types/movies';
 
-type PlayerPageProps = {
-  title: string;
-  movieLength: string;
-  posterSrc: string;
-  movieSrc: string;
-}
-
-export default function PlayerPage(props: PlayerPageProps): JSX.Element {
+export default function PlayerPage(): JSX.Element {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const movie = movieData.find((m) => m.id === id) as Movie;
 
   return (
     <div className="player">
       <Helmet><title>Player</title></Helmet>
 
-      <video src={props.movieSrc} className="player__video" poster={props.posterSrc}></video>
+      <video src={movie.videoLink} className="player__video" poster={movie.backgroundImage}></video>
 
       <button onClick={() => navigate(-1)} type="button" className="player__exit">Exit</button>
 
       <div className="player__controls">
         <div className="player__controls-row">
           <div className="player__time">
-            <progress className="player__progress" value="30" max="100"></progress>
-            <div className="player__toggler" style={{ left: '30%' }}>Toggler</div>
+            <progress className="player__progress" value="0" max="100"></progress>
+            <div className="player__toggler">Toggler</div>
           </div>
-          <div className="player__time-value">{props.movieLength}</div>
+          <div className="player__time-value">{Math.floor(movie.runTime / 60)}:{movie.runTime % 60}</div>
         </div>
 
         <div className="player__controls-row">
@@ -35,7 +32,7 @@ export default function PlayerPage(props: PlayerPageProps): JSX.Element {
             </svg>
             <span>Play</span>
           </button>
-          <div className="player__name">{props.title}</div>
+          <div className="player__name">{movie.name}</div>
 
           <button type="button" className="player__full-screen">
             <svg viewBox="0 0 27 27" width="27" height="27">

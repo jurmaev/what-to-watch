@@ -20,17 +20,6 @@ type AppProps = {
     filmId: number;
   };
   films: Films;
-  player: {
-    title: string;
-    movieLength: string;
-    posterSrc: string;
-    movieSrc: string;
-  };
-  review: {
-    title: string;
-    imgLink: string;
-    filmId: number;
-  };
 }
 
 export default function App(props: AppProps): JSX.Element {
@@ -48,10 +37,10 @@ export default function App(props: AppProps): JSX.Element {
             element={<MoviePage films={props.films} />}
           />
           <Route path={AppRoutes.Review}
-            element={<ReviewPage title={props.review.title} imgLink={props.review.imgLink} filmId={props.review.filmId} />}
+            element={<ReviewPage />}
           />
           <Route path={AppRoutes.Player}
-            element={<PlayerPage title={props.player.title} movieLength={props.player.movieLength} posterSrc={props.player.posterSrc} movieSrc={props.player.movieSrc} />}
+            element={<PlayerPage />}
           />
           <Route path='*' element={<NotFoundPage />} />
         </Routes>
