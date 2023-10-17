@@ -1,7 +1,9 @@
 export type Film = {
-  id: number;
-  title: string;
-  imgLink: string;
+  id: string;
+  name: string;
+  previewImage: string;
+  previewVideoLink: string;
+  genre: string;
 }
 
 export type Films = Film[];

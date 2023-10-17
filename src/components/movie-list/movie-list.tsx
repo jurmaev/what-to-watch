@@ -9,16 +9,16 @@ type MovieListProps = {
 
 export default function MovieList(props: MovieListProps) {
   const movies = props.films.slice(0, props.length);
-  const [hoverCardId, setHoverCardId] = useState(-1);
+  const [hoverCardId, setHoverCardId] = useState('');
 
-  function onCardHover(id: number): void {
+  function onCardHover(id: string): void {
     setHoverCardId(id);
     console.log(hoverCardId);
   }
 
   return (
     <div className="catalog__films-list">
-      {movies.map(({ id, title, imgLink }) => <MovieCard key={id} onHover={onCardHover} id={id} title={title} imgLink={imgLink} />)}
+      {movies.map(({ id, name, previewImage }) => <MovieCard key={id} onHover={onCardHover} id={id} name={name} imgLink={previewImage} />)}
     </div>
   );
 }

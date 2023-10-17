@@ -31,10 +31,6 @@ type AppProps = {
     imgLink: string;
     filmId: number;
   };
-  movie: {
-    title: string;
-    filmId: number;
-  };
 }
 
 export default function App(props: AppProps): JSX.Element {
@@ -49,7 +45,7 @@ export default function App(props: AppProps): JSX.Element {
           <Route path={AppRoutes.Login} element={<LoginPage />} />
           <Route path={AppRoutes.MyList} element={<PrivateRoute authorized={AuthorizationStatus.Auth}><MyListPage films={props.films} /></PrivateRoute>} />
           <Route path={AppRoutes.Movie}
-            element={<MoviePage films={props.films} title={props.movie.title} filmId={props.movie.filmId} />}
+            element={<MoviePage films={props.films} />}
           />
           <Route path={AppRoutes.Review}
             element={<ReviewPage title={props.review.title} imgLink={props.review.imgLink} filmId={props.review.filmId} />}
