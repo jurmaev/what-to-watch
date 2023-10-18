@@ -1,13 +1,19 @@
 import { Helmet } from 'react-helmet-async';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import ReviewForm from '../../components/review-form/review-form';
-import { movieData } from '../../mocks/movie';
-import { Movie } from '../../types/movies';
+import { Movies } from '../../types/movies';
 
+type ReviewPageProps = {
+  movies: Movies;
+}
 
-export default function ReviewPage(): JSX.Element {
+export default function ReviewPage({ movies }: ReviewPageProps) {
   const { id } = useParams();
-  const movie = movieData.find((m) => m.id === id) as Movie;
+  const movie = movies.find((m) => m.id === id);
+
+  if (!movie) {
+    return (<Navigate to='*' />);
+  }
 
   return (
     <section className="film-card film-card--full" style={{ backgroundColor: movie.backgroundColor }}>

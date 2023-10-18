@@ -1,14 +1,14 @@
 import MovieCard from '../movie-card/movie-card';
-import { Films } from '../../types/film';
 import { useState } from 'react';
+import { MoviePreview } from '../../types/movies';
 
 type MovieListProps = {
   length: number;
-  films: Films;
+  moviePreviews: MoviePreview[];
 }
 
 export default function MovieList(props: MovieListProps) {
-  const movies = props.films.slice(0, props.length);
+  const movies = props.moviePreviews.slice(0, props.length);
   const [, setHoverCardId] = useState('');
 
   function onCardHover(id: string): void {

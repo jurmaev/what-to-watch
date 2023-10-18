@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 
-export default function LoginPage(): JSX.Element {
+export default function LoginPage() {
   return (
     <div className="user-page">
       <Helmet><title>Login</title></Helmet>

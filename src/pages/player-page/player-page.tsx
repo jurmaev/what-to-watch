@@ -1,12 +1,19 @@
 import { Helmet } from 'react-helmet-async';
-import { useNavigate, useParams } from 'react-router-dom';
-import { movieData } from '../../mocks/movie';
-import { Movie } from '../../types/movies';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { Movies } from '../../types/movies';
 
-export default function PlayerPage(): JSX.Element {
+type PlayerPageProps = {
+  movies: Movies;
+}
+
+export default function PlayerPage({ movies }: PlayerPageProps) {
   const navigate = useNavigate();
   const { id } = useParams();
-  const movie = movieData.find((m) => m.id === id) as Movie;
+  const movie = movies.find((m) => m.id === id);
+
+  if (!movie) {
+    return (<Navigate to='*' />);
+  }
 
   return (
     <div className="player">

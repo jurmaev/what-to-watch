@@ -10,37 +10,38 @@ import PlayerPage from '../../pages/player-page/player-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
-import { Films } from '../../types/film';
+import { MoviePreview, Movies } from '../../types/movies';
 
 type AppProps = {
   main: {
-    filmName: string;
+    name: string;
     genre: string;
     date: number;
-    filmId: number;
+    id: number;
   };
-  films: Films;
+  moviePreviews: MoviePreview[];
+  movies: Movies;
 }
 
-export default function App(props: AppProps): JSX.Element {
+export default function App(props: AppProps) {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <ScrollToTop />
         <Routes>
           <Route path={AppRoutes.Main}
-            element={<MainPage filmId={props.main.filmId} films={props.films} filmName={props.main.filmName} genre={props.main.genre} date={props.main.date} />}
+            element={<MainPage id={props.main.id} moviePreviews={props.moviePreviews} name={props.main.name} genre={props.main.genre} date={props.main.date} />}
           />
           <Route path={AppRoutes.Login} element={<LoginPage />} />
-          <Route path={AppRoutes.MyList} element={<PrivateRoute authorized={AuthorizationStatus.Auth}><MyListPage films={props.films} /></PrivateRoute>} />
+          <Route path={AppRoutes.MyList} element={<PrivateRoute authorized={AuthorizationStatus.Auth}><MyListPage moviePreviews={props.moviePreviews} /></PrivateRoute>} />
           <Route path={AppRoutes.Movie}
-            element={<MoviePage films={props.films} />}
+            element={<MoviePage movies={props.movies} moviePreviews={props.moviePreviews} />}
           />
           <Route path={AppRoutes.Review}
-            element={<ReviewPage />}
+            element={<ReviewPage movies={props.movies} />}
           />
           <Route path={AppRoutes.Player}
-            element={<PlayerPage />}
+            element={<PlayerPage movies={props.movies} />}
           />
           <Route path='*' element={<NotFoundPage />} />
         </Routes>

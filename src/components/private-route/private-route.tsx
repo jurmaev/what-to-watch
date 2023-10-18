@@ -6,7 +6,7 @@ type PrivateRouteProps = {
   children: JSX.Element;
 }
 
-export default function PrivateRoute(props: PrivateRouteProps): JSX.Element {
+export default function PrivateRoute(props: PrivateRouteProps) {
   return (
     props.authorized === AuthorizationStatus.Auth ? props.children : <Navigate to='/login' />
   );

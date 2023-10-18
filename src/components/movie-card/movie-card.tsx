@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 type MovieCardProps = {
   id: string;
@@ -7,7 +7,7 @@ type MovieCardProps = {
   onHover: (id: string) => void;
 }
 
-export default function MovieCard(props: MovieCardProps): JSX.Element {
+export default function MovieCard(props: MovieCardProps) {
   return (
     <article onMouseOver={() => props.onHover(props.id)} className="small-film-card catalog__films-card">
       <div className="small-film-card__image">

@@ -1,13 +1,13 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import MovieList from '../../components/movie-list/movie-list';
-import { Films } from '../../types/film';
+import { MoviePreview } from '../../types/movies';
 
 type MyListPageProps = {
-  films: Films;
+  moviePreviews: MoviePreview[];
 }
 
-export default function MyListPage(props: MyListPageProps): JSX.Element {
+export default function MyListPage(props: MyListPageProps) {
   return (
     <div className="user-page">
       <Helmet><title>My List</title></Helmet>
@@ -21,7 +21,7 @@ export default function MyListPage(props: MyListPageProps): JSX.Element {
           </Link>
         </div>
 
-        <h1 className="page-title user-page__title">My list <span className="user-page__film-count">{props.films.length}</span></h1>
+        <h1 className="page-title user-page__title">My list <span className="user-page__film-count">{props.moviePreviews.length}</span></h1>
         <ul className="user-block">
           <li className="user-block__item">
             <div className="user-block__avatar">
@@ -36,7 +36,7 @@ export default function MyListPage(props: MyListPageProps): JSX.Element {
 
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
-        <MovieList films={props.films} length={props.films.length}/>
+        <MovieList moviePreviews={props.moviePreviews} length={props.moviePreviews.length} />
       </section>
 
       <footer className="page-footer">

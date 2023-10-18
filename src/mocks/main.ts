@@ -1,1 +1,1 @@
-export const mainData = { filmId: 1, filmName: 'The Grand Budapest Hotel', genre: 'Drama', date: 2014 };
+export const mainData = { id: 1, name: 'The Grand Budapest Hotel', genre: 'Drama', date: 2014 };

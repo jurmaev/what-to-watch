@@ -1,4 +1,4 @@
-export const movies =
+export const moviePreviews =
   [
     {
       id: 'fd6eba93-868c-4822-b81d-7e539c7ec2da',

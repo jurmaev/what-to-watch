@@ -1,4 +1,4 @@
-export const movieData = [
+export const movies = [
   {
     id: '2cb8ff1d-0e12-4a0f-890c-a32e642ca92b',
     name: 'Pulp Fiction',

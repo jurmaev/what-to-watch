@@ -1,18 +1,21 @@
 import { Helmet } from 'react-helmet-async';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import MovieList from '../../components/movie-list/movie-list';
-import { Films } from '../../types/film';
-import { movieData } from '../../mocks/movie';
-import { Movie } from '../../types/movies';
+import { MoviePreview, Movies } from '../../types/movies';
 
 type MoviePageProps = {
-  films: Films;
+  moviePreviews: MoviePreview[];
+  movies: Movies;
 }
 
-export default function MoviePage(props: MoviePageProps): JSX.Element {
+export default function MoviePage(props: MoviePageProps) {
   const navigate = useNavigate();
   const { id } = useParams();
-  const movie = movieData.find((m) => m.id === id) as Movie;
+  const movie = props.movies.find((m) => m.id === id);
+
+  if (!movie) {
+    return (<Navigate to='*' />);
+  }
 
   let ratingText: string;
 
@@ -132,7 +135,7 @@ export default function MoviePage(props: MoviePageProps): JSX.Element {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <MovieList films={props.films} length={4} />
+          <MovieList moviePreviews={props.moviePreviews} length={4} />
         </section>
 
         <footer className="page-footer">

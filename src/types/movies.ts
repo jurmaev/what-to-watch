@@ -1,6 +1,12 @@
-export type Movie = {
+export type MoviePreview = {
   id: string;
   name: string;
+  previewImage: string;
+  previewVideoLink: string;
+  genre: string;
+}
+
+export type Movie = Omit<MoviePreview, 'previewImage' | 'previewVideoLink'> & {
   posterImage: string;
   backgroundImage: string;
   backgroundColor: string;
@@ -11,8 +17,8 @@ export type Movie = {
   director: string;
   starring: string[];
   runTime: number;
-  genre: string;
   released: number;
   isFavorite: boolean;
 };
+
 export type Movies = Movie[];
