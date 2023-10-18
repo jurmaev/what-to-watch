@@ -11,13 +11,9 @@ export default function MovieList(props: MovieListProps) {
   const movies = props.moviePreviews.slice(0, props.length);
   const [, setHoverCardId] = useState('');
 
-  function onCardHover(id: string): void {
-    setHoverCardId(id);
-  }
-
   return (
     <div className="catalog__films-list">
-      {movies.map(({ id, name, previewImage }) => <MovieCard key={id} onHover={onCardHover} id={id} name={name} imgLink={previewImage} />)}
+      {movies.map(({ id, name, previewImage }) => <MovieCard key={id} onHover={setHoverCardId} id={id} name={name} imgLink={previewImage} />)}
     </div>
   );
 }
