@@ -1,7 +1,8 @@
 import { Helmet } from 'react-helmet-async';
-import { Link, Navigate, useParams } from 'react-router-dom';
+import { Link, Navigate, generatePath, useParams } from 'react-router-dom';
 import ReviewForm from '../../components/review-form/review-form';
 import { Movies } from '../../types/movies';
+import { AppRoutes } from '../../const';
 
 type ReviewPageProps = {
   movies: Movies;
@@ -28,7 +29,7 @@ export default function ReviewPage({ movies }: ReviewPageProps) {
 
         <header className="page-header">
           <div className="logo">
-            <Link to='/' className="logo__link">
+            <Link to={AppRoutes.Main} className="logo__link">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
@@ -38,7 +39,7 @@ export default function ReviewPage({ movies }: ReviewPageProps) {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={`/films/${movie.id}`} className="breadcrumbs__link">{movie.name}</Link>
+                <Link to={generatePath(AppRoutes.Movie, { id: movie.id })} className="breadcrumbs__link">{movie.name}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>

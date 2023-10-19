@@ -1,12 +1,15 @@
-export type MoviePreview = {
+export type MovieBase = {
   id: string;
   name: string;
-  previewImage: string;
-  previewVideoLink: string;
   genre: string;
 }
 
-export type Movie = Omit<MoviePreview, 'previewImage' | 'previewVideoLink'> & {
+export type MoviePreview = MovieBase & {
+  previewImage: string;
+  previewVideoLink: string;
+}
+
+export type Movie = MovieBase & {
   posterImage: string;
   backgroundImage: string;
   backgroundColor: string;

@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 export default function ReviewForm() {
   const [form, setForm] = useState({ rating: '0', reviewText: '' });
-  const ratings = Array(9).fill(null).map((_, i) => i + 1);
+  const ratings = [...Array(10).keys()].map((_, i) => i + 1).reverse();
 
   return (
     <div className="add-review">

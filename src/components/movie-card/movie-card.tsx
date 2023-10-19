@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { Link, generatePath } from 'react-router-dom';
+import { AppRoutes } from '../../const';
 
 type MovieCardProps = {
   id: string;
@@ -14,7 +15,7 @@ export default function MovieCard(props: MovieCardProps) {
         <img src={props.imgLink} alt={props.name} width="280" height="175" />
       </div>
       <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={`/films/${props.id}`}>{props.name}</Link>
+        <Link className="small-film-card__link" to={generatePath(AppRoutes.Movie, { id: props.id })}>{props.name}</Link>
       </h3>
     </article>
   );

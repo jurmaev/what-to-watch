@@ -1,7 +1,8 @@
 import { Helmet } from 'react-helmet-async';
-import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
+import { Link, Navigate, generatePath, useNavigate, useParams } from 'react-router-dom';
 import MovieList from '../../components/movie-list/movie-list';
 import { MoviePreview, Movies } from '../../types/movies';
+import { AppRoutes } from '../../const';
 
 type MoviePageProps = {
   moviePreviews: MoviePreview[];
@@ -40,7 +41,7 @@ export default function MoviePage(props: MoviePageProps) {
 
           <header className="page-header film-card__head">
             <div className="logo">
-              <Link to="/" className="logo__link">
+              <Link to={AppRoutes.Main} className="logo__link">
                 <span className="logo__letter logo__letter--1">W</span>
                 <span className="logo__letter logo__letter--2">T</span>
                 <span className="logo__letter logo__letter--3">W</span>
@@ -85,7 +86,7 @@ export default function MoviePage(props: MoviePageProps) {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <Link to={`/films/${movie.id}/review`} className="btn film-card__button">Add review</Link>
+                <Link to={generatePath(AppRoutes.Review, { id: movie.id })} className="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>
@@ -140,7 +141,7 @@ export default function MoviePage(props: MoviePageProps) {
 
         <footer className="page-footer">
           <div className="logo">
-            <Link to="/" className="logo__link logo__link--light">
+            <Link to={AppRoutes.Main} className="logo__link logo__link--light">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
