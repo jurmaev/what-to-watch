@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-import { AppData } from './const';
+import { mainData } from './mocks/main';
+import { moviePreviews } from './mocks/movie-previews';
+import { movies } from './mocks/movies';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -9,6 +11,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App filmName={AppData.filmName} genre={AppData.genre} date={AppData.date} />
+    <App main={mainData} moviePreviews={moviePreviews} movies={movies} />
   </React.StrictMode>
 );
