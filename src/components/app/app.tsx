@@ -29,20 +29,15 @@ export default function App(props: AppProps) {
       <BrowserRouter>
         <ScrollToTop />
         <Routes>
-          <Route path={AppRoutes.Main}
+          <Route
+            path={AppRoutes.Main}
             element={<MainPage id={props.main.id} moviePreviews={props.moviePreviews} name={props.main.name} genre={props.main.genre} date={props.main.date} />}
           />
           <Route path={AppRoutes.Login} element={<LoginPage />} />
           <Route path={AppRoutes.MyList} element={<PrivateRoute authorized={AuthorizationStatus.Auth}><MyListPage moviePreviews={props.moviePreviews} /></PrivateRoute>} />
-          <Route path={AppRoutes.Movie}
-            element={<MoviePage movies={props.movies} moviePreviews={props.moviePreviews} />}
-          />
-          <Route path={AppRoutes.Review}
-            element={<ReviewPage movies={props.movies} />}
-          />
-          <Route path={AppRoutes.Player}
-            element={<PlayerPage movies={props.movies} />}
-          />
+          <Route path={AppRoutes.Movie} element={<MoviePage movies={props.movies} moviePreviews={props.moviePreviews} />} />
+          <Route path={AppRoutes.Review} element={<ReviewPage movies={props.movies} />} />
+          <Route path={AppRoutes.Player} element={<PlayerPage movies={props.movies} />} />
           <Route path='*' element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
