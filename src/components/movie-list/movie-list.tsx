@@ -13,8 +13,8 @@ export default function MovieList(props: MovieListProps) {
 
   return (
     <div className="catalog__films-list">
-      {movies.map(({ id, name, previewImage, previewVideoLink }) =>
-        (<MovieCard
+      {movies.map(({ id, name, previewImage, previewVideoLink }) => (
+        <MovieCard
           key={id}
           previewVideoLink={previewVideoLink}
           id={id}
