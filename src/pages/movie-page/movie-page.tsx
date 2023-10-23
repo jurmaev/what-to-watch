@@ -4,10 +4,12 @@ import MovieList from '../../components/movie-list/movie-list';
 import { MoviePreviews, Movies } from '../../types/movies';
 import { AppRoutes } from '../../const';
 import Tabs from '../../components/tabs/tabs';
+import { ReviewBase, Reviews } from '../../types/reviews';
 
 type MoviePageProps = {
   moviePreviews: MoviePreviews;
   movies: Movies;
+  reviews: Reviews;
 }
 
 export default function MoviePage(props: MoviePageProps) {
@@ -18,6 +20,8 @@ export default function MoviePage(props: MoviePageProps) {
   if (!movie) {
     return (<Navigate to='*' />);
   }
+
+  const reviews = props.reviews.find((review) => review.id === id)?.reviews as ReviewBase[];
   return (
     <>
       <Helmet><title>Movie</title></Helmet>
@@ -87,7 +91,7 @@ export default function MoviePage(props: MoviePageProps) {
             <div className="film-card__poster film-card__poster--big">
               <img src={movie.posterImage} alt={`${movie.name} poster`} width="218" height="327" />
             </div>
-            <Tabs movie={movie} />
+            <Tabs movie={movie} reviews={reviews} />
           </div>
         </div>
       </section>

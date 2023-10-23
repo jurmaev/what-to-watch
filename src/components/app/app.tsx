@@ -11,6 +11,7 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
 import { MoviePreviews, Movies } from '../../types/movies';
+import { reviews } from '../../mocks/reviews';
 
 type AppProps = {
   main: {
@@ -35,7 +36,7 @@ export default function App(props: AppProps) {
           />
           <Route path={AppRoutes.Login} element={<LoginPage />} />
           <Route path={AppRoutes.MyList} element={<PrivateRoute authorized={AuthorizationStatus.Auth}><MyListPage moviePreviews={props.moviePreviews} /></PrivateRoute>} />
-          <Route path={AppRoutes.Movie} element={<MoviePage movies={props.movies} moviePreviews={props.moviePreviews} />} />
+          <Route path={AppRoutes.Movie} element={<MoviePage reviews={reviews} movies={props.movies} moviePreviews={props.moviePreviews} />} />
           <Route path={AppRoutes.Review} element={<ReviewPage movies={props.movies} />} />
           <Route path={AppRoutes.Player} element={<PlayerPage movies={props.movies} />} />
           <Route path='*' element={<NotFoundPage />} />

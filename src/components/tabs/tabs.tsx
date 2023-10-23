@@ -5,6 +5,7 @@ import DetailsTab from './details-tab';
 import ReviewsTab from './reviews-tab';
 import { Movie } from '../../types/movies';
 import cn from 'classnames';
+import { ReviewBase } from '../../types/reviews';
 
 enum TabNames {
   Overview = 'overview',
@@ -14,9 +15,10 @@ enum TabNames {
 
 type TabsProps = {
   movie: Movie;
+  reviews: ReviewBase[];
 }
 
-export default function Tabs({ movie }: TabsProps) {
+export default function Tabs({ movie, reviews }: TabsProps) {
   const [activeTab, setActiveTab] = useState('overview');
 
   function handleClick(tabName: string) {
@@ -30,7 +32,7 @@ export default function Tabs({ movie }: TabsProps) {
       case TabNames.Details:
         return <DetailsTab movie={movie} />;
       case TabNames.Reviews:
-        return <ReviewsTab />;
+        return <ReviewsTab reviews={reviews} />;
     }
   }
 

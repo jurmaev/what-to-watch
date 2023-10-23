@@ -8,6 +8,12 @@ export const reviews = [
         'date': '2023-09-30T21:00:00.298Z',
         'rating': 2,
         'user': 'Kendall'
+      }, {
+        'id': 'dbc66b5c-14c6-495f-8c2a-4b3bac7a8cad',
+        'comment': 'It was well acted, directed, and the music was good. But the story is yawn. Not trying to rip anybody but I checked my watch a dozen times during this movie.',
+        'date': '2023-09-30T21:00:00.298Z',
+        'rating': 2,
+        'user': 'Kendall'
       }
     ]
   },
