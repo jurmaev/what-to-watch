@@ -10,7 +10,7 @@ import PlayerPage from '../../pages/player-page/player-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
-import { MoviePreview, Movies } from '../../types/movies';
+import { MoviePreviews, Movies } from '../../types/movies';
 
 type AppProps = {
   main: {
@@ -19,7 +19,7 @@ type AppProps = {
     date: number;
     id: number;
   };
-  moviePreviews: MoviePreview[];
+  moviePreviews: MoviePreviews;
   movies: Movies;
 }
 

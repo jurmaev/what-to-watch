@@ -1,12 +1,12 @@
 import { Helmet } from 'react-helmet-async';
 import { Link, Navigate, generatePath, useNavigate, useParams } from 'react-router-dom';
 import MovieList from '../../components/movie-list/movie-list';
-import { MoviePreview, Movies } from '../../types/movies';
+import { MoviePreviews, Movies } from '../../types/movies';
 import { AppRoutes } from '../../const';
 import Tabs from '../../components/tabs/tabs';
 
 type MoviePageProps = {
-  moviePreviews: MoviePreview[];
+  moviePreviews: MoviePreviews;
   movies: Movies;
 }
 

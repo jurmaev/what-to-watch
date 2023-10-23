@@ -1,11 +1,11 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import MovieList from '../../components/movie-list/movie-list';
-import { MoviePreview } from '../../types/movies';
+import { MoviePreviews } from '../../types/movies';
 import { AppRoutes } from '../../const';
 
 type MyListPageProps = {
-  moviePreviews: MoviePreview[];
+  moviePreviews: MoviePreviews;
 }
 
 export default function MyListPage(props: MyListPageProps) {

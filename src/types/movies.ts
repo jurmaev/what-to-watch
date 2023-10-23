@@ -25,3 +25,4 @@ export type Movie = MovieBase & {
 };
 
 export type Movies = Movie[];
+export type MoviePreviews = MoviePreview[];

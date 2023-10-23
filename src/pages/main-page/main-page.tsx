@@ -1,14 +1,14 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import MovieList from '../../components/movie-list/movie-list';
-import { MoviePreview } from '../../types/movies';
+import { MoviePreviews } from '../../types/movies';
 
 export type MainPageProps = {
   name: string;
   id: number;
   genre: string;
   date: number;
-  moviePreviews: MoviePreview[];
+  moviePreviews: MoviePreviews;
 }
 
 export default function MainPage(props: MainPageProps) {
