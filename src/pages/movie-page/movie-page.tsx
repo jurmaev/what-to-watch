@@ -3,6 +3,7 @@ import { Link, Navigate, generatePath, useNavigate, useParams } from 'react-rout
 import MovieList from '../../components/movie-list/movie-list';
 import { MoviePreview, Movies } from '../../types/movies';
 import { AppRoutes } from '../../const';
+import Tabs from '../../components/tabs/tabs';
 
 type MoviePageProps = {
   moviePreviews: MoviePreview[];
@@ -17,17 +18,6 @@ export default function MoviePage(props: MoviePageProps) {
   if (!movie) {
     return (<Navigate to='*' />);
   }
-
-  let ratingText: string;
-
-  if (movie.rating <= 5) {
-    ratingText = 'Average';
-  } else if (movie.rating > 5 && movie.rating <= 9) {
-    ratingText = 'Very good';
-  } else {
-    ratingText = 'Excellent';
-  }
-
   return (
     <>
       <Helmet><title>Movie</title></Helmet>
@@ -97,38 +87,7 @@ export default function MoviePage(props: MoviePageProps) {
             <div className="film-card__poster film-card__poster--big">
               <img src={movie.posterImage} alt={`${movie.name} poster`} width="218" height="327" />
             </div>
-
-            <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <Link to="#" className="film-nav__link">Overview</Link>
-                  </li>
-                  <li className="film-nav__item">
-                    <Link to="#" className="film-nav__link">Details</Link>
-                  </li>
-                  <li className="film-nav__item">
-                    <Link to="#" className="film-nav__link">Reviews</Link>
-                  </li>
-                </ul>
-              </nav>
-
-              <div className="film-rating">
-                <div className="film-rating__score">{movie.rating}</div>
-                <p className="film-rating__meta">
-                  <span className="film-rating__level">{ratingText}</span>
-                  <span className="film-rating__count">{movie.scoresCount} ratings</span>
-                </p>
-              </div>
-
-              <div className="film-card__text">
-                <p>{movie.description}</p>
-
-                <p className="film-card__director"><strong>Director: {movie.director}</strong></p>
-
-                <p className="film-card__starring"><strong>Starring: {movie.starring.join(', ')} and other</strong></p>
-              </div>
-            </div>
+            <Tabs movie={movie} />
           </div>
         </div>
       </section>
