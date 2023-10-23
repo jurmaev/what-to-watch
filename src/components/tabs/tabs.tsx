@@ -8,9 +8,9 @@ import cn from 'classnames';
 import { ReviewBase } from '../../types/reviews';
 
 enum TabNames {
-  Overview = 'overview',
-  Reviews = 'reviews',
-  Details = 'details'
+  Overview = 1,
+  Details = 2,
+  Reviews = 3
 }
 
 type TabsProps = {
@@ -19,9 +19,9 @@ type TabsProps = {
 }
 
 export default function Tabs({ movie, reviews }: TabsProps) {
-  const [activeTab, setActiveTab] = useState('overview');
+  const [activeTab, setActiveTab] = useState(1);
 
-  function handleClick(tabName: string) {
+  function handleClick(tabName: number) {
     setActiveTab(tabName);
   }
 
@@ -40,13 +40,22 @@ export default function Tabs({ movie, reviews }: TabsProps) {
     <div className="film-card__desc">
       <nav className="film-nav film-card__nav">
         <ul className="film-nav__list">
-          <li className={cn('film-nav__item', { 'film-nav__item--active': activeTab === TabNames.Overview })} onClick={() => handleClick(TabNames.Overview)}>
+          <li
+            className={cn('film-nav__item', { 'film-nav__item--active': activeTab === TabNames.Overview })}
+            onClick={() => handleClick(TabNames.Overview)}
+          >
             <Link to="#" className="film-nav__link">Overview</Link>
           </li>
-          <li className={cn('film-nav__item', { 'film-nav__item--active': activeTab === TabNames.Details })} onClick={() => handleClick(TabNames.Details)}>
+          <li
+            className={cn('film-nav__item', { 'film-nav__item--active': activeTab === TabNames.Details })}
+            onClick={() => handleClick(TabNames.Details)}
+          >
             <Link to="#" className="film-nav__link">Details</Link>
           </li>
-          <li className={cn('film-nav__item', { 'film-nav__item--active': activeTab === TabNames.Reviews })} onClick={() => handleClick(TabNames.Reviews)}>
+          <li
+            className={cn('film-nav__item', { 'film-nav__item--active': activeTab === TabNames.Reviews })}
+            onClick={() => handleClick(TabNames.Reviews)}
+          >
             <Link to="#" className="film-nav__link">Reviews</Link>
           </li>
         </ul>
