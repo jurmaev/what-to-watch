@@ -7,7 +7,7 @@ import { Movie } from '../../types/movies';
 import cn from 'classnames';
 import { ReviewBase } from '../../types/reviews';
 
-enum TabNames {
+enum TabIds {
   Overview = 1,
   Details = 2,
   Reviews = 3
@@ -27,11 +27,11 @@ export default function Tabs({ movie, reviews }: TabsProps) {
 
   function getActiveTab() {
     switch (activeTab) {
-      case TabNames.Overview:
+      case TabIds.Overview:
         return <OverviewTab movie={movie} />;
-      case TabNames.Details:
+      case TabIds.Details:
         return <DetailsTab movie={movie} />;
-      case TabNames.Reviews:
+      case TabIds.Reviews:
         return <ReviewsTab reviews={reviews} />;
     }
   }
@@ -41,20 +41,20 @@ export default function Tabs({ movie, reviews }: TabsProps) {
       <nav className="film-nav film-card__nav">
         <ul className="film-nav__list">
           <li
-            className={cn('film-nav__item', { 'film-nav__item--active': activeTab === TabNames.Overview })}
-            onClick={() => handleClick(TabNames.Overview)}
+            className={cn('film-nav__item', { 'film-nav__item--active': activeTab === TabIds.Overview })}
+            onClick={() => handleClick(TabIds.Overview)}
           >
             <Link to="#" className="film-nav__link">Overview</Link>
           </li>
           <li
-            className={cn('film-nav__item', { 'film-nav__item--active': activeTab === TabNames.Details })}
-            onClick={() => handleClick(TabNames.Details)}
+            className={cn('film-nav__item', { 'film-nav__item--active': activeTab === TabIds.Details })}
+            onClick={() => handleClick(TabIds.Details)}
           >
             <Link to="#" className="film-nav__link">Details</Link>
           </li>
           <li
-            className={cn('film-nav__item', { 'film-nav__item--active': activeTab === TabNames.Reviews })}
-            onClick={() => handleClick(TabNames.Reviews)}
+            className={cn('film-nav__item', { 'film-nav__item--active': activeTab === TabIds.Reviews })}
+            onClick={() => handleClick(TabIds.Reviews)}
           >
             <Link to="#" className="film-nav__link">Reviews</Link>
           </li>
