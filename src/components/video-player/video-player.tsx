@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 type VideoPlayerProps = {
   posterSrc: string;
@@ -10,19 +10,38 @@ type VideoPlayerProps = {
 export default function VideoPlayer(props: VideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  function handleLoadedData() {
+    setIsLoaded(true);
+  }
 
   useEffect(() => {
     const video = videoRef.current;
-    if (props.isActive && video) {
+    if (!video) {
+      return;
+    }
+    video.addEventListener('loadeddata', handleLoadedData);
+    return () => video.removeEventListener('loadeddata', handleLoadedData);
+  }, []);
+
+  useEffect(() => {
+    const video = videoRef.current;
+
+    if (!isLoaded || !video) {
+      return;
+    }
+
+    if (props.isActive) {
       timeoutRef.current = setTimeout(() => {
         video.play();
       }, 1000);
-    } else if (!props.isActive && video) {
+    } else if (!props.isActive) {
       video.src = props.videoSrc;
     }
 
     return () => clearTimeout(timeoutRef.current as NodeJS.Timeout);
-  }, [props.isActive, props.videoSrc]);
+  }, [props.isActive, props.videoSrc, isLoaded]);
 
   return (
     <video ref={videoRef} src={props.videoSrc} poster={props.posterSrc} width={280} height={175} muted={props.isMuted}></video>
