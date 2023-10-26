@@ -1,10 +1,10 @@
 import { ReviewBase } from '../../types/reviews';
 
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'Nobember', 'December'];
+
 type ReviewsTabProps = {
   reviews: ReviewBase[];
 }
-
-const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'Nobember', 'December'];
 
 export default function ReviewsTab({ reviews }: ReviewsTabProps) {
   function getDateWithDashes(dateString: string) {
