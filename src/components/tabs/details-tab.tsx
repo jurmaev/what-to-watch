@@ -2,7 +2,7 @@ import { Movie } from '../../types/movies';
 
 type DetailsTabProps = {
   movie: Movie;
-}
+};
 
 export default function DetailsTab({ movie }: DetailsTabProps) {
   return (
@@ -23,7 +23,9 @@ export default function DetailsTab({ movie }: DetailsTabProps) {
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>
-          <span className="film-card__details-value">{Math.floor(movie.runTime / 60)}h {movie.runTime % 60}m</span>
+          <span className="film-card__details-value">
+            {Math.floor(movie.runTime / 60)}h {movie.runTime % 60}m
+          </span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Genre</strong>
@@ -35,6 +37,5 @@ export default function DetailsTab({ movie }: DetailsTabProps) {
         </p>
       </div>
     </div>
-
   );
 }

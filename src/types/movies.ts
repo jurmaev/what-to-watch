@@ -2,12 +2,12 @@ export type MovieBase = {
   id: string;
   name: string;
   genre: string;
-}
+};
 
 export type MoviePreview = MovieBase & {
   previewImage: string;
   previewVideoLink: string;
-}
+};
 
 export type Movie = MovieBase & {
   posterImage: string;

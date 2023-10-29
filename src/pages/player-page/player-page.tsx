@@ -4,7 +4,7 @@ import { Movies } from '../../types/movies';
 
 type PlayerPageProps = {
   movies: Movies;
-}
+};
 
 export default function PlayerPage({ movies }: PlayerPageProps) {
   const navigate = useNavigate();
@@ -12,24 +12,44 @@ export default function PlayerPage({ movies }: PlayerPageProps) {
   const movie = movies.find((m) => m.id === id);
 
   if (!movie) {
-    return (<Navigate to='*' />);
+    return <Navigate to="*" />;
   }
 
   return (
     <div className="player">
-      <Helmet><title>Player</title></Helmet>
+      <Helmet>
+        <title>Player</title>
+      </Helmet>
 
-      <video src={movie.videoLink} className="player__video" poster={movie.backgroundImage}></video>
+      <video
+        src={movie.videoLink}
+        className="player__video"
+        poster={movie.backgroundImage}
+      >
+      </video>
 
-      <button onClick={() => navigate(-1)} type="button" className="player__exit">Exit</button>
+      <button
+        onClick={() => navigate(-1)}
+        type="button"
+        className="player__exit"
+      >
+        Exit
+      </button>
 
       <div className="player__controls">
         <div className="player__controls-row">
           <div className="player__time">
-            <progress className="player__progress" value="0" max="100"></progress>
+            <progress
+              className="player__progress"
+              value="0"
+              max="100"
+            >
+            </progress>
             <div className="player__toggler">Toggler</div>
           </div>
-          <div className="player__time-value">{Math.floor(movie.runTime / 60)}:{movie.runTime % 60}</div>
+          <div className="player__time-value">
+            {Math.floor(movie.runTime / 60)}:{movie.runTime % 60}
+          </div>
         </div>
 
         <div className="player__controls-row">

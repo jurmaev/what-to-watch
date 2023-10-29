@@ -5,7 +5,7 @@ type VideoPlayerProps = {
   videoSrc: string;
   isActive: boolean;
   isMuted: boolean;
-}
+};
 
 export default function VideoPlayer(props: VideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -44,6 +44,14 @@ export default function VideoPlayer(props: VideoPlayerProps) {
   }, [props.isActive, props.videoSrc, isLoaded]);
 
   return (
-    <video ref={videoRef} src={props.videoSrc} poster={props.posterSrc} width={280} height={175} muted={props.isMuted}></video>
+    <video
+      ref={videoRef}
+      src={props.videoSrc}
+      poster={props.posterSrc}
+      width={280}
+      height={175}
+      muted={props.isMuted}
+    >
+    </video>
   );
 }
