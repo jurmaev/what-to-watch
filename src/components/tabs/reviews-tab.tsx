@@ -19,18 +19,17 @@ type ReviewsTabProps = {
   reviews: ReviewBase[];
 };
 
-export default function ReviewsTab({ reviews }: ReviewsTabProps) {
-  function getDateWithDashes(dateString: string) {
-    const date = new Date(dateString);
-    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-  }
+function getDateWithDashes(dateString: string) {
+  const date = new Date(dateString);
+  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+}
 
-  function getDateWithComma(dateString: string) {
-    const date = new Date(dateString);
-    return `${
-      MONTHS[date.getMonth()]
-    } ${date.getDate()}, ${date.getFullYear()}`;
-  }
+function getDateWithComma(dateString: string) {
+  const date = new Date(dateString);
+  return `${MONTHS[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+}
+
+export default function ReviewsTab({ reviews }: ReviewsTabProps) {
   return (
     <div className="film-card__reviews film-card__row">
       <div className="film-card__reviews-col">

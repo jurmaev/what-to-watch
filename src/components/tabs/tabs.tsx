@@ -7,11 +7,11 @@ import { Movie } from '../../types/movies';
 import cn from 'classnames';
 import { ReviewBase } from '../../types/reviews';
 
-enum TabIds {
-  Overview = 1,
-  Details = 2,
-  Reviews = 3,
-}
+const TabNames = {
+  Overview: 'Overview',
+  Details: 'Details',
+  Reviews: 'Reviews',
+} as const;
 
 type TabsProps = {
   movie: Movie;
@@ -19,19 +19,19 @@ type TabsProps = {
 };
 
 export default function Tabs({ movie, reviews }: TabsProps) {
-  const [activeTab, setActiveTab] = useState(1);
+  const [activeTab, setActiveTab] = useState<string>(TabNames.Overview);
 
-  function handleClick(tabName: number) {
+  function handleClick(tabName: string) {
     setActiveTab(tabName);
   }
 
   function getActiveTab() {
     switch (activeTab) {
-      case TabIds.Overview:
+      case TabNames.Overview:
         return <OverviewTab movie={movie} />;
-      case TabIds.Details:
+      case TabNames.Details:
         return <DetailsTab movie={movie} />;
-      case TabIds.Reviews:
+      case TabNames.Reviews:
         return <ReviewsTab reviews={reviews} />;
     }
   }
@@ -42,32 +42,32 @@ export default function Tabs({ movie, reviews }: TabsProps) {
         <ul className="film-nav__list">
           <li
             className={cn('film-nav__item', {
-              'film-nav__item--active': activeTab === TabIds.Overview,
+              'film-nav__item--active': activeTab === TabNames.Overview,
             })}
-            onClick={() => handleClick(TabIds.Overview)}
+            onClick={() => handleClick(TabNames.Overview)}
           >
             <Link to="#" className="film-nav__link">
-              Overview
+              {TabNames.Overview}
             </Link>
           </li>
           <li
             className={cn('film-nav__item', {
-              'film-nav__item--active': activeTab === TabIds.Details,
+              'film-nav__item--active': activeTab === TabNames.Details,
             })}
-            onClick={() => handleClick(TabIds.Details)}
+            onClick={() => handleClick(TabNames.Details)}
           >
             <Link to="#" className="film-nav__link">
-              Details
+              {TabNames.Details}
             </Link>
           </li>
           <li
             className={cn('film-nav__item', {
-              'film-nav__item--active': activeTab === TabIds.Reviews,
+              'film-nav__item--active': activeTab === TabNames.Reviews,
             })}
-            onClick={() => handleClick(TabIds.Reviews)}
+            onClick={() => handleClick(TabNames.Reviews)}
           >
             <Link to="#" className="film-nav__link">
-              Reviews
+              {TabNames.Reviews}
             </Link>
           </li>
         </ul>
