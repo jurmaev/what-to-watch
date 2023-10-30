@@ -4,6 +4,10 @@ type DetailsTabProps = {
   movie: Movie;
 };
 
+function getRunTime(runTime: number) {
+  return `${Math.floor(runTime / 60)}h ${runTime % 60}m`;
+}
+
 export default function DetailsTab({ movie }: DetailsTabProps) {
   return (
     <div className="film-card__text film-card__row">
@@ -24,7 +28,7 @@ export default function DetailsTab({ movie }: DetailsTabProps) {
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>
           <span className="film-card__details-value">
-            {Math.floor(movie.runTime / 60)}h {movie.runTime % 60}m
+            {getRunTime(movie.runTime)}
           </span>
         </p>
         <p className="film-card__details-item">

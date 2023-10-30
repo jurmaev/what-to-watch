@@ -2,7 +2,7 @@ import { Navigate } from 'react-router-dom';
 import { AuthorizationStatus } from '../../const';
 
 type PrivateRouteProps = {
-  isAuthorized: AuthorizationStatus;
+  isAuthorized: keyof typeof AuthorizationStatus;
   children: JSX.Element;
 };
 

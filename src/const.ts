@@ -1,14 +1,14 @@
-export enum AppRoutes {
-  Main = '/',
-  Login = '/login',
-  MyList = '/mylist',
-  Movie = '/films/:id',
-  Review = '/films/:id/review',
-  Player = '/player/:id',
-}
+export const AppRoutes = {
+  Main: '/',
+  Login: '/login',
+  MyList: '/mylist',
+  Movie: '/films/:id',
+  Review: '/films/:id/review',
+  Player: '/player/:id',
+} as const;
 
-export enum AuthorizationStatus {
-  Auth = 'AUTH',
-  NoAuth = 'NO_AUTH',
-  Unknown = 'UNKNOWN',
-}
+export const AuthorizationStatus = {
+  Auth: 'Auth',
+  NoAuth: 'NoAuth',
+  Unknown: 'Unknown',
+} as const;

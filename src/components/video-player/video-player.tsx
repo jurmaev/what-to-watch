@@ -9,7 +9,7 @@ type VideoPlayerProps = {
 
 export default function VideoPlayer(props: VideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
   function handleLoadedData() {
@@ -40,7 +40,8 @@ export default function VideoPlayer(props: VideoPlayerProps) {
       video.src = props.videoSrc;
     }
 
-    return () => clearTimeout(timeoutRef.current as NodeJS.Timeout);
+    return () =>
+      clearTimeout(timeoutRef.current as ReturnType<typeof setTimeout>);
   }, [props.isActive, props.videoSrc, isLoaded]);
 
   return (

@@ -4,23 +4,25 @@ type OverviewTabProps = {
   movie: Movie;
 };
 
-export default function OverviewTab({ movie }: OverviewTabProps) {
-  let ratingText: string;
-
-  if (movie.rating <= 5) {
-    ratingText = 'Average';
-  } else if (movie.rating > 5 && movie.rating <= 9) {
-    ratingText = 'Very good';
+function getRatingText(rating: number) {
+  if (rating <= 5) {
+    return 'Average';
+  } else if (rating > 5 && rating <= 9) {
+    return 'Very good';
   } else {
-    ratingText = 'Excellent';
+    return 'Excellent';
   }
+}
 
+export default function OverviewTab({ movie }: OverviewTabProps) {
   return (
     <>
       <div className="film-rating">
         <div className="film-rating__score">{movie.rating}</div>
         <p className="film-rating__meta">
-          <span className="film-rating__level">{ratingText}</span>
+          <span className="film-rating__level">
+            {getRatingText(movie.rating)}
+          </span>
           <span className="film-rating__count">
             {movie.scoresCount} ratings
           </span>
