@@ -6,19 +6,24 @@ import { AppRoutes } from '../../const';
 
 type ReviewPageProps = {
   movies: Movies;
-}
+};
 
 export default function ReviewPage({ movies }: ReviewPageProps) {
   const { id } = useParams();
   const movie = movies.find((m) => m.id === id);
 
   if (!movie) {
-    return (<Navigate to='*' />);
+    return <Navigate to="*" />;
   }
 
   return (
-    <section className="film-card film-card--full" style={{ backgroundColor: movie.backgroundColor }}>
-      <Helmet><title>Review</title></Helmet>
+    <section
+      className="film-card film-card--full"
+      style={{ backgroundColor: movie.backgroundColor }}
+    >
+      <Helmet>
+        <title>Review</title>
+      </Helmet>
 
       <div className="film-card__header">
         <div className="film-card__bg">
@@ -39,7 +44,12 @@ export default function ReviewPage({ movies }: ReviewPageProps) {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={generatePath(AppRoutes.Movie, { id: movie.id })} className="breadcrumbs__link">{movie.name}</Link>
+                <Link
+                  to={generatePath(AppRoutes.Movie, { id: movie.id })}
+                  className="breadcrumbs__link"
+                >
+                  {movie.name}
+                </Link>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>
@@ -50,7 +60,12 @@ export default function ReviewPage({ movies }: ReviewPageProps) {
           <ul className="user-block">
             <li className="user-block__item">
               <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+                <img
+                  src="img/avatar.jpg"
+                  alt="User avatar"
+                  width="63"
+                  height="63"
+                />
               </div>
             </li>
             <li className="user-block__item">
@@ -60,12 +75,16 @@ export default function ReviewPage({ movies }: ReviewPageProps) {
         </header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src={movie.posterImage} alt={`${movie.name} poster`} width="218" height="327" />
+          <img
+            src={movie.posterImage}
+            alt={`${movie.name} poster`}
+            width="218"
+            height="327"
+          />
         </div>
       </div>
 
       <ReviewForm />
-
     </section>
   );
 }

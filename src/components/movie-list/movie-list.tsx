@@ -1,10 +1,10 @@
 import MovieCard from '../movie-card/movie-card';
-import { MoviePreview } from '../../types/movies';
+import { MoviePreviews } from '../../types/movies';
 
 type MovieListProps = {
   length: number;
-  moviePreviews: MoviePreview[];
-}
+  moviePreviews: MoviePreviews;
+};
 
 export default function MovieList(props: MovieListProps) {
   const movies = props.moviePreviews.slice(0, props.length);
@@ -19,7 +19,8 @@ export default function MovieList(props: MovieListProps) {
           isMuted
           name={name}
           previewImage={previewImage}
-        />))}
+        />
+      ))}
     </div>
   );
 }

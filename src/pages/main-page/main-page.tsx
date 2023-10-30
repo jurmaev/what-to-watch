@@ -1,22 +1,24 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import MovieList from '../../components/movie-list/movie-list';
-import { MoviePreview } from '../../types/movies';
+import { MoviePreviews } from '../../types/movies';
 
 export type MainPageProps = {
   name: string;
   id: number;
   genre: string;
   date: number;
-  moviePreviews: MoviePreview[];
-}
+  moviePreviews: MoviePreviews;
+};
 
 export default function MainPage(props: MainPageProps) {
   const navigate = useNavigate();
 
   return (
     <>
-      <Helmet><title>Main</title></Helmet>
+      <Helmet>
+        <title>Main</title>
+      </Helmet>
       <section className="film-card">
         <div className="film-card__bg">
           <img src="img/bg-the-grand-budapest-hotel.jpg" alt={props.name} />
@@ -36,7 +38,12 @@ export default function MainPage(props: MainPageProps) {
           <ul className="user-block">
             <li className="user-block__item">
               <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+                <img
+                  src="img/avatar.jpg"
+                  alt="User avatar"
+                  width="63"
+                  height="63"
+                />
               </div>
             </li>
             <li className="user-block__item">
@@ -48,7 +55,12 @@ export default function MainPage(props: MainPageProps) {
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt={`${props.name} poster`} width="218" height="327" />
+              <img
+                src="img/the-grand-budapest-hotel-poster.jpg"
+                alt={`${props.name} poster`}
+                width="218"
+                height="327"
+              />
             </div>
 
             <div className="film-card__desc">
@@ -59,7 +71,9 @@ export default function MainPage(props: MainPageProps) {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button"
+                <button
+                  className="btn btn--play film-card__button"
+                  type="button"
                   onClick={() => navigate(`/player/${props.id}`)}
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
@@ -67,7 +81,9 @@ export default function MainPage(props: MainPageProps) {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list film-card__button" type="button"
+                <button
+                  className="btn btn--list film-card__button"
+                  type="button"
                   onClick={() => navigate('/mylist')}
                 >
                   <svg viewBox="0 0 19 20" width="19" height="20">
@@ -88,41 +104,63 @@ export default function MainPage(props: MainPageProps) {
 
           <ul className="catalog__genres-list">
             <li className="catalog__genres-item catalog__genres-item--active">
-              <Link to="#" className="catalog__genres-link">All genres</Link>
+              <Link to="#" className="catalog__genres-link">
+                All genres
+              </Link>
             </li>
             <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">Comedies</Link>
+              <Link to="#" className="catalog__genres-link">
+                Comedies
+              </Link>
             </li>
             <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">Crime</Link>
+              <Link to="#" className="catalog__genres-link">
+                Crime
+              </Link>
             </li>
             <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">Documentary</Link>
+              <Link to="#" className="catalog__genres-link">
+                Documentary
+              </Link>
             </li>
             <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">Dramas</Link>
+              <Link to="#" className="catalog__genres-link">
+                Dramas
+              </Link>
             </li>
             <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">Horror</Link>
+              <Link to="#" className="catalog__genres-link">
+                Horror
+              </Link>
             </li>
             <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">Kids & Family</Link>
+              <Link to="#" className="catalog__genres-link">
+                Kids & Family
+              </Link>
             </li>
             <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">Romance</Link>
+              <Link to="#" className="catalog__genres-link">
+                Romance
+              </Link>
             </li>
             <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">Sci-Fi</Link>
+              <Link to="#" className="catalog__genres-link">
+                Sci-Fi
+              </Link>
             </li>
             <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">Thrillers</Link>
+              <Link to="#" className="catalog__genres-link">
+                Thrillers
+              </Link>
             </li>
           </ul>
 
           <MovieList moviePreviews={props.moviePreviews} length={16} />
 
           <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
+            <button className="catalog__button" type="button">
+              Show more
+            </button>
           </div>
         </section>
 

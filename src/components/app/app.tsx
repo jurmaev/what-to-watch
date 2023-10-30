@@ -10,7 +10,8 @@ import PlayerPage from '../../pages/player-page/player-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
-import { MoviePreview, Movies } from '../../types/movies';
+import { MoviePreviews, Movies } from '../../types/movies';
+import { reviews } from '../../mocks/reviews';
 
 type AppProps = {
   main: {
@@ -19,9 +20,9 @@ type AppProps = {
     date: number;
     id: number;
   };
-  moviePreviews: MoviePreview[];
+  moviePreviews: MoviePreviews;
   movies: Movies;
-}
+};
 
 export default function App(props: AppProps) {
   return (
@@ -31,14 +32,44 @@ export default function App(props: AppProps) {
         <Routes>
           <Route
             path={AppRoutes.Main}
-            element={<MainPage id={props.main.id} moviePreviews={props.moviePreviews} name={props.main.name} genre={props.main.genre} date={props.main.date} />}
+            element={
+              <MainPage
+                id={props.main.id}
+                moviePreviews={props.moviePreviews}
+                name={props.main.name}
+                genre={props.main.genre}
+                date={props.main.date}
+              />
+            }
           />
           <Route path={AppRoutes.Login} element={<LoginPage />} />
-          <Route path={AppRoutes.MyList} element={<PrivateRoute authorized={AuthorizationStatus.Auth}><MyListPage moviePreviews={props.moviePreviews} /></PrivateRoute>} />
-          <Route path={AppRoutes.Movie} element={<MoviePage movies={props.movies} moviePreviews={props.moviePreviews} />} />
-          <Route path={AppRoutes.Review} element={<ReviewPage movies={props.movies} />} />
-          <Route path={AppRoutes.Player} element={<PlayerPage movies={props.movies} />} />
-          <Route path='*' element={<NotFoundPage />} />
+          <Route
+            path={AppRoutes.MyList}
+            element={
+              <PrivateRoute isAuthorized={AuthorizationStatus.Auth}>
+                <MyListPage moviePreviews={props.moviePreviews} />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path={AppRoutes.Movie}
+            element={
+              <MoviePage
+                reviews={reviews}
+                movies={props.movies}
+                moviePreviews={props.moviePreviews}
+              />
+            }
+          />
+          <Route
+            path={AppRoutes.Review}
+            element={<ReviewPage movies={props.movies} />}
+          />
+          <Route
+            path={AppRoutes.Player}
+            element={<PlayerPage movies={props.movies} />}
+          />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     </HelmetProvider>
