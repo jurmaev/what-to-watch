@@ -8,7 +8,7 @@ export const AppRoutes = {
 } as const;
 
 export const AuthorizationStatus = {
-  Auth: 'AUTH',
-  NoAuth: 'NO_AUTH',
-  Unknown: 'UNKNOWN',
+  Auth: 'Auth',
+  NoAuth: 'NoAuth',
+  Unknown: 'Unknown',
 } as const;
