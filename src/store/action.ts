@@ -4,6 +4,6 @@ import { MoviePreviews } from '../types/movies';
 
 export const filterByGenre = createAction<string>('movies/filter');
 
-export const changeGenre = createAction<keyof typeof Genres>('genre/change');
+export const changeGenre = createAction<string>('genre/change');
 
 export const fillMovies = createAction<MoviePreviews>('movies/fill');

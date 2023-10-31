@@ -5,11 +5,11 @@ import { Genres } from '../../const';
 import { moviePreviews as allMoviePreviews } from '../../mocks/movie-previews';
 import { useState } from 'react';
 import cn from 'classnames';
-import { filterByGenre } from '../../store/action';
+import { changeGenre, filterByGenre } from '../../store/action';
 import ShowMore from '../show-more/show-more';
 
 export default function GenreList() {
-  const [activeFilter, setActiveFilter] = useState<string>(Genres.All);
+  const currentGenre = useAppSelector((state) => state.genre);
   const [movieLength, setMovieLength] = useState(8);
   const dispatch = useAppDispatch();
   const moviePreviews = useAppSelector((state) => state.moviePreviews);
@@ -35,10 +35,10 @@ export default function GenreList() {
           <li
             key={genre}
             className={cn('catalog__genres-item', {
-              'catalog__genres-item--active': genre === activeFilter,
+              'catalog__genres-item--active': genre === currentGenre,
             })}
             onClick={() => {
-              setActiveFilter(genre);
+              dispatch(changeGenre(genre));
               dispatch(filterByGenre(genre));
               setMovieLength(8);
             }}
