@@ -40,6 +40,7 @@ export default function GenreList() {
             onClick={() => {
               setActiveFilter(genre);
               dispatch(filterByGenre(genre));
+              setMovieLength(8);
             }}
           >
             <Link to="#" className="catalog__genres-link">
@@ -52,7 +53,7 @@ export default function GenreList() {
       <MovieList moviePreviews={moviePreviews} length={movieLength} />
 
       <ShowMore
-        isActive={movieLength !== moviePreviews.length}
+        isActive={movieLength < moviePreviews.length}
         onClick={handleShowMoreClick}
       />
     </section>
