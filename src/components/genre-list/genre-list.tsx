@@ -6,15 +6,25 @@ import { moviePreviews as allMoviePreviews } from '../../mocks/movie-previews';
 import { useState } from 'react';
 import cn from 'classnames';
 import { filterByGenre } from '../../store/action';
+import ShowMore from '../show-more/show-more';
 
 export default function GenreList() {
   const [activeFilter, setActiveFilter] = useState<string>(Genres.All);
+  const [movieLength, setMovieLength] = useState(8);
   const dispatch = useAppDispatch();
   const moviePreviews = useAppSelector((state) => state.moviePreviews);
   const genres = [
     ...new Set(allMoviePreviews.map((movie) => movie.genre)),
   ].sort();
   genres.unshift(Genres.All);
+
+  function handleShowMoreClick() {
+    setMovieLength(
+      movieLength + 8 > allMoviePreviews.length
+        ? allMoviePreviews.length
+        : movieLength + 8
+    );
+  }
 
   return (
     <section className="catalog">
@@ -39,13 +49,12 @@ export default function GenreList() {
         ))}
       </ul>
 
-      <MovieList moviePreviews={moviePreviews} length={16} />
+      <MovieList moviePreviews={moviePreviews} length={movieLength} />
 
-      <div className="catalog__more">
-        <button className="catalog__button" type="button">
-          Show more
-        </button>
-      </div>
+      <ShowMore
+        isActive={movieLength !== moviePreviews.length}
+        onClick={handleShowMoreClick}
+      />
     </section>
   );
 }
