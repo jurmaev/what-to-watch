@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import MovieList from '../movie-list/movie-list';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Genres } from '../../const';
-import { moviePreviews as allMoviePreviews } from '../../mocks/movie-previews';
 import { useState } from 'react';
 import cn from 'classnames';
 import { changeGenre, filterByGenre } from '../../store/action';
@@ -10,6 +9,7 @@ import ShowMore from '../show-more/show-more';
 
 export default function GenreList() {
   const currentGenre = useAppSelector((state) => state.genre);
+  const allMoviePreviews = useAppSelector((state) => state.allMoviePreviews);
   const [movieLength, setMovieLength] = useState(8);
   const dispatch = useAppDispatch();
   const moviePreviews = useAppSelector((state) => state.moviePreviews);
