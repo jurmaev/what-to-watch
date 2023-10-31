@@ -14,14 +14,14 @@ export const AuthorizationStatus = {
 } as const;
 
 export const Genres = {
-  All: 'all',
-  Comedy: 'comedy',
-  Crime: 'crime',
-  Documentary: 'documentary',
-  Drama: 'drama',
-  Horror: 'horror',
+  All: 'All',
+  Comedy: 'Comedy',
+  Crime: 'Crime',
+  Documentary: 'Documentary',
+  Drama: 'Drama',
+  Horror: 'Horror',
   KidsFamily: 'KidsFamily',
-  Romance: 'romance',
-  SciFi: 'scifi',
-  Thrillers: 'thrillers',
+  Romance: 'Romance',
+  SciFi: 'SciFi',
+  Thrillers: 'Thrillers',
 } as const;
