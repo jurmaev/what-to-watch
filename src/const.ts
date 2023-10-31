@@ -12,3 +12,16 @@ export const AuthorizationStatus = {
   NoAuth: 'NoAuth',
   Unknown: 'Unknown',
 } as const;
+
+export const Genres = {
+  All: 'all',
+  Comedy: 'comedy',
+  Crime: 'crime',
+  Documentary: 'documentary',
+  Drama: 'drama',
+  Horror: 'horror',
+  KidsFamily: 'KidsFamily',
+  Romance: 'romance',
+  SciFi: 'scifi',
+  Thrillers: 'thrillers',
+} as const;
