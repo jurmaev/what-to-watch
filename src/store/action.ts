@@ -1,9 +1,9 @@
 import { createAction } from '@reduxjs/toolkit';
 import { Genres } from '../const';
-import { Movies } from '../types/movies';
+import { MoviePreviews } from '../types/movies';
 
-export const filterByGenre = createAction<keyof typeof Genres>('movies/filter');
+export const filterByGenre = createAction<string>('movies/filter');
 
 export const changeGenre = createAction<keyof typeof Genres>('genre/change');
 
-export const fillMovies = createAction<Movies>('movies/fill');
+export const fillMovies = createAction<MoviePreviews>('movies/fill');

@@ -1,16 +1,19 @@
 import { Link } from 'react-router-dom';
-import { MoviePreviews } from '../../types/movies';
 import MovieList from '../movie-list/movie-list';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Genres } from '../../const';
+import { moviePreviews as allMoviePreviews } from '../../mocks/movie-previews';
+import { useState } from 'react';
+import cn from 'classnames';
+import { filterByGenre } from '../../store/action';
 
-type GenreListProps = {
-  moviePreviews: MoviePreviews;
-};
-
-export default function GenreList({ moviePreviews }: GenreListProps) {
-  const movies = useAppSelector((state) => state.movies);
-  const genres = [...new Set(movies.map((movie) => movie.genre))].sort();
+export default function GenreList() {
+  const [activeFilter, setActiveFilter] = useState<string>(Genres.All);
+  const dispatch = useAppDispatch();
+  const moviePreviews = useAppSelector((state) => state.moviePreviews);
+  const genres = [
+    ...new Set(allMoviePreviews.map((movie) => movie.genre)),
+  ].sort();
   genres.unshift(Genres.All);
 
   return (
@@ -18,13 +21,17 @@ export default function GenreList({ moviePreviews }: GenreListProps) {
       <h2 className="catalog__title visually-hidden">Catalog</h2>
 
       <ul className="catalog__genres-list">
-        {/* <li className="catalog__genres-item catalog__genres-item--active">
-          <Link to="#" className="catalog__genres-link">
-            All genres
-          </Link>
-        </li> */}
         {genres.map((genre) => (
-          <li key={genre} className="catalog__genres-item">
+          <li
+            key={genre}
+            className={cn('catalog__genres-item', {
+              'catalog__genres-item--active': genre === activeFilter,
+            })}
+            onClick={() => {
+              setActiveFilter(genre);
+              dispatch(filterByGenre(genre));
+            }}
+          >
             <Link to="#" className="catalog__genres-link">
               {genre}
             </Link>
