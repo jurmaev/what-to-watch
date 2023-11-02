@@ -4,7 +4,7 @@ import { Genres } from '../const';
 import { moviePreviews } from '../mocks/movie-previews';
 
 const initialState = {
-  genre: 'All',
+  genre: Genres.All,
   moviePreviews: moviePreviews,
   allMoviePreviews: moviePreviews,
 };

@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import GenreList from '../../components/genre-list/genre-list';
+import MoviePreviewsByGenre from '../../components/movie-previews-by-genre/movie-previews-by-genre';
 
 export type MainPageProps = {
   name: string;
@@ -97,7 +97,7 @@ export default function MainPage(props: MainPageProps) {
       </section>
 
       <div className="page-content">
-        <GenreList />
+        <MoviePreviewsByGenre />
 
         <footer className="page-footer">
           <div className="logo">

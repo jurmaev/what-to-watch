@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import MovieList from '../movie-list/movie-list';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { Genres } from '../../const';
+import { Genres, GenresValues } from '../../const';
 import { useState } from 'react';
 import cn from 'classnames';
 import { changeGenre, filterByGenre } from '../../store/action';
@@ -9,7 +9,7 @@ import ShowMore from '../show-more/show-more';
 
 const INITIAL_MOVIE_LENGTH = 8;
 
-export default function GenreList() {
+export default function MoviePreviewsByGenre() {
   const currentGenre = useAppSelector((state) => state.genre);
   const allMoviePreviews = useAppSelector((state) => state.allMoviePreviews);
   const [movieLength, setMovieLength] = useState(INITIAL_MOVIE_LENGTH);
@@ -40,8 +40,8 @@ export default function GenreList() {
               'catalog__genres-item--active': genre === currentGenre,
             })}
             onClick={() => {
-              dispatch(changeGenre(genre));
-              dispatch(filterByGenre(genre));
+              dispatch(changeGenre(genre as GenresValues));
+              dispatch(filterByGenre(genre as GenresValues));
               setMovieLength(INITIAL_MOVIE_LENGTH);
             }}
           >
