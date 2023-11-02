@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { Movies } from '../../types/movies';
+import { MINUTES } from '../../const';
 
 type PlayerPageProps = {
   movies: Movies;
@@ -48,7 +49,7 @@ export default function PlayerPage({ movies }: PlayerPageProps) {
             <div className="player__toggler">Toggler</div>
           </div>
           <div className="player__time-value">
-            {Math.floor(movie.runTime / 60)}:{movie.runTime % 60}
+            {Math.floor(movie.runTime / MINUTES)}:{movie.runTime % MINUTES}
           </div>
         </div>
 

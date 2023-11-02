@@ -25,3 +25,5 @@ export const Genres = {
   SciFi: 'SciFi',
   Thrillers: 'Thrillers',
 } as const;
+
+export const MINUTES = 60;

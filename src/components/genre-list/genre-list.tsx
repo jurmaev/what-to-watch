@@ -7,10 +7,12 @@ import cn from 'classnames';
 import { changeGenre, filterByGenre } from '../../store/action';
 import ShowMore from '../show-more/show-more';
 
+const INITIAL_MOVIE_LENGTH = 8;
+
 export default function GenreList() {
   const currentGenre = useAppSelector((state) => state.genre);
   const allMoviePreviews = useAppSelector((state) => state.allMoviePreviews);
-  const [movieLength, setMovieLength] = useState(8);
+  const [movieLength, setMovieLength] = useState(INITIAL_MOVIE_LENGTH);
   const dispatch = useAppDispatch();
   const moviePreviews = useAppSelector((state) => state.moviePreviews);
   const genres = [
@@ -20,9 +22,9 @@ export default function GenreList() {
 
   function handleShowMoreClick() {
     setMovieLength(
-      movieLength + 8 > allMoviePreviews.length
+      movieLength + INITIAL_MOVIE_LENGTH > allMoviePreviews.length
         ? allMoviePreviews.length
-        : movieLength + 8
+        : movieLength + INITIAL_MOVIE_LENGTH
     );
   }
 
@@ -40,7 +42,7 @@ export default function GenreList() {
             onClick={() => {
               dispatch(changeGenre(genre));
               dispatch(filterByGenre(genre));
-              setMovieLength(8);
+              setMovieLength(INITIAL_MOVIE_LENGTH);
             }}
           >
             <Link to="#" className="catalog__genres-link">
