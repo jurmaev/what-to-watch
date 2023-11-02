@@ -4,26 +4,29 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Genres, GenresValues } from '../../const';
 import { useState } from 'react';
 import cn from 'classnames';
-import { changeGenre, filterByGenre } from '../../store/action';
+import { changeGenre } from '../../store/action';
 import ShowMore from '../show-more/show-more';
 
 const INITIAL_MOVIE_LENGTH = 8;
 
 export default function MoviePreviewsByGenre() {
   const currentGenre = useAppSelector((state) => state.genre);
-  const allMoviePreviews = useAppSelector((state) => state.allMoviePreviews);
+  const moviePreviews = useAppSelector((state) => state.moviePreviews);
   const [movieLength, setMovieLength] = useState(INITIAL_MOVIE_LENGTH);
   const dispatch = useAppDispatch();
-  const moviePreviews = useAppSelector((state) => state.moviePreviews);
-  const genres = [
-    ...new Set(allMoviePreviews.map((movie) => movie.genre)),
-  ].sort();
+  const filteredMoviePreviews = moviePreviews.filter((moviePreview) =>
+    currentGenre === Genres.All
+      ? moviePreview
+      : moviePreview.genre === currentGenre
+  );
+
+  const genres = [...new Set(moviePreviews.map((movie) => movie.genre))].sort();
   genres.unshift(Genres.All);
 
   function handleShowMoreClick() {
     setMovieLength(
-      movieLength + INITIAL_MOVIE_LENGTH > allMoviePreviews.length
-        ? allMoviePreviews.length
+      movieLength + INITIAL_MOVIE_LENGTH > moviePreviews.length
+        ? moviePreviews.length
         : movieLength + INITIAL_MOVIE_LENGTH
     );
   }
@@ -41,7 +44,6 @@ export default function MoviePreviewsByGenre() {
             })}
             onClick={() => {
               dispatch(changeGenre(genre as GenresValues));
-              dispatch(filterByGenre(genre as GenresValues));
               setMovieLength(INITIAL_MOVIE_LENGTH);
             }}
           >
@@ -52,10 +54,10 @@ export default function MoviePreviewsByGenre() {
         ))}
       </ul>
 
-      <MovieList moviePreviews={moviePreviews} length={movieLength} />
+      <MovieList moviePreviews={filteredMoviePreviews} length={movieLength} />
 
       <ShowMore
-        isActive={movieLength < moviePreviews.length}
+        isActive={movieLength < filteredMoviePreviews.length}
         onClick={handleShowMoreClick}
       />
     </section>
