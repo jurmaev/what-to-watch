@@ -1,8 +1,10 @@
 import { useState } from 'react';
 
+const STARS = 10;
+
 export default function ReviewForm() {
   const [form, setForm] = useState({ rating: '0', reviewText: '' });
-  const ratings = [...Array(10).keys()].map((_, i) => i + 1).reverse();
+  const ratings = [...Array(STARS).keys()].map((_, i) => i + 1).reverse();
 
   return (
     <div className="add-review">

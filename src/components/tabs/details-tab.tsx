@@ -1,3 +1,4 @@
+import { MINUTES } from '../../const';
 import { Movie } from '../../types/movies';
 
 type DetailsTabProps = {
@@ -5,7 +6,7 @@ type DetailsTabProps = {
 };
 
 function getRunTime(runTime: number) {
-  return `${Math.floor(runTime / 60)}h ${runTime % 60}m`;
+  return `${Math.floor(runTime / MINUTES)}h ${runTime % MINUTES}m`;
 }
 
 export default function DetailsTab({ movie }: DetailsTabProps) {

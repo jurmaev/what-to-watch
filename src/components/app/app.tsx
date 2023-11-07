@@ -10,8 +10,9 @@ import PlayerPage from '../../pages/player-page/player-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
-import { MoviePreviews, Movies } from '../../types/movies';
+import { Movies } from '../../types/movies';
 import { reviews } from '../../mocks/reviews';
+import { useAppSelector } from '../../hooks';
 
 type AppProps = {
   main: {
@@ -20,11 +21,11 @@ type AppProps = {
     date: number;
     id: number;
   };
-  moviePreviews: MoviePreviews;
   movies: Movies;
 };
 
 export default function App(props: AppProps) {
+  const moviePreviews = useAppSelector((state) => state.moviePreviews);
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -35,7 +36,6 @@ export default function App(props: AppProps) {
             element={
               <MainPage
                 id={props.main.id}
-                moviePreviews={props.moviePreviews}
                 name={props.main.name}
                 genre={props.main.genre}
                 date={props.main.date}
@@ -47,7 +47,7 @@ export default function App(props: AppProps) {
             path={AppRoutes.MyList}
             element={
               <PrivateRoute isAuthorized={AuthorizationStatus.Auth}>
-                <MyListPage moviePreviews={props.moviePreviews} />
+                <MyListPage moviePreviews={moviePreviews} />
               </PrivateRoute>
             }
           />
@@ -57,7 +57,7 @@ export default function App(props: AppProps) {
               <MoviePage
                 reviews={reviews}
                 movies={props.movies}
-                moviePreviews={props.moviePreviews}
+                moviePreviews={moviePreviews}
               />
             }
           />

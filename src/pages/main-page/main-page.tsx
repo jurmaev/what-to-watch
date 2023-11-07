@@ -1,14 +1,12 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import MovieList from '../../components/movie-list/movie-list';
-import { MoviePreviews } from '../../types/movies';
+import MoviePreviewsByGenre from '../../components/movie-previews-by-genre/movie-previews-by-genre';
 
 export type MainPageProps = {
   name: string;
   id: number;
   genre: string;
   date: number;
-  moviePreviews: MoviePreviews;
 };
 
 export default function MainPage(props: MainPageProps) {
@@ -99,70 +97,7 @@ export default function MainPage(props: MainPageProps) {
       </section>
 
       <div className="page-content">
-        <section className="catalog">
-          <h2 className="catalog__title visually-hidden">Catalog</h2>
-
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <Link to="#" className="catalog__genres-link">
-                All genres
-              </Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">
-                Comedies
-              </Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">
-                Crime
-              </Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">
-                Documentary
-              </Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">
-                Dramas
-              </Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">
-                Horror
-              </Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">
-                Kids & Family
-              </Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">
-                Romance
-              </Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">
-                Sci-Fi
-              </Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">
-                Thrillers
-              </Link>
-            </li>
-          </ul>
-
-          <MovieList moviePreviews={props.moviePreviews} length={16} />
-
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">
-              Show more
-            </button>
-          </div>
-        </section>
+        <MoviePreviewsByGenre />
 
         <footer className="page-footer">
           <div className="logo">

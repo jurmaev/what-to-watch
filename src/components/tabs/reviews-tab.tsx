@@ -21,12 +21,16 @@ type ReviewsTabProps = {
 
 function getDateWithDashes(dateString: string) {
   const date = new Date(dateString);
-  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+  return `${date.getUTCFullYear()}-${
+    date.getUTCMonth() + 1
+  }-${date.getUTCDate()}`;
 }
 
 function getDateWithComma(dateString: string) {
   const date = new Date(dateString);
-  return `${MONTHS[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+  return `${
+    MONTHS[date.getUTCMonth()]
+  } ${date.getUTCDate()}, ${date.getUTCFullYear()}`;
 }
 
 export default function ReviewsTab({ reviews }: ReviewsTabProps) {
