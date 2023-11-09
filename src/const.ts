@@ -24,7 +24,7 @@ export const Genres = {
   Romance: 'Romance',
   SciFi: 'SciFi',
   Thrillers: 'Thrillers',
-};
+} as const;
 
 export type GenresValues = keyof typeof Genres;
 

@@ -1,6 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import MoviePreviewsByGenre from '../../components/movie-previews-by-genre/movie-previews-by-genre';
+import { useAppSelector } from '../../hooks';
+import Spinner from '../../components/spinner/spinner';
 
 export type MainPageProps = {
   name: string;
@@ -11,6 +13,7 @@ export type MainPageProps = {
 
 export default function MainPage(props: MainPageProps) {
   const navigate = useNavigate();
+  const isFetchingData = useAppSelector((state) => state.isFetchingData);
 
   return (
     <>
@@ -97,7 +100,7 @@ export default function MainPage(props: MainPageProps) {
       </section>
 
       <div className="page-content">
-        <MoviePreviewsByGenre />
+        {isFetchingData ? <Spinner isActive /> : <MoviePreviewsByGenre />}
 
         <footer className="page-footer">
           <div className="logo">

@@ -1,16 +1,18 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeGenre, loadMovies } from './action';
+import { changeGenre, loadMovies, setDataFetchingStatus } from './action';
 import { Genres, GenresValues } from '../const';
 import { MoviePreviews } from '../types/movies';
 
 type InitialState = {
   genre: GenresValues;
   moviePreviews: MoviePreviews;
+  isFetchingData: boolean;
 };
 
 const initialState: InitialState = {
   genre: Genres.All,
   moviePreviews: [],
+  isFetchingData: false,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -20,5 +22,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadMovies, (state, action) => {
       state.moviePreviews = action.payload;
+    })
+    .addCase(setDataFetchingStatus, (state, action) => {
+      state.isFetchingData = action.payload;
     });
 });
