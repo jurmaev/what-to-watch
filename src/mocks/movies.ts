@@ -1,23 +1,5 @@
 export const movies = [
   {
-    id: 'f587be08-7b0c-44e3-b409-b2e66ac2a899',
-    name: 'Orlando',
-    posterImage: 'https://13.design.pages.academy/static/film/poster/Orlando.jpg',
-    backgroundImage: 'https://13.design.pages.academy/static/film/background/Orlando.jpg',
-    backgroundColor: '#D8D3BD',
-    videoLink: 'https://13.design.pages.academy/static/film/video/matrix.mp4',
-    description: 'Young nobleman Orlando is commanded by Queen Elizabeth I to stay forever young. Miraculously, he does just that. The film follows him as he moves through several centuries of British history, experiencing a variety of lives and relationships along the way, and even changing sex.'
-    ,
-    rating: 2.6,
-    scoresCount: 12292,
-    director: 'Sally Potter',
-    starring: ['Tilda Swinton', 'Billy Zane', 'Quentin Crisp'],
-    runTime: 94,
-    genre: 'Drama',
-    released: 1992,
-    isFavorite: false
-  },
-  {
     id: 'fd6eba93-868c-4822-b81d-7e539c7ec2da',
     name: 'Fantastic Beasts: The Crimes of Grindelwald',
     posterImage: 'https://13.design.pages.academy/static/film/poster/Fantastic_Beasts.jpg',
