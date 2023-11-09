@@ -29,3 +29,7 @@ export const Genres = {
 export type GenresValues = keyof typeof Genres;
 
 export const MINUTES = 60;
+
+export const ApiRoute = {
+  Films: '/films',
+} as const;

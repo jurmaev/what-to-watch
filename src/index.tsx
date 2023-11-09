@@ -5,10 +5,13 @@ import { mainData } from './mocks/main';
 import { movies } from './mocks/movies';
 import { Provider } from 'react-redux';
 import { store } from './store';
+import { fetchMoviePreviews } from './store/api-actions';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+store.dispatch(fetchMoviePreviews());
 
 root.render(
   <React.StrictMode>
