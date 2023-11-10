@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { AppRoutes, AuthorizationStatus } from '../../const';
+import { AppRoutes } from '../../const';
 import MainPage from '../../pages/main-page/main-page';
 import LoginPage from '../../pages/login-page/login-page';
 import MyListPage from '../../pages/my-list-page/my-list-page';
@@ -46,7 +46,7 @@ export default function App(props: AppProps) {
           <Route
             path={AppRoutes.MyList}
             element={
-              <PrivateRoute isAuthorized={AuthorizationStatus.Auth}>
+              <PrivateRoute>
                 <MyListPage moviePreviews={moviePreviews} />
               </PrivateRoute>
             }
