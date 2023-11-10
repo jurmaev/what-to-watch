@@ -39,7 +39,7 @@ export const createApi = (): AxiosInstance => {
     (response) => response,
     (error: AxiosError<DetailMessageType>) => {
       if (error.response && shouldDisplayError(error.response)) {
-        const detailMessage = error.response.data.message;
+        const detailMessage = error.response.data;
         console.log(detailMessage);
       }
       throw error;

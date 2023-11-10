@@ -8,6 +8,8 @@ import {
   setAuthorizationStatus,
   setDataFetchingStatus,
 } from './action';
+import { AuthData, UserData } from '../types/user';
+import { setToken } from '../services/token';
 
 export const fetchMoviePreviews = createAsyncThunk<
   void,
@@ -31,4 +33,16 @@ export const checkAuth = createAsyncThunk<
   } catch {
     dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
   }
+});
+
+export const login = createAsyncThunk<
+  void,
+  AuthData,
+  { dispatch: AppDispatch; state: State; extra: AxiosInstance }
+>('user/login', async ({ email, password }, { dispatch, extra: api }) => {
+  const {
+    data: { token },
+  } = await api.post<UserData>(ApiRoute.Login, { email, password });
+  setToken(token);
+  dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
 });

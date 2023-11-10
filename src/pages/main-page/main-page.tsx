@@ -1,8 +1,13 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import MoviePreviewsByGenre from '../../components/movie-previews-by-genre/movie-previews-by-genre';
 import { useAppSelector } from '../../hooks';
 import Spinner from '../../components/spinner/spinner';
+import {
+  AppRoutes,
+  AuthorizationStatus,
+  AuthorizationStatusValues,
+} from '../../const';
 
 export type MainPageProps = {
   name: string;
@@ -11,9 +16,40 @@ export type MainPageProps = {
   date: number;
 };
 
+function getAuthBlock(authorizationStatus: AuthorizationStatusValues) {
+  if (authorizationStatus === AuthorizationStatus.Auth) {
+    return (
+      <>
+        <li className="user-block__item">
+          <div className="user-block__avatar">
+            <img
+              src="img/avatar.jpg"
+              alt="User avatar"
+              width="63"
+              height="63"
+            />
+          </div>
+        </li>
+        <li className="user-block__item">
+          <a className="user-block__link">Sign out</a>
+        </li>
+      </>
+    );
+  } else if (authorizationStatus === AuthorizationStatus.NoAuth) {
+    return (
+      <Link to={AppRoutes.Login} className="user-block__link">
+        Sign in
+      </Link>
+    );
+  }
+}
+
 export default function MainPage(props: MainPageProps) {
   const navigate = useNavigate();
   const isFetchingData = useAppSelector((state) => state.isFetchingData);
+  const authorizationStatus = useAppSelector(
+    (state) => state.authorizationStatus
+  );
 
   return (
     <>
@@ -36,21 +72,7 @@ export default function MainPage(props: MainPageProps) {
             </a>
           </div>
 
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img
-                  src="img/avatar.jpg"
-                  alt="User avatar"
-                  width="63"
-                  height="63"
-                />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          <ul className="user-block">{getAuthBlock(authorizationStatus)}</ul>
         </header>
 
         <div className="film-card__wrap">
