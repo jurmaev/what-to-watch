@@ -2,9 +2,10 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
 import { MoviePreviews } from '../types/movies';
-import { ApiRoute, AuthorizationStatus } from '../const';
+import { ApiRoute, AppRoutes, AuthorizationStatus } from '../const';
 import {
   loadMovies,
+  redirectToRoute,
   setAuthorizationStatus,
   setDataFetchingStatus,
 } from './action';
@@ -45,4 +46,5 @@ export const login = createAsyncThunk<
   } = await api.post<UserData>(ApiRoute.Login, { email, password });
   setToken(token);
   dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
+  dispatch(redirectToRoute(AppRoutes.Main));
 });

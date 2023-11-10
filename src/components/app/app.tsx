@@ -13,6 +13,8 @@ import ScrollToTop from '../scroll-to-top/scroll-to-top';
 import { Movies } from '../../types/movies';
 import { reviews } from '../../mocks/reviews';
 import { useAppSelector } from '../../hooks';
+import HistoryRouter from '../history-router.tsx/history-router';
+import { browserHistory } from '../../services/browser-history';
 
 type AppProps = {
   main: {
@@ -28,7 +30,7 @@ export default function App(props: AppProps) {
   const moviePreviews = useAppSelector((state) => state.moviePreviews);
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
         <ScrollToTop />
         <Routes>
           <Route
@@ -71,7 +73,7 @@ export default function App(props: AppProps) {
           />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
-      </BrowserRouter>
+      </HistoryRouter>
     </HelmetProvider>
   );
 }
