@@ -1,5 +1,10 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeGenre, loadMovies, setDataFetchingStatus } from './action';
+import {
+  changeGenre,
+  loadMovies,
+  setAuthorizationStatus,
+  setDataFetchingStatus,
+} from './action';
 import {
   AuthorizationStatus,
   AuthorizationStatusValues,
@@ -32,5 +37,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setDataFetchingStatus, (state, action) => {
       state.isFetchingData = action.payload;
+    })
+    .addCase(setAuthorizationStatus, (state, action) => {
+      state.authorizationStatus = action.payload;
     });
 });
