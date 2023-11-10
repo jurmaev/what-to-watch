@@ -13,6 +13,8 @@ export const AuthorizationStatus = {
   Unknown: 'Unknown',
 } as const;
 
+export type AuthorizationStatusValues = keyof typeof AuthorizationStatus;
+
 export const Genres = {
   All: 'All',
   Comedy: 'Comedy',
@@ -32,4 +34,5 @@ export const MINUTES = 60;
 
 export const ApiRoute = {
   Films: '/films',
+  Login: '/login',
 } as const;

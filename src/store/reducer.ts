@@ -1,18 +1,25 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { changeGenre, loadMovies, setDataFetchingStatus } from './action';
-import { Genres, GenresValues } from '../const';
+import {
+  AuthorizationStatus,
+  AuthorizationStatusValues,
+  Genres,
+  GenresValues,
+} from '../const';
 import { MoviePreviews } from '../types/movies';
 
 type InitialState = {
   genre: GenresValues;
   moviePreviews: MoviePreviews;
   isFetchingData: boolean;
+  authorizationStatus: AuthorizationStatusValues;
 };
 
 const initialState: InitialState = {
   genre: Genres.All,
   moviePreviews: [],
   isFetchingData: false,
+  authorizationStatus: AuthorizationStatus.Unknown,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
