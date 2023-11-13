@@ -1,19 +1,25 @@
 import { Helmet } from 'react-helmet-async';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import { Movies } from '../../types/movies';
+import { useNavigate, useParams } from 'react-router-dom';
 import { MINUTES } from '../../const';
+import NotFoundPage from '../not-found-page/not-found-page';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
+import { getMovie } from '../../store/api-actions';
 
-type PlayerPageProps = {
-  movies: Movies;
-};
-
-export default function PlayerPage({ movies }: PlayerPageProps) {
+export default function PlayerPage() {
+  const movie = useAppSelector((state) => state.movie);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
-  const movie = movies.find((m) => m.id === id);
 
-  if (!movie) {
-    return <Navigate to="*" />;
+  useEffect(() => {
+    if (id) {
+      dispatch(getMovie(id));
+    }
+  }, [dispatch, id]);
+
+  if (!movie || !id) {
+    return <NotFoundPage />;
   }
 
   return (

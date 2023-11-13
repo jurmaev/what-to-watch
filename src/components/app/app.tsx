@@ -52,10 +52,7 @@ export default function App(props: AppProps) {
           />
           <Route path={AppRoutes.Movie} element={<MoviePage />} />
           <Route path={AppRoutes.Review} element={<ReviewPage />} />
-          <Route
-            path={AppRoutes.Player}
-            element={<PlayerPage movies={props.movies} />}
-          />
+          <Route path={AppRoutes.Player} element={<PlayerPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </HistoryRouter>

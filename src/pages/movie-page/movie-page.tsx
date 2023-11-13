@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { Link, generatePath, useNavigate, useParams } from 'react-router-dom';
 import MovieList from '../../components/movie-list/movie-list';
-import { AppRoutes } from '../../const';
+import { AppRoutes, AuthorizationStatus } from '../../const';
 import Tabs from '../../components/tabs/tabs';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
@@ -11,11 +11,15 @@ import {
 } from '../../store/api-actions';
 import { useEffect } from 'react';
 import NotFoundPage from '../not-found-page/not-found-page';
+import UserBlock from '../../components/user-block/user-block';
 
 export default function MoviePage() {
   const movie = useAppSelector((state) => state.movie);
   const reviews = useAppSelector((state) => state.reviews);
   const similarMovies = useAppSelector((state) => state.similarMovies);
+  const authorizationStatus = useAppSelector(
+    (state) => state.authorizationStatus
+  );
   const navigate = useNavigate();
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -57,21 +61,7 @@ export default function MoviePage() {
               </Link>
             </div>
 
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img
-                    src="img/avatar.jpg"
-                    alt="User avatar"
-                    width="63"
-                    height="63"
-                  />
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a className="user-block__link">Sign out</a>
-              </li>
-            </ul>
+            <UserBlock />
           </header>
 
           <div className="film-card__wrap">
@@ -104,12 +94,14 @@ export default function MoviePage() {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <Link
-                  to={generatePath(AppRoutes.Review, { id: movie.id })}
-                  className="btn film-card__button"
-                >
-                  Add review
-                </Link>
+                {authorizationStatus === AuthorizationStatus.Auth && (
+                  <Link
+                    to={generatePath(AppRoutes.Review, { id: movie.id })}
+                    className="btn film-card__button"
+                  >
+                    Add review
+                  </Link>
+                )}
               </div>
             </div>
           </div>

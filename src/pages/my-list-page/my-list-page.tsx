@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import MovieList from '../../components/movie-list/movie-list';
 import { MoviePreviews } from '../../types/movies';
 import { AppRoutes } from '../../const';
+import UserBlock from '../../components/user-block/user-block';
 
 type MyListPageProps = {
   moviePreviews: MoviePreviews;
@@ -30,21 +31,7 @@ export default function MyListPage(props: MyListPageProps) {
             {props.moviePreviews.length}
           </span>
         </h1>
-        <ul className="user-block">
-          <li className="user-block__item">
-            <div className="user-block__avatar">
-              <img
-                src="img/avatar.jpg"
-                alt="User avatar"
-                width="63"
-                height="63"
-              />
-            </div>
-          </li>
-          <li className="user-block__item">
-            <a className="user-block__link">Sign out</a>
-          </li>
-        </ul>
+        <UserBlock />
       </header>
 
       <section className="catalog">
