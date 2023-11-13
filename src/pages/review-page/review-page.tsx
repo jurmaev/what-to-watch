@@ -90,7 +90,7 @@ export default function ReviewPage() {
         </div>
       </div>
 
-      <ReviewForm />
+      <ReviewForm id={id} />
     </section>
   );
 }

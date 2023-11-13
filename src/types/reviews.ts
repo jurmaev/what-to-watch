@@ -1,8 +1,11 @@
-export type Review = {
+export type ReviewBase = {
   id: string;
   comment: string;
-  date: string;
   rating: number;
+}
+
+export type Review = ReviewBase & {
+  date: string;
   user: string;
 };
 

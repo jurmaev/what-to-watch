@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
-import { AxiosInstance } from 'axios';
+import { AxiosAdapter, AxiosInstance } from 'axios';
 import { Movie, MoviePreviews } from '../types/movies';
 import { ApiRoute, AppRoutes, AuthorizationStatus } from '../const';
 import {
@@ -14,7 +14,7 @@ import {
 } from './action';
 import { AuthData, UserData } from '../types/user';
 import { setToken } from '../services/token';
-import { Reviews } from '../types/reviews';
+import { ReviewBase, Reviews } from '../types/reviews';
 
 export const fetchMoviePreviews = createAsyncThunk<
   void,
@@ -85,5 +85,15 @@ export const getSimilarMovies = createAsyncThunk<
     `${ApiRoute.Films}/${id}/similar`
   );
   dispatch(setSimilarMovies(data));
+  dispatch(setDataFetchingStatus(false));
+});
+
+export const postReview = createAsyncThunk<
+  void,
+  ReviewBase,
+  { dispatch: AppDispatch; extra: AxiosInstance }
+>('review/post', async ({ id, comment, rating }, { dispatch, extra: api }) => {
+  dispatch(setDataFetchingStatus(true));
+  await api.post(`${ApiRoute.Reviews}/${id}`, { comment, rating });
   dispatch(setDataFetchingStatus(false));
 });

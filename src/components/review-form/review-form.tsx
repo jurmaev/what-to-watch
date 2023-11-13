@@ -1,14 +1,32 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
+import { useAppDispatch } from '../../hooks';
+import { postReview } from '../../store/api-actions';
 
 const STARS = 10;
 
-export default function ReviewForm() {
+type ReviewFormProps = {
+  id: string;
+};
+
+export default function ReviewForm({ id }: ReviewFormProps) {
+  const dispatch = useAppDispatch();
   const [form, setForm] = useState({ rating: '0', reviewText: '' });
   const ratings = [...Array(STARS).keys()].map((_, i) => i + 1).reverse();
 
+  function handleSubmit(evt: FormEvent<HTMLFormElement>) {
+    evt.preventDefault();
+    dispatch(
+      postReview({
+        id,
+        comment: form.reviewText,
+        rating: Number(form.rating),
+      })
+    );
+  }
+
   return (
     <div className="add-review">
-      <form action="#" className="add-review__form">
+      <form action="" className="add-review__form" onSubmit={handleSubmit}>
         <div className="rating">
           <div className="rating__stars">
             {ratings.map((rating) => [
