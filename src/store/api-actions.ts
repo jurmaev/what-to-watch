@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
-import { AxiosInstance } from 'axios';
-import { Movie, MoviePreviews } from '../types/movies';
+import { Axios, AxiosInstance } from 'axios';
+import { Movie, MoviePreviews, PromoMovie } from '../types/movies';
 import { ApiRoute, AppRoutes, AuthorizationStatus } from '../const';
 import {
   loadMovies,
@@ -9,6 +9,7 @@ import {
   setAuthorizationStatus,
   setDataFetchingStatus,
   setMovie,
+  setPromoMovie,
   setReviews,
   setSimilarMovies,
 } from './action';
@@ -63,33 +64,44 @@ export const logout = createAsyncThunk<
   dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
 });
 
-export const getMovie = createAsyncThunk<
+export const fetchMovie = createAsyncThunk<
   void,
   string,
   { dispatch: AppDispatch; extra: AxiosInstance }
->('movie/get', async (id, { dispatch, extra: api }) => {
+>('movie/fetch', async (id, { dispatch, extra: api }) => {
   dispatch(setDataFetchingStatus(true));
   const { data } = await api.get<Movie>(`${ApiRoute.Films}/${id}`);
   dispatch(setMovie(data));
   dispatch(setDataFetchingStatus(false));
 });
 
-export const getReviews = createAsyncThunk<
+export const fetchPromoMovie = createAsyncThunk<
+  void,
+  undefined,
+  { dispatch: AppDispatch; extra: AxiosInstance }
+>('movie/fetchPromo', async (_arg, { dispatch, extra: api }) => {
+  dispatch(setDataFetchingStatus(true));
+  const { data } = await api.get<PromoMovie>(ApiRoute.Promo);
+  dispatch(setPromoMovie(data));
+  dispatch(setDataFetchingStatus(false));
+});
+
+export const fetchReviews = createAsyncThunk<
   void,
   string,
   { dispatch: AppDispatch; extra: AxiosInstance }
->('reviews/get', async (id, { dispatch, extra: api }) => {
+>('reviews/fetch', async (id, { dispatch, extra: api }) => {
   dispatch(setDataFetchingStatus(true));
   const { data } = await api.get<Reviews>(`${ApiRoute.Reviews}/${id}`);
   dispatch(setReviews(data));
   dispatch(setDataFetchingStatus(false));
 });
 
-export const getSimilarMovies = createAsyncThunk<
+export const fetchSimilarMovies = createAsyncThunk<
   void,
   string,
   { dispatch: AppDispatch; extra: AxiosInstance }
->('movie/getSimilar', async (id, { dispatch, extra: api }) => {
+>('movie/fetchSimilar', async (id, { dispatch, extra: api }) => {
   dispatch(setDataFetchingStatus(true));
   const { data } = await api.get<MoviePreviews>(
     `${ApiRoute.Films}/${id}/similar`

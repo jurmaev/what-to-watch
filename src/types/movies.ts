@@ -9,19 +9,22 @@ export type MoviePreview = MovieBase & {
   previewVideoLink: string;
 };
 
-export type Movie = MovieBase & {
+export type PromoMovie = MovieBase & {
   posterImage: string;
   backgroundImage: string;
-  backgroundColor: string;
   videoLink: string;
+  released: number;
+  isFavorite: boolean;
+};
+
+export type Movie = PromoMovie & {
+  backgroundColor: string;
   description: string;
   rating: number;
   scoresCount: number;
   director: string;
   starring: string[];
   runTime: number;
-  released: number;
-  isFavorite: boolean;
 };
 
 export type Movies = Movie[];

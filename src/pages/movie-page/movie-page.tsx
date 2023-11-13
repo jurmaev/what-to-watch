@@ -5,9 +5,9 @@ import { AppRoutes, AuthorizationStatus } from '../../const';
 import Tabs from '../../components/tabs/tabs';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
-  getMovie,
-  getReviews,
-  getSimilarMovies,
+  fetchMovie,
+  fetchReviews,
+  fetchSimilarMovies,
 } from '../../store/api-actions';
 import { useEffect } from 'react';
 import NotFoundPage from '../not-found-page/not-found-page';
@@ -28,9 +28,9 @@ export default function MoviePage() {
 
   useEffect(() => {
     if (id) {
-      dispatch(getMovie(id));
-      dispatch(getReviews(id));
-      dispatch(getSimilarMovies(id));
+      dispatch(fetchMovie(id));
+      dispatch(fetchReviews(id));
+      dispatch(fetchSimilarMovies(id));
     }
   }, [dispatch, id]);
 

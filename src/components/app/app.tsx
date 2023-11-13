@@ -14,33 +14,14 @@ import { useAppSelector } from '../../hooks';
 import HistoryRouter from '../history-router.tsx/history-router';
 import { browserHistory } from '../../services/browser-history';
 
-type AppProps = {
-  main: {
-    name: string;
-    genre: string;
-    date: number;
-    id: number;
-  };
-};
-
-export default function App(props: AppProps) {
+export default function App() {
   const moviePreviews = useAppSelector((state) => state.moviePreviews);
   return (
     <HelmetProvider>
       <HistoryRouter history={browserHistory}>
         <ScrollToTop />
         <Routes>
-          <Route
-            path={AppRoutes.Main}
-            element={
-              <MainPage
-                id={props.main.id}
-                name={props.main.name}
-                genre={props.main.genre}
-                date={props.main.date}
-              />
-            }
-          />
+          <Route path={AppRoutes.Main} element={<MainPage />} />
           <Route path={AppRoutes.Login} element={<LoginPage />} />
           <Route
             path={AppRoutes.MyList}

@@ -1,6 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import {
   changeGenre,
+  setPromoMovie,
   loadMovies,
   setAuthorizationStatus,
   setDataFetchingStatus,
@@ -14,7 +15,7 @@ import {
   Genres,
   GenresValues,
 } from '../const';
-import { Movie, MoviePreviews } from '../types/movies';
+import { Movie, MoviePreviews, PromoMovie } from '../types/movies';
 import { Reviews } from '../types/reviews';
 
 type InitialState = {
@@ -25,6 +26,7 @@ type InitialState = {
   movie: Movie | null;
   reviews: Reviews;
   similarMovies: MoviePreviews;
+  promoMovie: PromoMovie | null;
 };
 
 const initialState: InitialState = {
@@ -35,6 +37,7 @@ const initialState: InitialState = {
   movie: null,
   reviews: [],
   similarMovies: [],
+  promoMovie: null,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -59,5 +62,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setSimilarMovies, (state, action) => {
       state.similarMovies = action.payload;
+    })
+    .addCase(setPromoMovie, (state, action) => {
+      state.promoMovie = action.payload;
     });
 });

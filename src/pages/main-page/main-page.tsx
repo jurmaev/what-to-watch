@@ -1,20 +1,25 @@
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import MoviePreviewsByGenre from '../../components/movie-previews-by-genre/movie-previews-by-genre';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import Spinner from '../../components/spinner/spinner';
 import UserBlock from '../../components/user-block/user-block';
+import { useEffect } from 'react';
+import { fetchPromoMovie } from '../../store/api-actions';
 
-export type MainPageProps = {
-  name: string;
-  id: number;
-  genre: string;
-  date: number;
-};
-
-export default function MainPage(props: MainPageProps) {
+export default function MainPage() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const promoMovie = useAppSelector((state) => state.promoMovie);
   const isFetchingData = useAppSelector((state) => state.isFetchingData);
+
+  useEffect(() => {
+    dispatch(fetchPromoMovie());
+  }, [dispatch]);
+
+  if (isFetchingData || !promoMovie) {
+    return <Spinner isActive />;
+  }
 
   return (
     <>
@@ -23,7 +28,7 @@ export default function MainPage(props: MainPageProps) {
       </Helmet>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt={props.name} />
+          <img src={promoMovie.backgroundImage} alt={promoMovie.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -44,25 +49,25 @@ export default function MainPage(props: MainPageProps) {
           <div className="film-card__info">
             <div className="film-card__poster">
               <img
-                src="img/the-grand-budapest-hotel-poster.jpg"
-                alt={`${props.name} poster`}
+                src={promoMovie.posterImage}
+                alt={`${promoMovie.name} poster`}
                 width="218"
                 height="327"
               />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{props.name}</h2>
+              <h2 className="film-card__title">{promoMovie.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{props.genre}</span>
-                <span className="film-card__year">{props.date}</span>
+                <span className="film-card__genre">{promoMovie.genre}</span>
+                <span className="film-card__year">{promoMovie.released}</span>
               </p>
 
               <div className="film-card__buttons">
                 <button
                   className="btn btn--play film-card__button"
                   type="button"
-                  onClick={() => navigate(`/player/${props.id}`)}
+                  onClick={() => navigate(`/player/${promoMovie.id}`)}
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
@@ -87,7 +92,7 @@ export default function MainPage(props: MainPageProps) {
       </section>
 
       <div className="page-content">
-        {isFetchingData ? <Spinner isActive /> : <MoviePreviewsByGenre />}
+        <MoviePreviewsByGenre />
 
         <footer className="page-footer">
           <div className="logo">

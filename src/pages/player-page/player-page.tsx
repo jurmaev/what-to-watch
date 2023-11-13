@@ -4,7 +4,7 @@ import { MINUTES } from '../../const';
 import NotFoundPage from '../not-found-page/not-found-page';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
-import { getMovie } from '../../store/api-actions';
+import { fetchMovie } from '../../store/api-actions';
 import Spinner from '../../components/spinner/spinner';
 
 export default function PlayerPage() {
@@ -16,7 +16,7 @@ export default function PlayerPage() {
 
   useEffect(() => {
     if (id) {
-      dispatch(getMovie(id));
+      dispatch(fetchMovie(id));
     }
   }, [dispatch, id]);
 

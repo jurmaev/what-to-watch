@@ -7,7 +7,7 @@ export const AppRoutes = {
   Player: '/player/:id',
 } as const;
 
-export type AppRoutesValues = typeof AppRoutes[keyof typeof AppRoutes]
+export type AppRoutesValues = (typeof AppRoutes)[keyof typeof AppRoutes];
 
 export const AuthorizationStatus = {
   Auth: 'Auth',
@@ -38,5 +38,6 @@ export const MINUTES = 60;
 export const ApiRoute = {
   Films: '/films',
   Login: '/login',
-  Reviews: '/comments'
+  Reviews: '/comments',
+  Promo: '/promo',
 } as const;
