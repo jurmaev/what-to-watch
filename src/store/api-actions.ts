@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
-import { Axios, AxiosInstance } from 'axios';
+import { AxiosInstance } from 'axios';
 import { Movie, MoviePreviews, PromoMovie } from '../types/movies';
 import { ApiRoute, AppRoutes, AuthorizationStatus } from '../const';
 import {

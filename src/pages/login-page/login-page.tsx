@@ -13,7 +13,11 @@ export default function LoginPage() {
   function handleSubmit(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
 
-    if (emailRef.current && passwordRef.current) {
+    if (
+      emailRef.current &&
+      passwordRef.current &&
+      passwordRef.current.value.trim() !== ''
+    ) {
       dispatch(
         login({
           email: emailRef.current.value,
