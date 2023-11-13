@@ -10,7 +10,6 @@ import PlayerPage from '../../pages/player-page/player-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
-import { reviews } from '../../mocks/reviews';
 import { useAppSelector } from '../../hooks';
 import HistoryRouter from '../history-router.tsx/history-router';
 import { browserHistory } from '../../services/browser-history';
@@ -53,9 +52,7 @@ export default function App(props: AppProps) {
           />
           <Route
             path={AppRoutes.Movie}
-            element={
-              <MoviePage reviews={reviews} moviePreviews={moviePreviews} />
-            }
+            element={<MoviePage moviePreviews={moviePreviews} />}
           />
           <Route
             path={AppRoutes.Review}

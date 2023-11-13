@@ -9,9 +9,11 @@ import {
   setAuthorizationStatus,
   setDataFetchingStatus,
   setMovie,
+  setReviws,
 } from './action';
 import { AuthData, UserData } from '../types/user';
 import { setToken } from '../services/token';
+import { Reviews } from '../types/reviews';
 
 export const fetchMoviePreviews = createAsyncThunk<
   void,
@@ -58,5 +60,16 @@ export const getMovie = createAsyncThunk<
   dispatch(setDataFetchingStatus(true));
   const { data } = await api.get<Movie>(`${ApiRoute.Films}/${id}`);
   dispatch(setMovie(data));
+  dispatch(setDataFetchingStatus(false));
+});
+
+export const getReviews = createAsyncThunk<
+  void,
+  string,
+  { dispatch: AppDispatch; extra: AxiosInstance }
+>('reviews/get', async (id, { dispatch, extra: api }) => {
+  dispatch(setDataFetchingStatus(true));
+  const { data } = await api.get<Reviews>(`${ApiRoute.Reviws}/${id}`);
+  dispatch(setReviws(data));
   dispatch(setDataFetchingStatus(false));
 });

@@ -4,19 +4,18 @@ import MovieList from '../../components/movie-list/movie-list';
 import { MoviePreviews } from '../../types/movies';
 import { AppRoutes } from '../../const';
 import Tabs from '../../components/tabs/tabs';
-import { ReviewBase, Reviews } from '../../types/reviews';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getMovie } from '../../store/api-actions';
+import { getMovie, getReviews } from '../../store/api-actions';
 import { useEffect } from 'react';
 import NotFoundPage from '../not-found-page/not-found-page';
 
 type MoviePageProps = {
   moviePreviews: MoviePreviews;
-  reviews: Reviews;
 };
 
 export default function MoviePage(props: MoviePageProps) {
   const movie = useAppSelector((state) => state.movie);
+  const reviews = useAppSelector((state) => state.reviews);
   const navigate = useNavigate();
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -24,6 +23,7 @@ export default function MoviePage(props: MoviePageProps) {
   useEffect(() => {
     if (id) {
       dispatch(getMovie(id));
+      dispatch(getReviews(id));
     }
   }, [dispatch, id]);
 
@@ -31,8 +31,6 @@ export default function MoviePage(props: MoviePageProps) {
     return <NotFoundPage />;
   }
 
-  const reviews = props.reviews.find((review) => review.id === id)
-    ?.reviews as ReviewBase[];
   return (
     <>
       <Helmet>
