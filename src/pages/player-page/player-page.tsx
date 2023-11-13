@@ -5,9 +5,11 @@ import NotFoundPage from '../not-found-page/not-found-page';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { getMovie } from '../../store/api-actions';
+import Spinner from '../../components/spinner/spinner';
 
 export default function PlayerPage() {
   const movie = useAppSelector((state) => state.movie);
+  const isFetchingData = useAppSelector((state) => state.isFetchingData);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
@@ -18,6 +20,9 @@ export default function PlayerPage() {
     }
   }, [dispatch, id]);
 
+  if (isFetchingData) {
+    return <Spinner isActive />;
+  }
   if (!movie || !id) {
     return <NotFoundPage />;
   }

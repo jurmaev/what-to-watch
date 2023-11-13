@@ -7,10 +7,12 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { getMovie } from '../../store/api-actions';
 import UserBlock from '../../components/user-block/user-block';
+import Spinner from '../../components/spinner/spinner';
 
 export default function ReviewPage() {
   const { id } = useParams();
   const movie = useAppSelector((state) => state.movie);
+  const isFetchingData = useAppSelector((state) => state.isFetchingData);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -18,6 +20,10 @@ export default function ReviewPage() {
       dispatch(getMovie(id));
     }
   }, [id, dispatch]);
+
+  if (isFetchingData) {
+    return <Spinner isActive />;
+  }
 
   if (!movie || !id) {
     return <NotFoundPage />;

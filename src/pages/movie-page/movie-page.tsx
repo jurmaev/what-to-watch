@@ -12,11 +12,13 @@ import {
 import { useEffect } from 'react';
 import NotFoundPage from '../not-found-page/not-found-page';
 import UserBlock from '../../components/user-block/user-block';
+import Spinner from '../../components/spinner/spinner';
 
 export default function MoviePage() {
   const movie = useAppSelector((state) => state.movie);
   const reviews = useAppSelector((state) => state.reviews);
   const similarMovies = useAppSelector((state) => state.similarMovies);
+  const isFetchingData = useAppSelector((state) => state.isFetchingData);
   const authorizationStatus = useAppSelector(
     (state) => state.authorizationStatus
   );
@@ -32,6 +34,9 @@ export default function MoviePage() {
     }
   }, [dispatch, id]);
 
+  if (isFetchingData) {
+    return <Spinner isActive />;
+  }
   if (!id || !movie) {
     return <NotFoundPage />;
   }
