@@ -4,7 +4,7 @@ import {
   AuthorizationStatusValues,
   GenresValues,
 } from '../const';
-import { MoviePreviews } from '../types/movies';
+import { Movie, MoviePreviews } from '../types/movies';
 
 export const changeGenre = createAction<GenresValues>('genre/change');
 
@@ -19,3 +19,5 @@ export const setAuthorizationStatus = createAction<AuthorizationStatusValues>(
 );
 
 export const redirectToRoute = createAction<AppRoutesValues>('redirectToRoute');
+
+export const setMovie = createAction<Movie>('movie/set');

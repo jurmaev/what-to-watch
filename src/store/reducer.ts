@@ -4,6 +4,7 @@ import {
   loadMovies,
   setAuthorizationStatus,
   setDataFetchingStatus,
+  setMovie,
 } from './action';
 import {
   AuthorizationStatus,
@@ -11,13 +12,14 @@ import {
   Genres,
   GenresValues,
 } from '../const';
-import { MoviePreviews } from '../types/movies';
+import { Movie, MoviePreviews } from '../types/movies';
 
 type InitialState = {
   genre: GenresValues;
   moviePreviews: MoviePreviews;
   isFetchingData: boolean;
   authorizationStatus: AuthorizationStatusValues;
+  movie: Movie | null;
 };
 
 const initialState: InitialState = {
@@ -25,6 +27,7 @@ const initialState: InitialState = {
   moviePreviews: [],
   isFetchingData: false,
   authorizationStatus: AuthorizationStatus.Unknown,
+  movie: null,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -40,5 +43,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setAuthorizationStatus, (state, action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(setMovie, (state, action) => {
+      state.movie = action.payload;
     });
 });

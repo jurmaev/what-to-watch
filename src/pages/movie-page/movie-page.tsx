@@ -1,30 +1,34 @@
 import { Helmet } from 'react-helmet-async';
-import {
-  Link,
-  Navigate,
-  generatePath,
-  useNavigate,
-  useParams,
-} from 'react-router-dom';
+import { Link, generatePath, useNavigate, useParams } from 'react-router-dom';
 import MovieList from '../../components/movie-list/movie-list';
-import { MoviePreviews, Movies } from '../../types/movies';
+import { MoviePreviews } from '../../types/movies';
 import { AppRoutes } from '../../const';
 import Tabs from '../../components/tabs/tabs';
 import { ReviewBase, Reviews } from '../../types/reviews';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getMovie } from '../../store/api-actions';
+import { useEffect } from 'react';
+import NotFoundPage from '../not-found-page/not-found-page';
 
 type MoviePageProps = {
   moviePreviews: MoviePreviews;
-  movies: Movies;
   reviews: Reviews;
 };
 
 export default function MoviePage(props: MoviePageProps) {
+  const movie = useAppSelector((state) => state.movie);
   const navigate = useNavigate();
   const { id } = useParams();
-  const movie = props.movies.find((m) => m.id === id);
+  const dispatch = useAppDispatch();
 
-  if (!movie) {
-    return <Navigate to="*" />;
+  useEffect(() => {
+    if (id) {
+      dispatch(getMovie(id));
+    }
+  }, [dispatch, id]);
+
+  if (!id || !movie) {
+    return <NotFoundPage />;
   }
 
   const reviews = props.reviews.find((review) => review.id === id)
