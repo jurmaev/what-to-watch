@@ -9,7 +9,8 @@ import {
   setAuthorizationStatus,
   setDataFetchingStatus,
   setMovie,
-  setReviws,
+  setReviews,
+  setSimilarMovies,
 } from './action';
 import { AuthData, UserData } from '../types/user';
 import { setToken } from '../services/token';
@@ -69,7 +70,20 @@ export const getReviews = createAsyncThunk<
   { dispatch: AppDispatch; extra: AxiosInstance }
 >('reviews/get', async (id, { dispatch, extra: api }) => {
   dispatch(setDataFetchingStatus(true));
-  const { data } = await api.get<Reviews>(`${ApiRoute.Reviws}/${id}`);
-  dispatch(setReviws(data));
+  const { data } = await api.get<Reviews>(`${ApiRoute.Reviews}/${id}`);
+  dispatch(setReviews(data));
+  dispatch(setDataFetchingStatus(false));
+});
+
+export const getSimilarMovies = createAsyncThunk<
+  void,
+  string,
+  { dispatch: AppDispatch; extra: AxiosInstance }
+>('movie/getSimilar', async (id, { dispatch, extra: api }) => {
+  dispatch(setDataFetchingStatus(true));
+  const { data } = await api.get<MoviePreviews>(
+    `${ApiRoute.Films}/${id}/similar`
+  );
+  dispatch(setSimilarMovies(data));
   dispatch(setDataFetchingStatus(false));
 });

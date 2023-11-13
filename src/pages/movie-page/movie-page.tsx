@@ -1,21 +1,21 @@
 import { Helmet } from 'react-helmet-async';
 import { Link, generatePath, useNavigate, useParams } from 'react-router-dom';
 import MovieList from '../../components/movie-list/movie-list';
-import { MoviePreviews } from '../../types/movies';
 import { AppRoutes } from '../../const';
 import Tabs from '../../components/tabs/tabs';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getMovie, getReviews } from '../../store/api-actions';
+import {
+  getMovie,
+  getReviews,
+  getSimilarMovies,
+} from '../../store/api-actions';
 import { useEffect } from 'react';
 import NotFoundPage from '../not-found-page/not-found-page';
 
-type MoviePageProps = {
-  moviePreviews: MoviePreviews;
-};
-
-export default function MoviePage(props: MoviePageProps) {
+export default function MoviePage() {
   const movie = useAppSelector((state) => state.movie);
   const reviews = useAppSelector((state) => state.reviews);
+  const similarMovies = useAppSelector((state) => state.similarMovies);
   const navigate = useNavigate();
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -24,6 +24,7 @@ export default function MoviePage(props: MoviePageProps) {
     if (id) {
       dispatch(getMovie(id));
       dispatch(getReviews(id));
+      dispatch(getSimilarMovies(id));
     }
   }, [dispatch, id]);
 
@@ -132,7 +133,7 @@ export default function MoviePage(props: MoviePageProps) {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <MovieList moviePreviews={props.moviePreviews} length={4} />
+          <MovieList moviePreviews={similarMovies} length={4} />
         </section>
 
         <footer className="page-footer">

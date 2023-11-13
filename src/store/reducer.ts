@@ -5,7 +5,8 @@ import {
   setAuthorizationStatus,
   setDataFetchingStatus,
   setMovie,
-  setReviws,
+  setReviews,
+  setSimilarMovies,
 } from './action';
 import {
   AuthorizationStatus,
@@ -23,6 +24,7 @@ type InitialState = {
   authorizationStatus: AuthorizationStatusValues;
   movie: Movie | null;
   reviews: Reviews;
+  similarMovies: MoviePreviews;
 };
 
 const initialState: InitialState = {
@@ -32,6 +34,7 @@ const initialState: InitialState = {
   authorizationStatus: AuthorizationStatus.Unknown,
   movie: null,
   reviews: [],
+  similarMovies: [],
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -51,7 +54,10 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(setMovie, (state, action) => {
       state.movie = action.payload;
     })
-    .addCase(setReviws, (state, action) => {
+    .addCase(setReviews, (state, action) => {
       state.reviews = action.payload;
+    })
+    .addCase(setSimilarMovies, (state, action) => {
+      state.similarMovies = action.payload;
     });
 });

@@ -38,5 +38,5 @@ export const MINUTES = 60;
 export const ApiRoute = {
   Films: '/films',
   Login: '/login',
-  Reviws: '/comments'
+  Reviews: '/comments'
 } as const;

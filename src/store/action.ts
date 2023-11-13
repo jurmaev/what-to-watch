@@ -11,6 +11,9 @@ export const changeGenre = createAction<GenresValues>('genre/change');
 
 export const loadMovies = createAction<MoviePreviews>('movies/load');
 
+export const setSimilarMovies =
+  createAction<MoviePreviews>('movies/getSimilar');
+
 export const setDataFetchingStatus = createAction<boolean>(
   'data/fetchingStatus'
 );
@@ -23,4 +26,4 @@ export const redirectToRoute = createAction<AppRoutesValues>('redirectToRoute');
 
 export const setMovie = createAction<Movie>('movie/set');
 
-export const setReviws = createAction<Reviews>('reviews/set');
+export const setReviews = createAction<Reviews>('reviews/set');

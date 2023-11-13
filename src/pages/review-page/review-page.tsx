@@ -1,19 +1,25 @@
 import { Helmet } from 'react-helmet-async';
-import { Link, Navigate, generatePath, useParams } from 'react-router-dom';
+import { Link, generatePath, useParams } from 'react-router-dom';
 import ReviewForm from '../../components/review-form/review-form';
-import { Movies } from '../../types/movies';
 import { AppRoutes } from '../../const';
+import NotFoundPage from '../not-found-page/not-found-page';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
+import { getMovie } from '../../store/api-actions';
 
-type ReviewPageProps = {
-  movies: Movies;
-};
-
-export default function ReviewPage({ movies }: ReviewPageProps) {
+export default function ReviewPage() {
   const { id } = useParams();
-  const movie = movies.find((m) => m.id === id);
+  const movie = useAppSelector((state) => state.movie);
+  const dispatch = useAppDispatch();
 
-  if (!movie) {
-    return <Navigate to="*" />;
+  useEffect(() => {
+    if (id) {
+      dispatch(getMovie(id));
+    }
+  }, [id, dispatch]);
+
+  if (!movie || !id) {
+    return <NotFoundPage />;
   }
 
   return (

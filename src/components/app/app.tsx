@@ -50,14 +50,8 @@ export default function App(props: AppProps) {
               </PrivateRoute>
             }
           />
-          <Route
-            path={AppRoutes.Movie}
-            element={<MoviePage moviePreviews={moviePreviews} />}
-          />
-          <Route
-            path={AppRoutes.Review}
-            element={<ReviewPage movies={props.movies} />}
-          />
+          <Route path={AppRoutes.Movie} element={<MoviePage />} />
+          <Route path={AppRoutes.Review} element={<ReviewPage />} />
           <Route
             path={AppRoutes.Player}
             element={<PlayerPage movies={props.movies} />}
