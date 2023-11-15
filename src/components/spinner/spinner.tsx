@@ -5,16 +5,17 @@ type SpinnerProps = {
 };
 
 export default function Spinner({ isActive }: SpinnerProps) {
+  if (!isActive) {
+    return null;
+  }
   return (
-    isActive && (
-      <div className="spinner__container">
-        <div className="spinner">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
+    <div className="spinner__container">
+      <div className="spinner">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
       </div>
-    )
+    </div>
   );
 }
