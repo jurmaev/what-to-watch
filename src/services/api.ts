@@ -6,12 +6,13 @@ import axios, {
 } from 'axios';
 import { getToken } from './token';
 import { StatusCodes } from 'http-status-codes';
+import { toast } from 'react-toastify';
 
 const BACKEND_URL = 'https://13.design.pages.academy/wtw';
 const REQUEST_TIMEOUT = 5000;
 
 type DetailMessageType = {
-  type: string;
+  errorType: string;
   message: string;
 };
 
@@ -40,7 +41,7 @@ export const createApi = (): AxiosInstance => {
     (error: AxiosError<DetailMessageType>) => {
       if (error.response && shouldDisplayError(error.response)) {
         const detailMessage = error.response.data;
-        console.log(detailMessage);
+        toast.warn(detailMessage.message);
       }
       throw error;
     }
