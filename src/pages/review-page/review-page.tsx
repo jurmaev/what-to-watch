@@ -1,19 +1,32 @@
 import { Helmet } from 'react-helmet-async';
-import { Link, Navigate, generatePath, useParams } from 'react-router-dom';
+import { Link, generatePath, useParams } from 'react-router-dom';
 import ReviewForm from '../../components/review-form/review-form';
-import { Movies } from '../../types/movies';
 import { AppRoutes } from '../../const';
+import NotFoundPage from '../not-found-page/not-found-page';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
+import { fetchMovie } from '../../store/api-actions';
+import UserBlock from '../../components/user-block/user-block';
+import Spinner from '../../components/spinner/spinner';
 
-type ReviewPageProps = {
-  movies: Movies;
-};
-
-export default function ReviewPage({ movies }: ReviewPageProps) {
+export default function ReviewPage() {
   const { id } = useParams();
-  const movie = movies.find((m) => m.id === id);
+  const movie = useAppSelector((state) => state.movie);
+  const isFetchingData = useAppSelector((state) => state.isFetchingData);
+  const dispatch = useAppDispatch();
 
-  if (!movie) {
-    return <Navigate to="*" />;
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchMovie(id));
+    }
+  }, [id, dispatch]);
+
+  if (isFetchingData) {
+    return <Spinner isActive />;
+  }
+
+  if (!movie || !id) {
+    return <NotFoundPage />;
   }
 
   return (
@@ -57,21 +70,7 @@ export default function ReviewPage({ movies }: ReviewPageProps) {
             </ul>
           </nav>
 
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img
-                  src="img/avatar.jpg"
-                  alt="User avatar"
-                  width="63"
-                  height="63"
-                />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          <UserBlock />
         </header>
 
         <div className="film-card__poster film-card__poster--small">
@@ -84,7 +83,7 @@ export default function ReviewPage({ movies }: ReviewPageProps) {
         </div>
       </div>
 
-      <ReviewForm />
+      <ReviewForm id={id} />
     </section>
   );
 }

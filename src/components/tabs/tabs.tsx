@@ -5,7 +5,7 @@ import DetailsTab from './details-tab';
 import ReviewsTab from './reviews-tab';
 import { Movie } from '../../types/movies';
 import cn from 'classnames';
-import { ReviewBase } from '../../types/reviews';
+import { Reviews } from '../../types/reviews';
 
 const TabNames = {
   Overview: 'Overview',
@@ -15,7 +15,7 @@ const TabNames = {
 
 type TabsProps = {
   movie: Movie;
-  reviews: ReviewBase[];
+  reviews: Reviews;
 };
 
 export default function Tabs({ movie, reviews }: TabsProps) {

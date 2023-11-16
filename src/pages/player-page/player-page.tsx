@@ -1,19 +1,30 @@
 import { Helmet } from 'react-helmet-async';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import { Movies } from '../../types/movies';
+import { useNavigate, useParams } from 'react-router-dom';
 import { MINUTES } from '../../const';
+import NotFoundPage from '../not-found-page/not-found-page';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
+import { fetchMovie } from '../../store/api-actions';
+import Spinner from '../../components/spinner/spinner';
 
-type PlayerPageProps = {
-  movies: Movies;
-};
-
-export default function PlayerPage({ movies }: PlayerPageProps) {
+export default function PlayerPage() {
+  const movie = useAppSelector((state) => state.movie);
+  const isFetchingData = useAppSelector((state) => state.isFetchingData);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
-  const movie = movies.find((m) => m.id === id);
 
-  if (!movie) {
-    return <Navigate to="*" />;
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchMovie(id));
+    }
+  }, [dispatch, id]);
+
+  if (isFetchingData) {
+    return <Spinner isActive />;
+  }
+  if (!movie || !id) {
+    return <NotFoundPage />;
   }
 
   return (

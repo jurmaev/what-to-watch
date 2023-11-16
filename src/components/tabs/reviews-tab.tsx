@@ -1,4 +1,4 @@
-import { ReviewBase } from '../../types/reviews';
+import { Reviews } from '../../types/reviews';
 
 const MONTHS = [
   'January',
@@ -16,7 +16,7 @@ const MONTHS = [
 ];
 
 type ReviewsTabProps = {
-  reviews: ReviewBase[];
+  reviews: Reviews;
 };
 
 function getDateWithDashes(dateString: string) {

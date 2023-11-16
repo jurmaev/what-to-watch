@@ -1,34 +1,46 @@
 import { Helmet } from 'react-helmet-async';
-import {
-  Link,
-  Navigate,
-  generatePath,
-  useNavigate,
-  useParams,
-} from 'react-router-dom';
+import { Link, generatePath, useNavigate, useParams } from 'react-router-dom';
 import MovieList from '../../components/movie-list/movie-list';
-import { MoviePreviews, Movies } from '../../types/movies';
-import { AppRoutes } from '../../const';
+import { AppRoutes, AuthorizationStatus } from '../../const';
 import Tabs from '../../components/tabs/tabs';
-import { ReviewBase, Reviews } from '../../types/reviews';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import {
+  fetchMovie,
+  fetchReviews,
+  fetchSimilarMovies,
+} from '../../store/api-actions';
+import { useEffect } from 'react';
+import NotFoundPage from '../not-found-page/not-found-page';
+import UserBlock from '../../components/user-block/user-block';
+import Spinner from '../../components/spinner/spinner';
 
-type MoviePageProps = {
-  moviePreviews: MoviePreviews;
-  movies: Movies;
-  reviews: Reviews;
-};
-
-export default function MoviePage(props: MoviePageProps) {
+export default function MoviePage() {
+  const movie = useAppSelector((state) => state.movie);
+  const reviews = useAppSelector((state) => state.reviews);
+  const similarMovies = useAppSelector((state) => state.similarMovies);
+  const isFetchingData = useAppSelector((state) => state.isFetchingData);
+  const authorizationStatus = useAppSelector(
+    (state) => state.authorizationStatus
+  );
   const navigate = useNavigate();
   const { id } = useParams();
-  const movie = props.movies.find((m) => m.id === id);
+  const dispatch = useAppDispatch();
 
-  if (!movie) {
-    return <Navigate to="*" />;
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchMovie(id));
+      dispatch(fetchReviews(id));
+      dispatch(fetchSimilarMovies(id));
+    }
+  }, [dispatch, id]);
+
+  if (isFetchingData) {
+    return <Spinner isActive />;
+  }
+  if (!id || !movie) {
+    return <NotFoundPage />;
   }
 
-  const reviews = props.reviews.find((review) => review.id === id)
-    ?.reviews as ReviewBase[];
   return (
     <>
       <Helmet>
@@ -54,21 +66,7 @@ export default function MoviePage(props: MoviePageProps) {
               </Link>
             </div>
 
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img
-                    src="img/avatar.jpg"
-                    alt="User avatar"
-                    width="63"
-                    height="63"
-                  />
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a className="user-block__link">Sign out</a>
-              </li>
-            </ul>
+            <UserBlock />
           </header>
 
           <div className="film-card__wrap">
@@ -101,12 +99,14 @@ export default function MoviePage(props: MoviePageProps) {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <Link
-                  to={generatePath(AppRoutes.Review, { id: movie.id })}
-                  className="btn film-card__button"
-                >
-                  Add review
-                </Link>
+                {authorizationStatus === AuthorizationStatus.Auth && (
+                  <Link
+                    to={generatePath(AppRoutes.Review, { id: movie.id })}
+                    className="btn film-card__button"
+                  >
+                    Add review
+                  </Link>
+                )}
               </div>
             </div>
           </div>
@@ -130,7 +130,7 @@ export default function MoviePage(props: MoviePageProps) {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <MovieList moviePreviews={props.moviePreviews} length={4} />
+          <MovieList moviePreviews={similarMovies} length={4} />
         </section>
 
         <footer className="page-footer">
