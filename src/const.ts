@@ -1,3 +1,5 @@
+type ValueOf<T> = T[keyof T];
+
 export const AppRoutes = {
   Main: '/',
   Login: '/login',
@@ -7,7 +9,7 @@ export const AppRoutes = {
   Player: '/player/:id',
 } as const;
 
-export type AppRoutesValues = (typeof AppRoutes)[keyof typeof AppRoutes];
+export type AppRoutesValues = ValueOf<typeof AppRoutes>;
 
 export const AuthorizationStatus = {
   Auth: 'Auth',
@@ -15,8 +17,7 @@ export const AuthorizationStatus = {
   Unknown: 'Unknown',
 } as const;
 
-export type AuthorizationStatusValues =
-  (typeof AuthorizationStatus)[keyof typeof AuthorizationStatus];
+export type AuthorizationStatusValues = ValueOf<typeof AuthorizationStatus>;
 
 export const Genres = {
   All: 'All',
@@ -31,7 +32,7 @@ export const Genres = {
   Thrillers: 'Thrillers',
 } as const;
 
-export type GenresValues = (typeof Genres)[keyof typeof Genres];
+export type GenresValues = ValueOf<typeof Genres>;
 
 export const MINUTES = 60;
 

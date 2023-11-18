@@ -1,29 +1,48 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { AppRoutes } from '../../const';
-import { FormEvent, useRef } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { login } from '../../store/api-actions';
+
+function containsAnyLetters(password: string) {
+  return /[a-zA-Z]/.test(password);
+}
+
+function containsAnyNumbers(password: string) {
+  return /[0-9]/.test(password);
+}
+
+function isValidEmail(email: string) {
+  return /^\S+@\S+\.\S+$/.test(email);
+}
 
 export default function LoginPage() {
   const dispatch = useAppDispatch();
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   function handleSubmit(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
-
-    if (
-      emailRef.current &&
-      passwordRef.current &&
-      passwordRef.current.value.trim() !== ''
-    ) {
-      dispatch(
-        login({
-          email: emailRef.current.value,
-          password: passwordRef.current.value,
-        })
-      );
+    if (emailRef.current && passwordRef.current) {
+      if (!isValidEmail(emailRef.current.value)) {
+        setErrorMessage('Please enter a valid email address');
+      } else if (
+        !containsAnyLetters(passwordRef.current.value) ||
+        !containsAnyNumbers(passwordRef.current.value)
+      ) {
+        setErrorMessage(
+          'Password should contain at least one letter and one number'
+        );
+      } else {
+        dispatch(
+          login({
+            email: emailRef.current.value,
+            password: passwordRef.current.value,
+          })
+        );
+      }
     }
   }
 
@@ -46,7 +65,17 @@ export default function LoginPage() {
       </header>
 
       <div className="sign-in user-page__content">
-        <form action="" className="sign-in__form" onSubmit={handleSubmit}>
+        <form
+          action=""
+          className="sign-in__form"
+          onSubmit={handleSubmit}
+          noValidate
+        >
+          {errorMessage && (
+            <div className="sign-in__message">
+              <p>{errorMessage}</p>
+            </div>
+          )}
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input
@@ -55,6 +84,7 @@ export default function LoginPage() {
                 placeholder="Email address"
                 name="user-email"
                 id="user-email"
+                required
                 ref={emailRef}
               />
               <label
@@ -71,6 +101,7 @@ export default function LoginPage() {
                 placeholder="Password"
                 name="user-password"
                 id="user-password"
+                required
                 ref={passwordRef}
               />
               <label
