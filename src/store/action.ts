@@ -29,3 +29,5 @@ export const setMovie = createAction<Movie>('movie/set');
 export const setPromoMovie = createAction<PromoMovie>('movie/setPromo');
 
 export const setReviews = createAction<Reviews>('reviews/set');
+
+export const setMyList = createAction<MoviePreviews>('movie/myList');

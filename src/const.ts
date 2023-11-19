@@ -41,4 +41,5 @@ export const ApiRoute = {
   Login: '/login',
   Reviews: '/comments',
   Promo: '/promo',
+  MyList: '/favorite',
 } as const;

@@ -9,6 +9,7 @@ import {
   setAuthorizationStatus,
   setDataFetchingStatus,
   setMovie,
+  setMyList,
   setPromoMovie,
   setReviews,
   setSimilarMovies,
@@ -38,6 +39,7 @@ export const checkAuth = createAsyncThunk<
     dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
   } catch {
     dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
+    deleteToken();
   }
 });
 
@@ -107,6 +109,17 @@ export const fetchSimilarMovies = createAsyncThunk<
     `${ApiRoute.Films}/${id}/similar`
   );
   dispatch(setSimilarMovies(data));
+  dispatch(setDataFetchingStatus(false));
+});
+
+export const fetchMyList = createAsyncThunk<
+  void,
+  undefined,
+  { dispatch: AppDispatch; extra: AxiosInstance }
+>('movie/fetchMyList', async (_arg, { dispatch, extra: api }) => {
+  dispatch(setDataFetchingStatus(true));
+  const { data } = await api.get<MoviePreviews>(ApiRoute.MyList);
+  dispatch(setMyList(data));
   dispatch(setDataFetchingStatus(false));
 });
 

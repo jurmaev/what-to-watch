@@ -8,6 +8,7 @@ import {
   setMovie,
   setReviews,
   setSimilarMovies,
+  setMyList,
 } from './action';
 import {
   AuthorizationStatus,
@@ -27,6 +28,7 @@ type InitialState = {
   reviews: Reviews;
   similarMovies: MoviePreviews;
   promoMovie: PromoMovie | null;
+  myList: MoviePreviews;
 };
 
 const initialState: InitialState = {
@@ -38,6 +40,7 @@ const initialState: InitialState = {
   reviews: [],
   similarMovies: [],
   promoMovie: null,
+  myList: [],
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -65,5 +68,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setPromoMovie, (state, action) => {
       state.promoMovie = action.payload;
+    })
+    .addCase(setMyList, (state, action) => {
+      state.myList = action.payload;
     });
 });
