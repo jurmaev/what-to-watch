@@ -5,27 +5,16 @@ import { Movie, MoviePreviews, PromoMovie } from '../types/movies';
 import { ApiRoute, AppRoutes } from '../const';
 import { redirectToRoute } from './action';
 import { AuthData, UserData } from '../types/user';
-import { deleteToken, setToken } from '../services/token';
+import { setToken } from '../services/token';
 import { ReviewBase, Reviews } from '../types/reviews';
-import {
-  loadMovies,
-  setMovie,
-  setMyList,
-  setPromoMovie,
-  setSimilarMovies,
-} from './movie-process/movie-process';
-import { setDataFetchingStatus } from './data-process/data-process';
-import { setReviews } from './reviews-process/reviews-process';
 
 export const fetchMoviePreviews = createAsyncThunk<
-  void,
+  MoviePreviews,
   undefined,
   { dispatch: AppDispatch; state: State; extra: AxiosInstance }
->('movies/fetch', async (_arg, { dispatch, extra: api }) => {
-  dispatch(setDataFetchingStatus(true));
+>('movies/fetch', async (_arg, { extra: api }) => {
   const { data } = await api.get<MoviePreviews>(ApiRoute.Films);
-  dispatch(loadMovies(data));
-  dispatch(setDataFetchingStatus(false));
+  return data;
 });
 
 export const checkAuth = createAsyncThunk<
@@ -34,7 +23,6 @@ export const checkAuth = createAsyncThunk<
   { dispatch: AppDispatch; state: State; extra: AxiosInstance }
 >('user/checkAuth', async (_arg, { extra: api }) => {
   await api.get(ApiRoute.Login);
-  deleteToken();
 });
 
 export const login = createAsyncThunk<
@@ -55,72 +43,59 @@ export const logout = createAsyncThunk<
   { dispatch: AppDispatch; extra: AxiosInstance }
 >('user/logout', async (_arg, { extra: api }) => {
   await api.delete(ApiRoute.Login);
-  deleteToken();
 });
 
 export const fetchMovie = createAsyncThunk<
-  void,
+  Movie,
   string,
   { dispatch: AppDispatch; extra: AxiosInstance }
->('movie/fetch', async (id, { dispatch, extra: api }) => {
-  dispatch(setDataFetchingStatus(true));
+>('movie/fetch', async (id, { extra: api }) => {
   const { data } = await api.get<Movie>(`${ApiRoute.Films}/${id}`);
-  dispatch(setMovie(data));
-  dispatch(setDataFetchingStatus(false));
+  return data;
 });
 
 export const fetchPromoMovie = createAsyncThunk<
-  void,
+  PromoMovie,
   undefined,
   { dispatch: AppDispatch; extra: AxiosInstance }
->('movie/fetchPromo', async (_arg, { dispatch, extra: api }) => {
-  dispatch(setDataFetchingStatus(true));
+>('movie/fetchPromo', async (_arg, { extra: api }) => {
   const { data } = await api.get<PromoMovie>(ApiRoute.Promo);
-  dispatch(setPromoMovie(data));
-  dispatch(setDataFetchingStatus(false));
+  return data;
 });
 
 export const fetchReviews = createAsyncThunk<
-  void,
+  Reviews,
   string,
   { dispatch: AppDispatch; extra: AxiosInstance }
->('reviews/fetch', async (id, { dispatch, extra: api }) => {
-  dispatch(setDataFetchingStatus(true));
+>('reviews/fetch', async (id, { extra: api }) => {
   const { data } = await api.get<Reviews>(`${ApiRoute.Reviews}/${id}`);
-  dispatch(setReviews(data));
-  dispatch(setDataFetchingStatus(false));
+  return data;
 });
 
 export const fetchSimilarMovies = createAsyncThunk<
-  void,
+  MoviePreviews,
   string,
   { dispatch: AppDispatch; extra: AxiosInstance }
->('movie/fetchSimilar', async (id, { dispatch, extra: api }) => {
-  dispatch(setDataFetchingStatus(true));
+>('movie/fetchSimilar', async (id, { extra: api }) => {
   const { data } = await api.get<MoviePreviews>(
     `${ApiRoute.Films}/${id}/similar`
   );
-  dispatch(setSimilarMovies(data));
-  dispatch(setDataFetchingStatus(false));
+  return data;
 });
 
 export const fetchMyList = createAsyncThunk<
-  void,
+  MoviePreviews,
   undefined,
   { dispatch: AppDispatch; extra: AxiosInstance }
->('movie/fetchMyList', async (_arg, { dispatch, extra: api }) => {
-  dispatch(setDataFetchingStatus(true));
+>('movie/fetchMyList', async (_arg, { extra: api }) => {
   const { data } = await api.get<MoviePreviews>(ApiRoute.MyList);
-  dispatch(setMyList(data));
-  dispatch(setDataFetchingStatus(false));
+  return data;
 });
 
 export const postReview = createAsyncThunk<
   void,
   ReviewBase,
   { dispatch: AppDispatch; extra: AxiosInstance }
->('review/post', async ({ id, comment, rating }, { dispatch, extra: api }) => {
-  dispatch(setDataFetchingStatus(true));
+>('review/post', async ({ id, comment, rating }, { extra: api }) => {
   await api.post(`${ApiRoute.Reviews}/${id}`, { comment, rating });
-  dispatch(setDataFetchingStatus(false));
 });

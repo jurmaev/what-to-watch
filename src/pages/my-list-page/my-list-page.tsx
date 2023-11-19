@@ -7,13 +7,15 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { fetchMyList } from '../../store/api-actions';
 import Spinner from '../../components/spinner/spinner';
-import { getMyList } from '../../store/movie-process/selectors';
-import { getFetchingDataStatus } from '../../store/data-process/selectors';
+import {
+  getMovieFetchingStatus,
+  getMyList,
+} from '../../store/movie-process/selectors';
 
 export default function MyListPage() {
   const dispatch = useAppDispatch();
   const myList = useAppSelector(getMyList);
-  const isFetchingData = useAppSelector(getFetchingDataStatus);
+  const isFetchingData = useAppSelector(getMovieFetchingStatus);
 
   useEffect(() => {
     dispatch(fetchMyList());

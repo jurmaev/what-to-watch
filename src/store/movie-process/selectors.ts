@@ -16,3 +16,6 @@ export const getMyList = (state: State): MoviePreviews =>
 
 export const getSimilarMovies = (state: State): MoviePreviews =>
   state[NameSpace.Movie].similarMovies;
+
+export const getMovieFetchingStatus = (state: State): boolean =>
+  state[NameSpace.Movie].isFetchingMovieData;

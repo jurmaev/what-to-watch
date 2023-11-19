@@ -13,6 +13,7 @@ export type MovieProcess = {
   similarMovies: MoviePreviews;
   promoMovie: PromoMovie | null;
   myList: MoviePreviews;
+  isFetchingMovieData: boolean;
 };
 
 export type GenreProcess = {
@@ -25,6 +26,7 @@ export type DataProcess = {
 
 export type ReviewsProcess = {
   reviews: Reviews;
+  isFetchingReviewsData: boolean;
 };
 
 export type State = ReturnType<typeof store.getState>;

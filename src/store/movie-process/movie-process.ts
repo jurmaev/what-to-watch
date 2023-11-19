@@ -1,7 +1,13 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { MovieProcess } from '../../types/state';
 import { NameSpace } from '../../const';
-import { Movie, MoviePreviews, PromoMovie } from '../../types/movies';
+import {
+  fetchMovie,
+  fetchMoviePreviews,
+  fetchMyList,
+  fetchPromoMovie,
+  fetchSimilarMovies,
+} from '../api-actions';
 
 const initialState: MovieProcess = {
   moviePreviews: [],
@@ -9,34 +15,49 @@ const initialState: MovieProcess = {
   promoMovie: null,
   myList: [],
   similarMovies: [],
+  isFetchingMovieData: false,
 };
 
 export const movieProcess = createSlice({
   name: NameSpace.Movie,
   initialState,
-  reducers: {
-    loadMovies: (state, action: PayloadAction<MoviePreviews>) => {
-      state.moviePreviews = action.payload;
-    },
-    setMovie: (state, action: PayloadAction<Movie>) => {
-      state.movie = action.payload;
-    },
-    setSimilarMovies: (state, action: PayloadAction<MoviePreviews>) => {
-      state.similarMovies = action.payload;
-    },
-    setPromoMovie: (state, action: PayloadAction<PromoMovie>) => {
-      state.promoMovie = action.payload;
-    },
-    setMyList: (state, action: PayloadAction<MoviePreviews>) => {
-      state.myList = action.payload;
-    },
+  reducers: {},
+  extraReducers(builder) {
+    builder
+      .addCase(fetchMoviePreviews.pending, (state) => {
+        state.isFetchingMovieData = true;
+      })
+      .addCase(fetchMoviePreviews.fulfilled, (state, action) => {
+        state.moviePreviews = action.payload;
+        state.isFetchingMovieData = false;
+      })
+      .addCase(fetchMovie.pending, (state) => {
+        state.isFetchingMovieData = true;
+      })
+      .addCase(fetchMovie.fulfilled, (state, action) => {
+        state.movie = action.payload;
+        state.isFetchingMovieData = false;
+      })
+      .addCase(fetchPromoMovie.pending, (state) => {
+        state.isFetchingMovieData = true;
+      })
+      .addCase(fetchPromoMovie.fulfilled, (state, action) => {
+        state.promoMovie = action.payload;
+        state.isFetchingMovieData = false;
+      })
+      .addCase(fetchSimilarMovies.pending, (state) => {
+        state.isFetchingMovieData = true;
+      })
+      .addCase(fetchSimilarMovies.fulfilled, (state, action) => {
+        state.similarMovies = action.payload;
+        state.isFetchingMovieData = false;
+      })
+      .addCase(fetchMyList.pending, (state) => {
+        state.isFetchingMovieData = true;
+      })
+      .addCase(fetchMyList.fulfilled, (state, action) => {
+        state.myList = action.payload;
+        state.isFetchingMovieData = false;
+      });
   },
 });
-
-export const {
-  loadMovies,
-  setMovie,
-  setSimilarMovies,
-  setPromoMovie,
-  setMyList,
-} = movieProcess.actions;

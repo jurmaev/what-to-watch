@@ -15,17 +15,21 @@ import UserBlock from '../../components/user-block/user-block';
 import Spinner from '../../components/spinner/spinner';
 import {
   getMovie,
+  getMovieFetchingStatus,
   getSimilarMovies,
 } from '../../store/movie-process/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
-import { getFetchingDataStatus } from '../../store/data-process/selectors';
-import { getReviews } from '../../store/reviews-process/selectors';
+import {
+  getReviews,
+  getReviewsFetchingStatus,
+} from '../../store/reviews-process/selectors';
 
 export default function MoviePage() {
   const movie = useAppSelector(getMovie);
   const reviews = useAppSelector(getReviews);
   const similarMovies = useAppSelector(getSimilarMovies);
-  const isFetchingData = useAppSelector(getFetchingDataStatus);
+  const isFetchingMovies = useAppSelector(getMovieFetchingStatus);
+  const isFetchingReviews = useAppSelector(getReviewsFetchingStatus);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const navigate = useNavigate();
   const { id } = useParams();
@@ -39,7 +43,7 @@ export default function MoviePage() {
     }
   }, [dispatch, id]);
 
-  if (isFetchingData) {
+  if (isFetchingMovies || isFetchingReviews) {
     return <Spinner isActive />;
   }
   if (!id || !movie) {

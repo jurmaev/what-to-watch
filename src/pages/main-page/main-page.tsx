@@ -6,14 +6,16 @@ import Spinner from '../../components/spinner/spinner';
 import UserBlock from '../../components/user-block/user-block';
 import { useEffect } from 'react';
 import { fetchPromoMovie } from '../../store/api-actions';
-import { getPromoMovie } from '../../store/movie-process/selectors';
-import { getFetchingDataStatus } from '../../store/data-process/selectors';
+import {
+  getMovieFetchingStatus,
+  getPromoMovie,
+} from '../../store/movie-process/selectors';
 
 export default function MainPage() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const promoMovie = useAppSelector(getPromoMovie);
-  const isFetchingData = useAppSelector(getFetchingDataStatus);
+  const isFetchingData = useAppSelector(getMovieFetchingStatus);
 
   useEffect(() => {
     dispatch(fetchPromoMovie());

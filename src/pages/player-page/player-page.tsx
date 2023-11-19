@@ -6,12 +6,14 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { fetchMovie } from '../../store/api-actions';
 import Spinner from '../../components/spinner/spinner';
-import { getFetchingDataStatus } from '../../store/data-process/selectors';
-import { getMovie } from '../../store/movie-process/selectors';
+import {
+  getMovie,
+  getMovieFetchingStatus,
+} from '../../store/movie-process/selectors';
 
 export default function PlayerPage() {
   const movie = useAppSelector(getMovie);
-  const isFetchingData = useAppSelector(getFetchingDataStatus);
+  const isFetchingData = useAppSelector(getMovieFetchingStatus);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
@@ -39,8 +41,7 @@ export default function PlayerPage() {
         src={movie.videoLink}
         className="player__video"
         poster={movie.backgroundImage}
-      >
-      </video>
+      ></video>
 
       <button
         onClick={() => navigate(-1)}
@@ -57,8 +58,7 @@ export default function PlayerPage() {
               className="player__progress"
               value="0"
               max="100"
-            >
-            </progress>
+            ></progress>
             <div className="player__toggler">Toggler</div>
           </div>
           <div className="player__time-value">
