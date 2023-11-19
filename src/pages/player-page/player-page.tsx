@@ -6,10 +6,12 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { fetchMovie } from '../../store/api-actions';
 import Spinner from '../../components/spinner/spinner';
+import { getFetchingDataStatus } from '../../store/data-process/selectors';
+import { getMovie } from '../../store/movie-process/selectors';
 
 export default function PlayerPage() {
-  const movie = useAppSelector((state) => state.movie);
-  const isFetchingData = useAppSelector((state) => state.isFetchingData);
+  const movie = useAppSelector(getMovie);
+  const isFetchingData = useAppSelector(getFetchingDataStatus);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { id } = useParams();

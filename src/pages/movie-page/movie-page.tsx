@@ -13,15 +13,20 @@ import { useEffect } from 'react';
 import NotFoundPage from '../not-found-page/not-found-page';
 import UserBlock from '../../components/user-block/user-block';
 import Spinner from '../../components/spinner/spinner';
+import {
+  getMovie,
+  getSimilarMovies,
+} from '../../store/movie-process/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { getFetchingDataStatus } from '../../store/data-process/selectors';
+import { getReviews } from '../../store/reviews-process/selectors';
 
 export default function MoviePage() {
-  const movie = useAppSelector((state) => state.movie);
-  const reviews = useAppSelector((state) => state.reviews);
-  const similarMovies = useAppSelector((state) => state.similarMovies);
-  const isFetchingData = useAppSelector((state) => state.isFetchingData);
-  const authorizationStatus = useAppSelector(
-    (state) => state.authorizationStatus
-  );
+  const movie = useAppSelector(getMovie);
+  const reviews = useAppSelector(getReviews);
+  const similarMovies = useAppSelector(getSimilarMovies);
+  const isFetchingData = useAppSelector(getFetchingDataStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const navigate = useNavigate();
   const { id } = useParams();
   const dispatch = useAppDispatch();
