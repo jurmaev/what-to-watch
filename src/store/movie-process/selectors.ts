@@ -14,6 +14,9 @@ export const getPromoMovie = (state: State): PromoMovie | null =>
 export const getMyList = (state: State): MoviePreviews =>
   state[NameSpace.Movie].myList;
 
+export const getMyListLength = (state: State): number =>
+  state[NameSpace.Movie].myListLength;
+
 export const getSimilarMovies = (state: State): MoviePreviews =>
   state[NameSpace.Movie].similarMovies;
 

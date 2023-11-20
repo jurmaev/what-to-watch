@@ -7,6 +7,7 @@ import {
   fetchMyList,
   fetchPromoMovie,
   fetchSimilarMovies,
+  postFavoriteStatus,
 } from '../api-actions';
 
 const initialState: MovieProcess = {
@@ -14,6 +15,7 @@ const initialState: MovieProcess = {
   movie: null,
   promoMovie: null,
   myList: [],
+  myListLength: 0,
   similarMovies: [],
   isFetchingMovieData: false,
 };
@@ -57,7 +59,18 @@ export const movieProcess = createSlice({
       })
       .addCase(fetchMyList.fulfilled, (state, action) => {
         state.myList = action.payload;
+        state.myListLength = action.payload.length;
         state.isFetchingMovieData = false;
+      })
+      .addCase(postFavoriteStatus.fulfilled, (state, action) => {
+        const favoriteMovie = action.payload;
+        if (favoriteMovie.isFavorite) {
+          state.myList.push(favoriteMovie);
+          state.myListLength++;
+        } else {
+          state.myList.filter((movie) => movie.id !== favoriteMovie.id);
+          state.myListLength--;
+        }
       });
   },
 });

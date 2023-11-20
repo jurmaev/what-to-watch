@@ -1,7 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
-import { Movie, MoviePreviews, PromoMovie } from '../types/movies';
+import {
+  FavoriteMovie,
+  FavoriteStatus,
+  Movie,
+  MoviePreviews,
+  PromoMovie,
+} from '../types/movies';
 import { ApiRoute, AppRoutes } from '../const';
 import { redirectToRoute } from './action';
 import { AuthData, UserData } from '../types/user';
@@ -89,6 +95,17 @@ export const fetchMyList = createAsyncThunk<
   { dispatch: AppDispatch; extra: AxiosInstance }
 >('movie/fetchMyList', async (_arg, { extra: api }) => {
   const { data } = await api.get<MoviePreviews>(ApiRoute.MyList);
+  return data;
+});
+
+export const postFavoriteStatus = createAsyncThunk<
+  FavoriteMovie,
+  FavoriteStatus,
+  { dispatch: AppDispatch; extra: AxiosInstance }
+>('movie/setFavoriteStatus', async ({ id, status }, { extra: api }) => {
+  const { data } = await api.post<FavoriteMovie>(
+    `${ApiRoute.MyList}/${id}/${status}`
+  );
   return data;
 });
 

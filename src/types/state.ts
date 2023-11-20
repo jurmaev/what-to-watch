@@ -13,6 +13,7 @@ export type MovieProcess = {
   similarMovies: MoviePreviews;
   promoMovie: PromoMovie | null;
   myList: MoviePreviews;
+  myListLength: number;
   isFetchingMovieData: boolean;
 };
 

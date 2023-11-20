@@ -17,6 +17,10 @@ export type PromoMovie = MovieBase & {
   isFavorite: boolean;
 };
 
+export type FavoriteMovie = MoviePreview & {
+  isFavorite: boolean;
+};
+
 export type Movie = PromoMovie & {
   backgroundColor: string;
   description: string;
@@ -29,3 +33,8 @@ export type Movie = PromoMovie & {
 
 export type Movies = Movie[];
 export type MoviePreviews = MoviePreview[];
+
+export type FavoriteStatus = {
+  id: string;
+  status: number;
+};
