@@ -1,5 +1,4 @@
 import { Middleware, PayloadAction } from '@reduxjs/toolkit';
-import { reducer } from '../reducer';
 import { redirectToRoute } from '../action';
 import { browserHistory } from '../../services/browser-history';
 import { rootReducer } from '../root-reducer';
