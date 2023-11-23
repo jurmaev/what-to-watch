@@ -3,7 +3,11 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { Provider } from 'react-redux';
 import { store } from './store';
-import { checkAuth, fetchMoviePreviews } from './store/api-actions';
+import {
+  checkAuth,
+  fetchMoviePreviews,
+  fetchMyList,
+} from './store/api-actions';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -13,6 +17,7 @@ const root = ReactDOM.createRoot(
 
 store.dispatch(fetchMoviePreviews());
 store.dispatch(checkAuth());
+store.dispatch(fetchMyList());
 
 root.render(
   <React.StrictMode>

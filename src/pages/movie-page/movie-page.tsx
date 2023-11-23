@@ -8,20 +8,32 @@ import {
   fetchMovie,
   fetchReviews,
   fetchSimilarMovies,
+  postFavoriteStatus,
 } from '../../store/api-actions';
 import { useEffect } from 'react';
 import NotFoundPage from '../not-found-page/not-found-page';
 import UserBlock from '../../components/user-block/user-block';
 import Spinner from '../../components/spinner/spinner';
+import {
+  getMovie,
+  getMovieFetchingStatus,
+  getMyListLength,
+  getSimilarMovies,
+} from '../../store/movie-process/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import {
+  getReviews,
+  getReviewsFetchingStatus,
+} from '../../store/reviews-process/selectors';
 
 export default function MoviePage() {
-  const movie = useAppSelector((state) => state.movie);
-  const reviews = useAppSelector((state) => state.reviews);
-  const similarMovies = useAppSelector((state) => state.similarMovies);
-  const isFetchingData = useAppSelector((state) => state.isFetchingData);
-  const authorizationStatus = useAppSelector(
-    (state) => state.authorizationStatus
-  );
+  const movie = useAppSelector(getMovie);
+  const reviews = useAppSelector(getReviews);
+  const similarMovies = useAppSelector(getSimilarMovies);
+  const isFetchingMovies = useAppSelector(getMovieFetchingStatus);
+  const isFetchingReviews = useAppSelector(getReviewsFetchingStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const myListLength = useAppSelector(getMyListLength);
   const navigate = useNavigate();
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -34,7 +46,7 @@ export default function MoviePage() {
     }
   }, [dispatch, id]);
 
-  if (isFetchingData) {
+  if (isFetchingMovies || isFetchingReviews) {
     return <Spinner isActive />;
   }
   if (!id || !movie) {
@@ -91,13 +103,27 @@ export default function MoviePage() {
                 <button
                   className="btn btn--list film-card__button"
                   type="button"
-                  onClick={() => navigate('/mylist')}
+                  onClick={() => {
+                    dispatch(
+                      postFavoriteStatus({
+                        id: movie.id,
+                        status: Number(!movie.isFavorite),
+                      })
+                    );
+                    navigate('/mylist');
+                  }}
                 >
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
+                  {movie.isFavorite ? (
+                    <svg width="18" height="14" viewBox="0 0 18 14">
+                      <use xlinkHref="#in-list"></use>
+                    </svg>
+                  ) : (
+                    <svg viewBox="0 0 19 20" width="19" height="20">
+                      <use xlinkHref="#add"></use>
+                    </svg>
+                  )}
                   <span>My list</span>
-                  <span className="film-card__count">9</span>
+                  <span className="film-card__count">{myListLength}</span>
                 </button>
                 {authorizationStatus === AuthorizationStatus.Auth && (
                   <Link

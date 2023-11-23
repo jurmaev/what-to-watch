@@ -5,13 +5,19 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import Spinner from '../../components/spinner/spinner';
 import UserBlock from '../../components/user-block/user-block';
 import { useEffect } from 'react';
-import { fetchPromoMovie } from '../../store/api-actions';
+import { fetchPromoMovie, postFavoriteStatus } from '../../store/api-actions';
+import {
+  getMovieFetchingStatus,
+  getMyListLength,
+  getPromoMovie,
+} from '../../store/movie-process/selectors';
 
 export default function MainPage() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const promoMovie = useAppSelector((state) => state.promoMovie);
-  const isFetchingData = useAppSelector((state) => state.isFetchingData);
+  const promoMovie = useAppSelector(getPromoMovie);
+  const myListLength = useAppSelector(getMyListLength);
+  const isFetchingData = useAppSelector(getMovieFetchingStatus);
 
   useEffect(() => {
     dispatch(fetchPromoMovie());
@@ -77,13 +83,28 @@ export default function MainPage() {
                 <button
                   className="btn btn--list film-card__button"
                   type="button"
-                  onClick={() => navigate('/mylist')}
+                  onClick={() => {
+                    dispatch(
+                      postFavoriteStatus({
+                        id: promoMovie.id,
+                        status: Number(!promoMovie.isFavorite),
+                      })
+                    );
+                    navigate('/mylist');
+                  }}
                 >
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
+                  {promoMovie.isFavorite ? (
+                    <svg width="18" height="14" viewBox="0 0 18 14">
+                      <use xlinkHref="#in-list"></use>
+                    </svg>
+                  ) : (
+                    <svg viewBox="0 0 19 20" width="19" height="20">
+                      <use xlinkHref="#add"></use>
+                    </svg>
+                  )}
+
                   <span>My list</span>
-                  <span className="film-card__count">9</span>
+                  <span className="film-card__count">{myListLength}</span>
                 </button>
               </div>
             </div>

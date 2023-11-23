@@ -2,22 +2,28 @@ import { Link } from 'react-router-dom';
 import MovieList from '../movie-list/movie-list';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Genres, GenresValues } from '../../const';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import cn from 'classnames';
-import { changeGenre } from '../../store/action';
 import ShowMore from '../show-more/show-more';
+import { getMoviePreviews } from '../../store/movie-process/selectors';
+import { getGenre } from '../../store/genre-process/selectors';
+import { changeGenre } from '../../store/genre-process/genre-process';
 
 const INITIAL_MOVIE_LENGTH = 8;
 
 export default function MoviePreviewsByGenre() {
-  const currentGenre = useAppSelector((state) => state.genre);
-  const moviePreviews = useAppSelector((state) => state.moviePreviews);
+  const currentGenre = useAppSelector(getGenre);
+  const moviePreviews = useAppSelector(getMoviePreviews);
   const [movieLength, setMovieLength] = useState(INITIAL_MOVIE_LENGTH);
   const dispatch = useAppDispatch();
-  const filteredMoviePreviews = moviePreviews.filter((moviePreview) =>
-    currentGenre === Genres.All
-      ? moviePreview
-      : moviePreview.genre === currentGenre
+  const filteredMoviePreviews = useMemo(
+    () =>
+      moviePreviews.filter((moviePreview) =>
+        currentGenre === Genres.All
+          ? moviePreview
+          : moviePreview.genre === currentGenre
+      ),
+    [moviePreviews, currentGenre]
   );
 
   const genres = [...new Set(moviePreviews.map((movie) => movie.genre))].sort();

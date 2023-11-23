@@ -41,4 +41,13 @@ export const ApiRoute = {
   Login: '/login',
   Reviews: '/comments',
   Promo: '/promo',
+  MyList: '/favorite',
+} as const;
+
+export const NameSpace = {
+  User: 'user',
+  Movie: 'movie',
+  Genre: 'genre',
+  Data: 'data',
+  Reviews: 'reviews',
 } as const;

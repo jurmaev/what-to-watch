@@ -8,11 +8,15 @@ import { useEffect } from 'react';
 import { fetchMovie } from '../../store/api-actions';
 import UserBlock from '../../components/user-block/user-block';
 import Spinner from '../../components/spinner/spinner';
+import {
+  getMovie,
+  getMovieFetchingStatus,
+} from '../../store/movie-process/selectors';
 
 export default function ReviewPage() {
   const { id } = useParams();
-  const movie = useAppSelector((state) => state.movie);
-  const isFetchingData = useAppSelector((state) => state.isFetchingData);
+  const movie = useAppSelector(getMovie);
+  const isFetchingData = useAppSelector(getMovieFetchingStatus);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

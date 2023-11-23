@@ -10,12 +10,10 @@ import PlayerPage from '../../pages/player-page/player-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
-import { useAppSelector } from '../../hooks';
 import HistoryRouter from '../history-router.tsx/history-router';
 import { browserHistory } from '../../services/browser-history';
 
 export default function App() {
-  const moviePreviews = useAppSelector((state) => state.moviePreviews);
   return (
     <HelmetProvider>
       <HistoryRouter history={browserHistory}>
@@ -27,7 +25,7 @@ export default function App() {
             path={AppRoutes.MyList}
             element={
               <PrivateRoute>
-                <MyListPage moviePreviews={moviePreviews} />
+                <MyListPage />
               </PrivateRoute>
             }
           />

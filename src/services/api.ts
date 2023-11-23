@@ -4,7 +4,7 @@ import axios, {
   AxiosRequestConfig,
   AxiosResponse,
 } from 'axios';
-import { deleteToken, getToken } from './token';
+import { getToken } from './token';
 import { StatusCodes } from 'http-status-codes';
 import { toast } from 'react-toastify';
 
@@ -42,7 +42,6 @@ export const createApi = (): AxiosInstance => {
       if (error.response && shouldDisplayError(error.response)) {
         const detailMessage = error.response.data;
         toast.warn(detailMessage.message);
-        deleteToken();
       }
       throw error;
     }

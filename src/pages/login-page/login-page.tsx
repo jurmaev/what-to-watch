@@ -4,6 +4,7 @@ import { AppRoutes } from '../../const';
 import { FormEvent, useRef, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { login } from '../../store/api-actions';
+import UserBlock from '../../components/user-block/user-block';
 
 function containsAnyLetters(password: string) {
   return /[a-zA-Z]/.test(password);
@@ -61,7 +62,7 @@ export default function LoginPage() {
           </Link>
         </div>
 
-        <h1 className="page-title user-page__title">Sign in</h1>
+        <UserBlock />
       </header>
 
       <div className="sign-in user-page__content">
