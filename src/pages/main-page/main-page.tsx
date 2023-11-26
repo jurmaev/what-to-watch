@@ -5,20 +5,19 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import Spinner from '../../components/spinner/spinner';
 import UserBlock from '../../components/user-block/user-block';
 import { useEffect } from 'react';
-import { fetchPromoMovie, postFavoriteStatus } from '../../store/api-actions';
+import { fetchPromoMovie } from '../../store/api-actions';
 import {
   getMovieFetchingStatus,
-  getMyListLength,
   getPromoMovie,
 } from '../../store/movie-process/selectors';
 import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
+import MyListButton from '../../components/my-list-button/my-list-button';
 
 export default function MainPage() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const promoMovie = useAppSelector(getPromoMovie);
-  const myListLength = useAppSelector(getMyListLength);
   const isFetchingData = useAppSelector(getMovieFetchingStatus);
 
   useEffect(() => {
@@ -76,32 +75,11 @@ export default function MainPage() {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button
-                  className="btn btn--list film-card__button"
-                  type="button"
-                  onClick={() => {
-                    dispatch(
-                      postFavoriteStatus({
-                        id: promoMovie.id,
-                        status: Number(!promoMovie.isFavorite),
-                        category: 'promoMovie',
-                      })
-                    );
-                  }}
-                >
-                  {promoMovie.isFavorite ? (
-                    <svg width="18" height="14" viewBox="0 0 18 14">
-                      <use xlinkHref="#in-list"></use>
-                    </svg>
-                  ) : (
-                    <svg viewBox="0 0 19 20" width="19" height="20">
-                      <use xlinkHref="#add"></use>
-                    </svg>
-                  )}
-
-                  <span>My list</span>
-                  <span className="film-card__count">{myListLength}</span>
-                </button>
+                <MyListButton
+                  id={promoMovie.id}
+                  isFavorite={promoMovie.isFavorite}
+                  category="promoMovie"
+                />
               </div>
             </div>
           </div>

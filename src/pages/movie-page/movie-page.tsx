@@ -8,7 +8,6 @@ import {
   fetchMovie,
   fetchReviews,
   fetchSimilarMovies,
-  postFavoriteStatus,
 } from '../../store/api-actions';
 import { useEffect } from 'react';
 import NotFoundPage from '../not-found-page/not-found-page';
@@ -17,7 +16,6 @@ import Spinner from '../../components/spinner/spinner';
 import {
   getMovie,
   getMovieFetchingStatus,
-  getMyListLength,
   getSimilarMovies,
 } from '../../store/movie-process/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
@@ -27,6 +25,7 @@ import {
 } from '../../store/reviews-process/selectors';
 import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
+import MyListButton from '../../components/my-list-button/my-list-button';
 
 export default function MoviePage() {
   const movie = useAppSelector(getMovie);
@@ -35,7 +34,6 @@ export default function MoviePage() {
   const isFetchingMovies = useAppSelector(getMovieFetchingStatus);
   const isFetchingReviews = useAppSelector(getReviewsFetchingStatus);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const myListLength = useAppSelector(getMyListLength);
   const navigate = useNavigate();
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -96,31 +94,11 @@ export default function MoviePage() {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button
-                  className="btn btn--list film-card__button"
-                  type="button"
-                  onClick={() => {
-                    dispatch(
-                      postFavoriteStatus({
-                        id: movie.id,
-                        status: Number(!movie.isFavorite),
-                        category: 'movie',
-                      })
-                    );
-                  }}
-                >
-                  {movie.isFavorite ? (
-                    <svg width="18" height="14" viewBox="0 0 18 14">
-                      <use xlinkHref="#in-list"></use>
-                    </svg>
-                  ) : (
-                    <svg viewBox="0 0 19 20" width="19" height="20">
-                      <use xlinkHref="#add"></use>
-                    </svg>
-                  )}
-                  <span>My list</span>
-                  <span className="film-card__count">{myListLength}</span>
-                </button>
+                <MyListButton
+                  id={movie.id}
+                  isFavorite={movie.isFavorite}
+                  category="movie"
+                />
                 {authorizationStatus === AuthorizationStatus.Auth && (
                   <Link
                     to={generatePath(AppRoutes.Review, { id: movie.id })}
