@@ -1,11 +1,10 @@
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
-import { AppRoutes } from '../../const';
 import { FormEvent, useRef, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { login } from '../../store/api-actions';
 import UserBlock from '../../components/user-block/user-block';
 import Logo from '../../components/logo/logo';
+import Footer from '../../components/footer/footer';
 
 function containsAnyLetters(password: string) {
   return /[a-zA-Z]/.test(password);
@@ -116,19 +115,7 @@ export default function LoginPage() {
         </form>
       </div>
 
-      <footer className="page-footer">
-        <div className="logo">
-          <Link to={AppRoutes.Main} className="logo__link logo__link--light">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </Link>
-        </div>
-
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
