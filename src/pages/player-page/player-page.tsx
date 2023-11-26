@@ -54,11 +54,12 @@ export default function PlayerPage() {
 
   function handleFullScreenClick() {
     if (!isFullScreen) {
-      videoRef.current?.requestFullscreen({ navigationUI: 'hide' });
+      videoRef.current
+        ?.requestFullscreen({ navigationUI: 'hide' })
+        .then(() => setIsFullScreen(true));
     } else {
-      document.exitFullscreen();
+      document.exitFullscreen().then(() => setIsFullScreen(false));
     }
-    setIsFullScreen(!isFullScreen);
   }
 
   function handleTimeUpdate() {

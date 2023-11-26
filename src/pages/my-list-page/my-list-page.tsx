@@ -11,6 +11,7 @@ import {
   getMovieFetchingStatus,
   getMyList,
 } from '../../store/movie-process/selectors';
+import Logo from '../../components/logo/logo';
 
 export default function MyListPage() {
   const dispatch = useAppDispatch();
@@ -32,13 +33,7 @@ export default function MyListPage() {
       </Helmet>
 
       <header className="page-header user-page__head">
-        <div className="logo">
-          <Link to={AppRoutes.Main} className="logo__link">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </Link>
-        </div>
+        <Logo />
 
         <h1 className="page-title user-page__title">
           My list <span className="user-page__film-count">{myList.length}</span>

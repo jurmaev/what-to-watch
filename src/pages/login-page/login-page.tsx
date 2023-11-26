@@ -5,6 +5,7 @@ import { FormEvent, useRef, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { login } from '../../store/api-actions';
 import UserBlock from '../../components/user-block/user-block';
+import Logo from '../../components/logo/logo';
 
 function containsAnyLetters(password: string) {
   return /[a-zA-Z]/.test(password);
@@ -54,13 +55,7 @@ export default function LoginPage() {
       </Helmet>
 
       <header className="page-header user-page__head">
-        <div className="logo">
-          <Link to={AppRoutes.Main} className="logo__link">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </Link>
-        </div>
+        <Logo />
 
         <UserBlock />
       </header>
