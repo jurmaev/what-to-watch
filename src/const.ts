@@ -44,7 +44,7 @@ export const ApiRoute = {
   MyList: '/favorite',
 } as const;
 
-export const NameSpace = {
+export const Namespace = {
   User: 'user',
   Movie: 'movie',
   Genre: 'genre',

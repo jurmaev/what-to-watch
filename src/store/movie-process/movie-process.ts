@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { MovieProcess } from '../../types/state';
-import { NameSpace } from '../../const';
+import { Namespace } from '../../const';
 import {
   fetchMovie,
   fetchMoviePreviews,
@@ -21,7 +21,7 @@ const initialState: MovieProcess = {
 };
 
 export const movieProcess = createSlice({
-  name: NameSpace.Movie,
+  name: Namespace.Movie,
   initialState,
   reducers: {},
   extraReducers(builder) {

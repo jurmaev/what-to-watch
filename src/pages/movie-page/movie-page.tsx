@@ -110,7 +110,6 @@ export default function MoviePage() {
                         status: Number(!movie.isFavorite),
                       })
                     );
-                    navigate('/mylist');
                   }}
                 >
                   {movie.isFavorite ? (

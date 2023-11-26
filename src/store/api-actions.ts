@@ -24,23 +24,27 @@ export const fetchMoviePreviews = createAsyncThunk<
 });
 
 export const checkAuth = createAsyncThunk<
-  void,
+  string,
   undefined,
   { dispatch: AppDispatch; state: State; extra: AxiosInstance }
 >('user/checkAuth', async (_arg, { extra: api }) => {
-  await api.get(ApiRoute.Login);
+  const {
+    data: { avatarUrl },
+  } = await api.get<UserData>(ApiRoute.Login);
+  return avatarUrl;
 });
 
 export const login = createAsyncThunk<
-  void,
+  string,
   AuthData,
   { dispatch: AppDispatch; extra: AxiosInstance }
 >('user/login', async ({ email, password }, { dispatch, extra: api }) => {
   const {
-    data: { token },
+    data: { token, avatarUrl },
   } = await api.post<UserData>(ApiRoute.Login, { email, password });
   setToken(token);
   dispatch(redirectToRoute(AppRoutes.Main));
+  return avatarUrl;
 });
 
 export const logout = createAsyncThunk<

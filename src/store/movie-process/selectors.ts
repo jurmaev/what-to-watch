@@ -1,24 +1,24 @@
-import { NameSpace } from '../../const';
+import { Namespace } from '../../const';
 import { Movie, MoviePreviews, PromoMovie } from '../../types/movies';
 import { State } from '../../types/state';
 
 export const getMoviePreviews = (state: State): MoviePreviews =>
-  state[NameSpace.Movie].moviePreviews;
+  state[Namespace.Movie].moviePreviews;
 
 export const getMovie = (state: State): Movie | null =>
-  state[NameSpace.Movie].movie;
+  state[Namespace.Movie].movie;
 
 export const getPromoMovie = (state: State): PromoMovie | null =>
-  state[NameSpace.Movie].promoMovie;
+  state[Namespace.Movie].promoMovie;
 
 export const getMyList = (state: State): MoviePreviews =>
-  state[NameSpace.Movie].myList;
+  state[Namespace.Movie].myList;
 
 export const getMyListLength = (state: State): number =>
-  state[NameSpace.Movie].myListLength;
+  state[Namespace.Movie].myListLength;
 
 export const getSimilarMovies = (state: State): MoviePreviews =>
-  state[NameSpace.Movie].similarMovies;
+  state[Namespace.Movie].similarMovies;
 
 export const getMovieFetchingStatus = (state: State): boolean =>
-  state[NameSpace.Movie].isFetchingMovieData;
+  state[Namespace.Movie].isFetchingMovieData;

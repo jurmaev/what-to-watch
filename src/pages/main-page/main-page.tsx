@@ -90,7 +90,6 @@ export default function MainPage() {
                         status: Number(!promoMovie.isFavorite),
                       })
                     );
-                    navigate('/mylist');
                   }}
                 >
                   {promoMovie.isFavorite ? (

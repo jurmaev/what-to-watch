@@ -1,9 +1,9 @@
-import { NameSpace } from '../../const';
+import { Namespace } from '../../const';
 import { Reviews } from '../../types/reviews';
 import { State } from '../../types/state';
 
 export const getReviews = (state: State): Reviews =>
-  state[NameSpace.Reviews].reviews;
+  state[Namespace.Reviews].reviews;
 
 export const getReviewsFetchingStatus = (state: State): boolean =>
-  state[NameSpace.Reviews].isFetchingReviewsData;
+  state[Namespace.Reviews].isFetchingReviewsData;
