@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { Link, generatePath, useNavigate, useParams } from 'react-router-dom';
+import { Link, generatePath, useParams } from 'react-router-dom';
 import MovieList from '../../components/movie-list/movie-list';
 import { AppRoutes, AuthorizationStatus } from '../../const';
 import Tabs from '../../components/tabs/tabs';
@@ -26,6 +26,7 @@ import {
 import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
 import MyListButton from '../../components/my-list-button/my-list-button';
+import PlayButton from '../../components/play-button/play-button';
 
 export default function MoviePage() {
   const movie = useAppSelector(getMovie);
@@ -34,7 +35,6 @@ export default function MoviePage() {
   const isFetchingMovies = useAppSelector(getMovieFetchingStatus);
   const isFetchingReviews = useAppSelector(getReviewsFetchingStatus);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const navigate = useNavigate();
   const { id } = useParams();
   const dispatch = useAppDispatch();
 
@@ -84,16 +84,7 @@ export default function MoviePage() {
               </p>
 
               <div className="film-card__buttons">
-                <button
-                  className="btn btn--play film-card__button"
-                  type="button"
-                  onClick={() => navigate(`/player/${movie.id}`)}
-                >
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
+                <PlayButton id={movie.id} />
                 <MyListButton
                   id={movie.id}
                   isFavorite={movie.isFavorite}

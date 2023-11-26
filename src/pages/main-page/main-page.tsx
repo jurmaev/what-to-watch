@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import MoviePreviewsByGenre from '../../components/movie-previews-by-genre/movie-previews-by-genre';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -13,9 +12,9 @@ import {
 import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
 import MyListButton from '../../components/my-list-button/my-list-button';
+import PlayButton from '../../components/play-button/play-button';
 
 export default function MainPage() {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const promoMovie = useAppSelector(getPromoMovie);
   const isFetchingData = useAppSelector(getMovieFetchingStatus);
@@ -65,16 +64,7 @@ export default function MainPage() {
               </p>
 
               <div className="film-card__buttons">
-                <button
-                  className="btn btn--play film-card__button"
-                  type="button"
-                  onClick={() => navigate(`/player/${promoMovie.id}`)}
-                >
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
+                <PlayButton id={promoMovie.id} />
                 <MyListButton
                   id={promoMovie.id}
                   isFavorite={promoMovie.isFavorite}
