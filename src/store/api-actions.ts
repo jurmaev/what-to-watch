@@ -106,11 +106,11 @@ export const postFavoriteStatus = createAsyncThunk<
   FavoriteMovie,
   FavoriteStatus,
   { dispatch: AppDispatch; extra: AxiosInstance }
->('movie/setFavoriteStatus', async ({ id, status }, { extra: api }) => {
+>('movie/setFavoriteStatus', async ({ id, status, category }, { extra: api }) => {
   const { data } = await api.post<FavoriteMovie>(
     `${ApiRoute.MyList}/${id}/${status}`
   );
-  return data;
+  return {...data, category: category};
 });
 
 export const postReview = createAsyncThunk<

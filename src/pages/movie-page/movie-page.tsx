@@ -108,6 +108,7 @@ export default function MoviePage() {
                       postFavoriteStatus({
                         id: movie.id,
                         status: Number(!movie.isFavorite),
+                        category: 'movie',
                       })
                     );
                   }}

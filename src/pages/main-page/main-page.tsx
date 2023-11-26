@@ -88,6 +88,7 @@ export default function MainPage() {
                       postFavoriteStatus({
                         id: promoMovie.id,
                         status: Number(!promoMovie.isFavorite),
+                        category: 'promoMovie',
                       })
                     );
                   }}
