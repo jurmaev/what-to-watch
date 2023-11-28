@@ -1,3 +1,4 @@
+import { internet } from 'faker';
 import { AuthorizationStatus, Namespace } from '../../const';
 import { getAuthorizationStatus, getAvatarUrl } from './selectors';
 
@@ -5,7 +6,7 @@ describe('User process selectors', () => {
   const state = {
     [Namespace.User]: {
       authorizationStatus: AuthorizationStatus.Auth,
-      avatarUrl: './avatar.png',
+      avatarUrl: internet.url(),
     },
   };
 
