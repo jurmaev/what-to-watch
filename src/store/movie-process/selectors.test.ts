@@ -1,6 +1,7 @@
 import { Namespace } from '../../const';
 import { mockMovie } from '../../mocks/movie';
 import { mockMoviePreviews } from '../../mocks/movie-previews';
+import { mockPromoMovie } from '../../mocks/promo-movie';
 import {
   getMovie,
   getMovieFetchingStatus,
@@ -17,7 +18,7 @@ describe('Movie process selectors', () => {
       moviePreviews: mockMoviePreviews,
       movie: mockMovie,
       similarMovies: mockMoviePreviews,
-      promoMovie: mockMovie,
+      promoMovie: mockPromoMovie,
       myList: mockMoviePreviews,
       myListLength: mockMoviePreviews.length,
       isFetchingMovieData: false,
