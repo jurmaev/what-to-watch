@@ -2,9 +2,9 @@ import { Helmet } from 'react-helmet-async';
 import { FormEvent, useRef, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { login } from '../../store/api-actions';
-import UserBlock from '../../components/user-block/user-block';
-import Logo from '../../components/logo/logo';
-import Footer from '../../components/footer/footer';
+import UserBlock from '../../components/ui/user-block/user-block';
+import Logo from '../../components/ui/logo/logo';
+import Footer from '../../components/ui/footer/footer';
 
 function containsAnyLetters(password: string) {
   return /[a-zA-Z]/.test(password);

@@ -4,7 +4,7 @@ import NotFoundPage from '../not-found-page/not-found-page';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect, useRef, useState } from 'react';
 import { fetchMovie } from '../../store/api-actions';
-import Spinner from '../../components/spinner/spinner';
+import Spinner from '../../components/ui/spinner/spinner';
 import {
   getMovie,
   getMovieFetchingStatus,

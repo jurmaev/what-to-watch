@@ -6,13 +6,13 @@ import NotFoundPage from '../not-found-page/not-found-page';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { fetchMovie } from '../../store/api-actions';
-import UserBlock from '../../components/user-block/user-block';
-import Spinner from '../../components/spinner/spinner';
+import UserBlock from '../../components/ui/user-block/user-block';
+import Spinner from '../../components/ui/spinner/spinner';
 import {
   getMovie,
   getMovieFetchingStatus,
 } from '../../store/movie-process/selectors';
-import Logo from '../../components/logo/logo';
+import Logo from '../../components/ui/logo/logo';
 
 export default function ReviewPage() {
   const { id } = useParams();

@@ -1,11 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { AppRoutes, AuthorizationStatus } from '../../const';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { logout } from '../../store/api-actions';
+import { AppRoutes, AuthorizationStatus } from '../../../const';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { logout } from '../../../store/api-actions';
 import {
   getAuthorizationStatus,
   getAvatarUrl,
-} from '../../store/user-process/selectors';
+} from '../../../store/user-process/selectors';
 
 export default function UserBlock() {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);

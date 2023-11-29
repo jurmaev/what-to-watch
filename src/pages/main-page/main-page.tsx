@@ -1,18 +1,18 @@
 import { Helmet } from 'react-helmet-async';
 import MoviePreviewsByGenre from '../../components/movie-previews-by-genre/movie-previews-by-genre';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import Spinner from '../../components/spinner/spinner';
-import UserBlock from '../../components/user-block/user-block';
+import Spinner from '../../components/ui/spinner/spinner';
+import UserBlock from '../../components/ui/user-block/user-block';
 import { useEffect } from 'react';
 import { fetchPromoMovie } from '../../store/api-actions';
 import {
   getMovieFetchingStatus,
   getPromoMovie,
 } from '../../store/movie-process/selectors';
-import Logo from '../../components/logo/logo';
-import Footer from '../../components/footer/footer';
-import MyListButton from '../../components/my-list-button/my-list-button';
-import PlayButton from '../../components/play-button/play-button';
+import Logo from '../../components/ui/logo/logo';
+import Footer from '../../components/ui/footer/footer';
+import MyListButton from '../../components/ui/my-list-button/my-list-button';
+import PlayButton from '../../components/ui/play-button/play-button';
 
 export default function MainPage() {
   const dispatch = useAppDispatch();

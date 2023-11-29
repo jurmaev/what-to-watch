@@ -1,16 +1,16 @@
 import { Helmet } from 'react-helmet-async';
 import MovieList from '../../components/movie-list/movie-list';
-import UserBlock from '../../components/user-block/user-block';
+import UserBlock from '../../components/ui/user-block/user-block';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { fetchMyList } from '../../store/api-actions';
-import Spinner from '../../components/spinner/spinner';
+import Spinner from '../../components/ui/spinner/spinner';
 import {
   getMovieFetchingStatus,
   getMyList,
 } from '../../store/movie-process/selectors';
-import Logo from '../../components/logo/logo';
-import Footer from '../../components/footer/footer';
+import Logo from '../../components/ui/logo/logo';
+import Footer from '../../components/ui/footer/footer';
 
 export default function MyListPage() {
   const dispatch = useAppDispatch();

@@ -11,8 +11,8 @@ import {
 } from '../../store/api-actions';
 import { useEffect } from 'react';
 import NotFoundPage from '../not-found-page/not-found-page';
-import UserBlock from '../../components/user-block/user-block';
-import Spinner from '../../components/spinner/spinner';
+import UserBlock from '../../components/ui/user-block/user-block';
+import Spinner from '../../components/ui/spinner/spinner';
 import {
   getMovie,
   getMovieFetchingStatus,
@@ -23,10 +23,10 @@ import {
   getReviews,
   getReviewsFetchingStatus,
 } from '../../store/reviews-process/selectors';
-import Logo from '../../components/logo/logo';
-import Footer from '../../components/footer/footer';
-import MyListButton from '../../components/my-list-button/my-list-button';
-import PlayButton from '../../components/play-button/play-button';
+import Logo from '../../components/ui/logo/logo';
+import Footer from '../../components/ui/footer/footer';
+import MyListButton from '../../components/ui/my-list-button/my-list-button';
+import PlayButton from '../../components/ui/play-button/play-button';
 
 export default function MoviePage() {
   const movie = useAppSelector(getMovie);

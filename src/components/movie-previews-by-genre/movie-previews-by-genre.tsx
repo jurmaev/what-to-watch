@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Genres, GenresValues } from '../../const';
 import { useMemo, useState } from 'react';
 import cn from 'classnames';
-import ShowMore from '../show-more/show-more';
+import ShowMore from '../ui/show-more/show-more';
 import { getMoviePreviews } from '../../store/movie-process/selectors';
 import { getGenre } from '../../store/genre-process/selectors';
 import { changeGenre } from '../../store/genre-process/genre-process';

@@ -1,6 +1,6 @@
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { postFavoriteStatus } from '../../store/api-actions';
-import { getMyListLength } from '../../store/movie-process/selectors';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { postFavoriteStatus } from '../../../store/api-actions';
+import { getMyListLength } from '../../../store/movie-process/selectors';
 
 type MyListButtonProps = {
   id: string;
