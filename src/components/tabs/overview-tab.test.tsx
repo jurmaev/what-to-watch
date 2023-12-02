@@ -3,7 +3,7 @@ import OverviewTab from './overview-tab';
 import { render, screen } from '@testing-library/react';
 
 describe('Component: OverviewTab', () => {
-  it('should render correctly', () => {
+  it('renders correctly', () => {
     render(<OverviewTab movie={mockMovie} />);
 
     expect(screen.getByText(mockMovie.rating)).toBeInTheDocument();

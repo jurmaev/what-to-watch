@@ -6,7 +6,7 @@ describe('Genre process selectors', () => {
     [Namespace.Genre]: { genre: Genres.All },
   };
 
-  it('should return genre from state', () => {
+  it('returns genre from state', () => {
     const { genre } = state[Namespace.Genre];
     const result = getGenre(state);
     expect(result).toBe(genre);

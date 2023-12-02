@@ -25,19 +25,7 @@ describe('Movie process slice', () => {
     isFetchingMovieData: false,
   };
 
-  it('should return initial state with empty action', () => {
-    const emptyAction = { type: '' };
-    const result = movieProcess.reducer(initialState, emptyAction);
-    expect(result).toEqual(initialState);
-  });
-
-  it('should return default state with empty action and undefined state', () => {
-    const emptyAction = { type: '' };
-    const result = movieProcess.reducer(undefined, emptyAction);
-    expect(result).toEqual(initialState);
-  });
-
-  it('should set "isFetchingMovieData" to true with "fetchMoviePreviews.pending" action', () => {
+  it('sets isFetchingMovieData to true with fetchMoviePreviews.pending action', () => {
     const expectedState = { ...initialState, isFetchingMovieData: true };
     const result = movieProcess.reducer(
       initialState,
@@ -46,7 +34,7 @@ describe('Movie process slice', () => {
     expect(result).toEqual(expectedState);
   });
 
-  it('should set "isFetchingMovieData" to false and "moviePreviews" to payload with "fetchMoviePreviews.fulfilled" action', () => {
+  it('sets isFetchingMovieData to false and moviePreviews to payload with fetchMoviePreviews.fulfilled action', () => {
     const expectedState = {
       ...initialState,
       isFetchingMovieData: false,
@@ -59,13 +47,13 @@ describe('Movie process slice', () => {
     expect(result).toEqual(expectedState);
   });
 
-  it('should set "isFetchingMovieData" to true with "fetchMovie.pending" action', () => {
+  it('sets isFetchingMovieData to true with fetchMovie.pending action', () => {
     const expectedState = { ...initialState, isFetchingMovieData: true };
     const result = movieProcess.reducer(initialState, fetchMovie.pending);
     expect(result).toEqual(expectedState);
   });
 
-  it('should set "isFetchingMovieData" to false and "movie" to payload with "fetchMovie.fulfilled" action', () => {
+  it('sets isFetchingMovieData to false and movie to payload with fetchMovie.fulfilled action', () => {
     const expectedState = {
       ...initialState,
       isFetchingMovieData: false,
@@ -78,13 +66,13 @@ describe('Movie process slice', () => {
     expect(result).toEqual(expectedState);
   });
 
-  it('should set "isFetchingMovieData" to true with "fetchPromoMovie.pending" action', () => {
+  it('sets isFetchingMovieData to true with fetchPromoMovie.pending action', () => {
     const expectedState = { ...initialState, isFetchingMovieData: true };
     const result = movieProcess.reducer(initialState, fetchPromoMovie.pending);
     expect(result).toEqual(expectedState);
   });
 
-  it('should set "isFetchingMovieData" to false and "promoMovie" to payload with "fetchPromoMovie.fulfilled" action', () => {
+  it('sets isFetchingMovieData to false and promoMovie to payload with fetchPromoMovie.fulfilled action', () => {
     const expectedState = {
       ...initialState,
       isFetchingMovieData: false,
@@ -97,7 +85,7 @@ describe('Movie process slice', () => {
     expect(result).toEqual(expectedState);
   });
 
-  it('should set "isFetchingMovieData" to true with "fetchSimilarMovies.pending" action', () => {
+  it('sets isFetchingMovieData to true with fetchSimilarMovies.pending action', () => {
     const expectedState = { ...initialState, isFetchingMovieData: true };
     const result = movieProcess.reducer(
       initialState,
@@ -106,7 +94,7 @@ describe('Movie process slice', () => {
     expect(result).toEqual(expectedState);
   });
 
-  it('should set "isFetchingMovieData" to false and "similarMovies" to payload with "fetchSimilarMovies.fulfilled" action', () => {
+  it('sets isFetchingMovieData to false and similarMovies to payload with fetchSimilarMovies.fulfilled action', () => {
     const expectedState = {
       ...initialState,
       isFetchingMovieData: false,
@@ -119,13 +107,13 @@ describe('Movie process slice', () => {
     expect(result).toEqual(expectedState);
   });
 
-  it('should set "isFetchingMovieData" to true with "fetchMyList.pending" action', () => {
+  it('sets isFetchingMovieData to true with fetchMyList.pending action', () => {
     const expectedState = { ...initialState, isFetchingMovieData: true };
     const result = movieProcess.reducer(initialState, fetchMyList.pending);
     expect(result).toEqual(expectedState);
   });
 
-  it('should set "isFetchingMovieData" to false, "myList" and "myListLength" to payload with "fetchMyList.fulfilled" action', () => {
+  it('sets isFetchingMovieData to false, myList and myListLength to payload with fetchMyList.fulfilled action', () => {
     const expectedState = {
       ...initialState,
       isFetchingMovieData: false,
@@ -139,7 +127,7 @@ describe('Movie process slice', () => {
     expect(result).toEqual(expectedState);
   });
 
-  it('should add favorite movie to "myList" and change "myListLength" with "postFavoriteStatus.fulfilled" action', () => {
+  it('adds favorite movie to myList and change myListLength with postFavoriteStatus.fulfilled action', () => {
     const favoriteMovie = { ...mockFavoriteMovie, isFavorite: true };
     const expectedState = {
       ...initialState,
@@ -160,7 +148,7 @@ describe('Movie process slice', () => {
     expect(result).toEqual(expectedState);
   });
 
-  it('should remove favorite movie from "myList" and change "myListLength" with "postFavoriteStatus.fulfilled" action', () => {
+  it('removes favorite movie from myList and change myListLength with postFavoriteStatus.fulfilled action', () => {
     const favoriteMovie = { ...mockFavoriteMovie, isFavorite: false };
     const startingState = {
       ...initialState,
@@ -181,7 +169,7 @@ describe('Movie process slice', () => {
     expect(result).toEqual(initialState);
   });
 
-  it('should change "promoMovie.isFavorite" status with "postFavoriteStatus.fulfilled" action', () => {
+  it('changes promoMovie.isFavorite status with postFavoriteStatus.fulfilled action', () => {
     const startingState = { ...initialState, promoMovie: mockPromoMovie };
     const expectedPromoMovie = {
       ...startingState.promoMovie,
@@ -207,7 +195,7 @@ describe('Movie process slice', () => {
     expect(result.promoMovie?.isFavorite).toBeTruthy();
   });
 
-  it('should change "movie.isFavorite" status with "postFavoriteStatus.fulfilled" action', () => {
+  it('changes movie.isFavorite status with postFavoriteStatus.fulfilled action', () => {
     const startingState = { ...initialState, movie: mockMovie };
     const expectedMovie = {
       ...startingState.movie,

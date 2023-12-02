@@ -10,13 +10,13 @@ describe('User process selectors', () => {
     },
   };
 
-  it('should return authorizationStatus from state', () => {
+  it('returns authorizationStatus from state', () => {
     const { authorizationStatus } = state[Namespace.User];
     const result = getAuthorizationStatus(state);
     expect(result).toBe(authorizationStatus);
   });
 
-  it('should return avatarUrl from state', () => {
+  it('returns avatarUrl from state', () => {
     const { avatarUrl } = state[Namespace.User];
     const result = getAvatarUrl(state);
     expect(result).toBe(avatarUrl);

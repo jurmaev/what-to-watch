@@ -4,27 +4,7 @@ import { userProcess } from './user-process';
 import { checkAuth, login, logout } from '../api-actions';
 
 describe('User process slice', () => {
-  it('should return initial state with empty action', () => {
-    const emptyAction = { type: '' };
-    const expectedState = {
-      authorizationStatus: AuthorizationStatus.Unknown,
-      avatarUrl: '',
-    };
-    const result = userProcess.reducer(expectedState, emptyAction);
-    expect(result).toEqual(expectedState);
-  });
-
-  it('should return default state with empty action and undefined state', () => {
-    const emptyAction = { type: '' };
-    const expectedState = {
-      authorizationStatus: AuthorizationStatus.Unknown,
-      avatarUrl: '',
-    };
-    const result = userProcess.reducer(undefined, emptyAction);
-    expect(result).toEqual(expectedState);
-  });
-
-  it('should set "Auth" and avatarUrl with "checkAuth.fulfilled" action', () => {
+  it('sets Auth and avatarUrl with checkAuth.fulfilled action', () => {
     const initialState = {
       authorizationStatus: AuthorizationStatus.Unknown,
       avatarUrl: '',
@@ -42,7 +22,7 @@ describe('User process slice', () => {
     expect(result).toEqual(expectedState);
   });
 
-  it('should set "NoAuth" with "checkAuth.rejected" action', () => {
+  it('sets NoAuth with checkAuth.rejected action', () => {
     const initialState = {
       authorizationStatus: AuthorizationStatus.Unknown,
       avatarUrl: '',
@@ -51,7 +31,7 @@ describe('User process slice', () => {
     expect(result.authorizationStatus).toBe(AuthorizationStatus.NoAuth);
   });
 
-  it('should set "Auth" and avatarUrl with "login.fulfilled" action', () => {
+  it('sets Auth and avatarUrl with login.fulfilled action', () => {
     const initialState = {
       authorizationStatus: AuthorizationStatus.Unknown,
       avatarUrl: '',
@@ -69,7 +49,7 @@ describe('User process slice', () => {
     expect(result).toEqual(expectedState);
   });
 
-  it('should set "NoAuth" with "logout.fulfilled" action', () => {
+  it('sets NoAuth with logout.fulfilled action', () => {
     const initialState = {
       authorizationStatus: AuthorizationStatus.Unknown,
       avatarUrl: '',

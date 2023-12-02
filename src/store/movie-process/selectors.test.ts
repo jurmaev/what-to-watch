@@ -25,43 +25,43 @@ describe('Movie process selectors', () => {
     },
   };
 
-  it('should return moviePreviews from state', () => {
+  it('returns moviePreviews from state', () => {
     const { moviePreviews } = state[Namespace.Movie];
     const result = getMoviePreviews(state);
     expect(result).toEqual(moviePreviews);
   });
 
-  it('should return movie from state', () => {
+  it('returns movie from state', () => {
     const { movie } = state[Namespace.Movie];
     const result = getMovie(state);
     expect(result).toEqual(movie);
   });
 
-  it('should return similarMovies from state', () => {
+  it('returns similarMovies from state', () => {
     const { similarMovies } = state[Namespace.Movie];
     const result = getSimilarMovies(state);
     expect(result).toEqual(similarMovies);
   });
 
-  it('should return promoMovie from state', () => {
+  it('returns promoMovie from state', () => {
     const { promoMovie } = state[Namespace.Movie];
     const result = getPromoMovie(state);
     expect(result).toEqual(promoMovie);
   });
 
-  it('should return myList from state', () => {
+  it('returns myList from state', () => {
     const { myList } = state[Namespace.Movie];
     const result = getMyList(state);
     expect(result).toEqual(myList);
   });
 
-  it('should return myListLength from state', () => {
+  it('returns myListLength from state', () => {
     const { myListLength } = state[Namespace.Movie];
     const result = getMyListLength(state);
     expect(result).toEqual(myListLength);
   });
 
-  it('should return isFetchingMovieData from state', () => {
+  it('returns isFetchingMovieData from state', () => {
     const { isFetchingMovieData } = state[Namespace.Movie];
     const result = getMovieFetchingStatus(state);
     expect(result).toEqual(isFetchingMovieData);

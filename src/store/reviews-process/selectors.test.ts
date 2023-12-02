@@ -10,13 +10,13 @@ describe('Reviews process selectors', () => {
     },
   };
 
-  it('should return reviews from state', () => {
+  it('returns reviews from state', () => {
     const { reviews } = state[Namespace.Reviews];
     const result = getReviews(state);
     expect(result).toEqual(reviews);
   });
 
-  it('should return isFetchingReviewsData from state', () => {
+  it('returns isFetchingReviewsData from state', () => {
     const { isFetchingReviewsData } = state[Namespace.Reviews];
     const result = getReviewsFetchingStatus(state);
     expect(result).toEqual(isFetchingReviewsData);

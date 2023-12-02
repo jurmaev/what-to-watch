@@ -10,31 +10,27 @@ import PlayerPage from '../../pages/player-page/player-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
-import HistoryRouter from '../history-router.tsx/history-router';
-import { browserHistory } from '../../services/browser-history';
 
 export default function App() {
   return (
     <HelmetProvider>
-      <HistoryRouter history={browserHistory}>
-        <ScrollToTop />
-        <Routes>
-          <Route path={AppRoutes.Main} element={<MainPage />} />
-          <Route path={AppRoutes.Login} element={<LoginPage />} />
-          <Route
-            path={AppRoutes.MyList}
-            element={
-              <PrivateRoute>
-                <MyListPage />
-              </PrivateRoute>
-            }
-          />
-          <Route path={AppRoutes.Movie} element={<MoviePage />} />
-          <Route path={AppRoutes.Review} element={<ReviewPage />} />
-          <Route path={AppRoutes.Player} element={<PlayerPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </HistoryRouter>
+      <ScrollToTop />
+      <Routes>
+        <Route path={AppRoutes.Main} element={<MainPage />} />
+        <Route path={AppRoutes.Login} element={<LoginPage />} />
+        <Route
+          path={AppRoutes.MyList}
+          element={
+            <PrivateRoute>
+              <MyListPage />
+            </PrivateRoute>
+          }
+        />
+        <Route path={AppRoutes.Movie} element={<MoviePage />} />
+        <Route path={AppRoutes.Review} element={<ReviewPage />} />
+        <Route path={AppRoutes.Player} element={<PlayerPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
     </HelmetProvider>
   );
 }

@@ -54,7 +54,7 @@ describe('Api actions', () => {
   });
 
   describe('fetchMoviePreviews action', () => {
-    it('should dispatch "fetchMoviePreviews.pending", "fetchMoviePreviews.fulfilled" when server responds with 200', async () => {
+    it('dispatches pending, fulfilled when server responds with success', async () => {
       mockAxiosAdapter.onGet(ApiRoute.Films).reply(200, mockMoviePreviews);
 
       await store.dispatch(fetchMoviePreviews());
@@ -74,7 +74,7 @@ describe('Api actions', () => {
   });
 
   describe('checkAuth action', () => {
-    it('should dispatch "checkAuth.pending", "checkAuth.fulfilled" when server responds with 200', async () => {
+    it('dispatches pending, fulfilled when server responds with success', async () => {
       const expectedUrl = internet.url();
       mockAxiosAdapter
         .onGet(ApiRoute.Login)
@@ -95,7 +95,7 @@ describe('Api actions', () => {
       expect(checkAuthFulfilled.payload).toBe(expectedUrl);
     });
 
-    it('should dispatch "checkAuth.pending", "checkAuth.rejected" when server responds with 401', async () => {
+    it('dispatches pending, rejected when server responds with failure', async () => {
       mockAxiosAdapter.onGet(ApiRoute.Login).reply(401);
 
       await store.dispatch(checkAuth());
@@ -110,7 +110,7 @@ describe('Api actions', () => {
   });
 
   describe('logout action', () => {
-    it('should dispatch "logout.pending", "logout.fulfilled" when server responds with 204', async () => {
+    it('dispatches pending, fulfilled when server responds with success', async () => {
       mockAxiosAdapter.onDelete(ApiRoute.Login).reply(204);
 
       await store.dispatch(logout());
@@ -122,7 +122,7 @@ describe('Api actions', () => {
   });
 
   describe('fetchMovie action', () => {
-    it('should dispatch "fetchMovie.pending", "fetchMovie.fulfilled" when server responds with 200', async () => {
+    it('dispatches pending, fulfilled when server responds with success', async () => {
       const id = crypto.randomUUID();
       mockAxiosAdapter.onGet(`${ApiRoute.Films}/${id}`).reply(200, mockMovie);
 
@@ -143,7 +143,7 @@ describe('Api actions', () => {
   });
 
   describe('fetchPromoMovie action', () => {
-    it('should dispatch "fetchPromoMovie.pending", "fetchPromoMovie.fulfilled" when server responds with 200', async () => {
+    it('dispatches pending, fulfilled when server responds with success', async () => {
       mockAxiosAdapter.onGet(ApiRoute.Promo).reply(200, mockPromoMovie);
 
       await store.dispatch(fetchPromoMovie());
@@ -163,7 +163,7 @@ describe('Api actions', () => {
   });
 
   describe('fetchReviews action', () => {
-    it('should dispatch "fetchReviews.pending", "fetchReviews.fulfilled" when server responds with 200', async () => {
+    it('dispatches pending, fulfilled when server responds with success', async () => {
       const id = crypto.randomUUID();
       mockAxiosAdapter
         .onGet(`${ApiRoute.Reviews}/${id}`)
@@ -184,7 +184,7 @@ describe('Api actions', () => {
       expect(fetchReviewsFulfilled.payload).toEqual(mockReviews);
     });
 
-    it('should dispatch "fetchReviews.pending", "fetchReviews.rejected" when server responds with 404', async () => {
+    it('dispatches pending, rejected when server responds with failure', async () => {
       const id = crypto.randomUUID();
       mockAxiosAdapter.onGet(`${ApiRoute.Reviews}/${id}`).reply(404);
 
@@ -200,7 +200,7 @@ describe('Api actions', () => {
   });
 
   describe('fetchSimilarMovies action', () => {
-    it('should dispatch "fetchSimilarMovies.pending", "fetchSimilarMovies.fulfilled" when server responds with 200', async () => {
+    it('dispatches pending, fulfilled when server responds with success', async () => {
       const id = crypto.randomUUID();
       mockAxiosAdapter
         .onGet(`${ApiRoute.Films}/${id}/similar`)
@@ -221,7 +221,7 @@ describe('Api actions', () => {
       expect(fetchSimilarMoviesFulfilled.payload).toEqual(mockMoviePreviews);
     });
 
-    it('should dispatch "fetchSimilarMovies.pending", "fetchSimilarMovies.rejected" when server responds with 404', async () => {
+    it('dispatches pending, rejected when server responds with failure', async () => {
       const id = crypto.randomUUID();
       mockAxiosAdapter.onGet(`${ApiRoute.Films}/${id}/similar`).reply(404);
 
@@ -237,7 +237,7 @@ describe('Api actions', () => {
   });
 
   describe('fetchMyList action', () => {
-    it('should dispatch "fetchMyList.pending", "fetchMyList.fulfilled" when server responds with 200', async () => {
+    it('dispatches pending, fulfilled when server responds with success', async () => {
       mockAxiosAdapter.onGet(ApiRoute.MyList).reply(200, mockMoviePreviews);
 
       await store.dispatch(fetchMyList());
@@ -255,7 +255,7 @@ describe('Api actions', () => {
       expect(fetchMyListFulfilled.payload).toEqual(mockMoviePreviews);
     });
 
-    it('should dispatch "fetchMyList.pending", "fetchMyList.rejected" when server responds with 401', async () => {
+    it('dispatches pending, rejected when server responds with failure', async () => {
       mockAxiosAdapter.onGet(ApiRoute.MyList).reply(401);
 
       await store.dispatch(fetchMyList());
@@ -270,7 +270,7 @@ describe('Api actions', () => {
   });
 
   describe('postFavoriteStatus action', () => {
-    it('should dispatch "postFavoriteStatus.pending", "postFavoriteStatus.fulfilled" when server responds with 200', async () => {
+    it('dispatches pending, fulfilled when server responds with success', async () => {
       const id = crypto.randomUUID();
       const favoriteStatus: FavoriteStatus = {
         id: id,
@@ -296,7 +296,7 @@ describe('Api actions', () => {
       expect(postFavoriteStatusFulfilled.payload).toEqual(mockFavoriteMovie);
     });
 
-    it('should dispatch "postFavoriteStatus.pending", "postFavoriteStatus.rejected" when server responds with 400', async () => {
+    it('dispatches pending, rejected when server responds with failure', async () => {
       const id = crypto.randomUUID();
       const favoriteStatus: FavoriteStatus = {
         id: id,
@@ -319,7 +319,7 @@ describe('Api actions', () => {
   });
 
   describe('postReview action', () => {
-    it('should dispatch "postReview.pending", "postReview.fulfilled" when server responds with 201', async () => {
+    it('dispatches pending, fulfilled when server responds with success', async () => {
       const id = crypto.randomUUID();
       const review = { id: id, comment: '', rating: 0 };
       mockAxiosAdapter
@@ -336,7 +336,7 @@ describe('Api actions', () => {
       ]);
     });
 
-    it('should dispatch "postReview.pending", "postReview.rejected" when server responds with 400', async () => {
+    it('dispatches pending, rejected when server responds with failure', async () => {
       const id = crypto.randomUUID();
       const review = { id: id, comment: '', rating: 0 };
 
