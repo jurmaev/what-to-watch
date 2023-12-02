@@ -14,6 +14,7 @@ import { mockMovie } from '../mocks/movie';
 import { mockMoviePreviews } from '../mocks/movie-previews';
 import { mockReviews } from '../mocks/reviews';
 import { internet } from 'faker';
+import { ReactElement, ReactNode } from 'react';
 
 export type AppThunkDispatch = ThunkDispatch<
   State,
@@ -24,7 +25,7 @@ export type AppThunkDispatch = ThunkDispatch<
 export const extractActionTypes = (actions: Action<string>[]) =>
   actions.map(({ type }) => type);
 
-export function withHistory(component: JSX.Element, history?: MemoryHistory) {
+export function withHistory(component: ReactNode, history?: MemoryHistory) {
   const memoryHistory = history ?? createMemoryHistory();
 
   return (
@@ -35,13 +36,13 @@ export function withHistory(component: JSX.Element, history?: MemoryHistory) {
 }
 
 type ComponentWithMockStore = {
-  withStoreComponent: JSX.Element;
+  withStoreComponent: ReactElement;
   mockStore: MockStore;
   mockAxiosAdapter: MockAdapter;
 };
 
 export function withStore(
-  component: JSX.Element,
+  component: ReactElement,
   initialState: Partial<State> = {}
 ): ComponentWithMockStore {
   const axios = createApi();

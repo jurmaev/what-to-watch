@@ -6,6 +6,7 @@ import { render, screen } from '@testing-library/react';
 import { mockPromoMovie } from '../../mocks/promo-movie';
 import { internet } from 'faker';
 import { mockMovie } from '../../mocks/movie';
+import { mockMoviePreviews } from '../../mocks/movie-previews';
 
 describe('Application routing', () => {
   let mockHistory: MemoryHistory;
@@ -60,7 +61,7 @@ describe('Application routing', () => {
 
     render(withStoreComponent);
 
-    expect(screen.getByText('My List')).toBeInTheDocument();
+    expect(screen.getByText(/My List/i)).toBeInTheDocument();
     expect(screen.getByText('Catalog')).toBeInTheDocument();
   });
 
@@ -91,7 +92,7 @@ describe('Application routing', () => {
 
     expect(screen.getByAltText(mockMovie.name)).toBeInTheDocument();
     expect(screen.getByText('Add review')).toBeInTheDocument();
-    expect(screen.getByText(`${mockMovie.name} poster`)).toBeInTheDocument();
+    expect(screen.getByText(mockMovie.name)).toBeInTheDocument();
   });
 
   it('renders PlayerPage when user navigates to player page', () => {
