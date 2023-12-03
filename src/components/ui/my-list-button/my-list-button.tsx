@@ -31,11 +31,11 @@ export default function MyListButton({
       }}
     >
       {isFavorite ? (
-        <svg width="18" height="14" viewBox="0 0 18 14">
+        <svg width="18" height="14" viewBox="0 0 18 14" data-testid="inList">
           <use xlinkHref="#in-list"></use>
         </svg>
       ) : (
-        <svg viewBox="0 0 19 20" width="19" height="20">
+        <svg viewBox="0 0 19 20" width="19" height="20" data-testid="add">
           <use xlinkHref="#add"></use>
         </svg>
       )}

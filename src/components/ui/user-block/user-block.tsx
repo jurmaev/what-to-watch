@@ -33,6 +33,7 @@ export default function UserBlock() {
             onClick={() => {
               dispatch(logout());
             }}
+            data-testid="logOut"
           >
             <a className="user-block__link">Sign out</a>
           </li>

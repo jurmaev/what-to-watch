@@ -6,7 +6,6 @@ import { render, screen } from '@testing-library/react';
 import { mockPromoMovie } from '../../mocks/promo-movie';
 import { internet } from 'faker';
 import { mockMovie } from '../../mocks/movie';
-import { mockMoviePreviews } from '../../mocks/movie-previews';
 
 describe('Application routing', () => {
   let mockHistory: MemoryHistory;

@@ -9,6 +9,7 @@ export default function ShowMore({ isActive, onClick }: ShowMoreProps) {
       className="catalog__more"
       onClick={onClick}
       style={{ display: !isActive ? 'none' : 'block' }}
+      data-testid='showMore'
     >
       <button className="catalog__button" type="button">
         Show more
