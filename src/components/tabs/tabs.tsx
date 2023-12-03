@@ -55,6 +55,7 @@ export default function Tabs({ movie, reviews }: TabsProps) {
               'film-nav__item--active': activeTab === TabNames.Details,
             })}
             onClick={() => handleClick(TabNames.Details)}
+            data-testid='detailsLink'
           >
             <Link to="#" className="film-nav__link">
               {TabNames.Details}
@@ -65,6 +66,7 @@ export default function Tabs({ movie, reviews }: TabsProps) {
               'film-nav__item--active': activeTab === TabNames.Reviews,
             })}
             onClick={() => handleClick(TabNames.Reviews)}
+            data-testid='reviewsLink'
           >
             <Link to="#" className="film-nav__link">
               {TabNames.Reviews}

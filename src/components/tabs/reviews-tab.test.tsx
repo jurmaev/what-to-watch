@@ -8,6 +8,7 @@ describe('Component: ReviewsTab', () => {
 
     render(<ReviewsTab reviews={mockReviews} />);
 
+    expect(screen.getAllByTestId('review')).toHaveLength(1);
     expect(screen.getByText(expectedReview.comment)).toBeInTheDocument();
     expect(screen.getByText(expectedReview.user)).toBeInTheDocument();
     expect(screen.getByText(expectedReview.rating)).toBeInTheDocument();
