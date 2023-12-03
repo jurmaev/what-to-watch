@@ -39,6 +39,7 @@ export default function ReviewForm({ id }: ReviewFormProps) {
                 type="radio"
                 name="rating"
                 value={rating}
+                data-testid='rating'
               />,
               <label
                 key={`label-${rating}`}
