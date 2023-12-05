@@ -13,6 +13,17 @@ export default function ReviewForm({ id }: ReviewFormProps) {
   const [form, setForm] = useState({ rating: '0', reviewText: '' });
   const ratings = [...Array(STARS).keys()].map((_, i) => i + 1).reverse();
 
+  function isButtonDisabled() {
+    if (
+      form.rating === '0' ||
+      form.reviewText.length < 50 ||
+      form.reviewText.length > 400
+    ) {
+      return true;
+    }
+    return false;
+  }
+
   function handleSubmit(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
     dispatch(
@@ -39,7 +50,7 @@ export default function ReviewForm({ id }: ReviewFormProps) {
                 type="radio"
                 name="rating"
                 value={rating}
-                data-testid='rating'
+                data-testid="rating"
               />,
               <label
                 key={`label-${rating}`}
@@ -64,7 +75,11 @@ export default function ReviewForm({ id }: ReviewFormProps) {
           >
           </textarea>
           <div className="add-review__submit">
-            <button className="add-review__btn" type="submit">
+            <button
+              className="add-review__btn"
+              type="submit"
+              disabled={isButtonDisabled()}
+            >
               Post
             </button>
           </div>

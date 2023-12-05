@@ -84,7 +84,12 @@ describe('Application routing', () => {
     const withHistoryComponent = withHistory(<App />, mockHistory);
     const { withStoreComponent } = withStore(
       withHistoryComponent,
-      makeFakeStore()
+      makeFakeStore({
+        [Namespace.User]: {
+          authorizationStatus: AuthorizationStatus.Auth,
+          avatarUrl: internet.url(),
+        },
+      })
     );
     mockHistory.push(`/films/${mockMovie.id}/review`);
 

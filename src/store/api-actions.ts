@@ -106,17 +106,21 @@ export const postFavoriteStatus = createAsyncThunk<
   FavoriteMovie,
   FavoriteStatus,
   { dispatch: AppDispatch; extra: AxiosInstance }
->('movie/setFavoriteStatus', async ({ id, status, category }, { extra: api }) => {
-  const { data } = await api.post<FavoriteMovie>(
-    `${ApiRoute.MyList}/${id}/${status}`
-  );
-  return {...data, category: category};
-});
+>(
+  'movie/setFavoriteStatus',
+  async ({ id, status, category }, { extra: api }) => {
+    const { data } = await api.post<FavoriteMovie>(
+      `${ApiRoute.MyList}/${id}/${status}`
+    );
+    return { ...data, category: category };
+  }
+);
 
 export const postReview = createAsyncThunk<
   void,
   ReviewBase,
   { dispatch: AppDispatch; extra: AxiosInstance }
->('review/post', async ({ id, comment, rating }, { extra: api }) => {
+>('review/post', async ({ id, comment, rating }, { dispatch, extra: api }) => {
   await api.post(`${ApiRoute.Reviews}/${id}`, { comment, rating });
+  dispatch(redirectToRoute(`/films/${id}`));
 });

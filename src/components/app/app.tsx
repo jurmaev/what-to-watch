@@ -27,7 +27,14 @@ export default function App() {
           }
         />
         <Route path={AppRoutes.Movie} element={<MoviePage />} />
-        <Route path={AppRoutes.Review} element={<ReviewPage />} />
+        <Route
+          path={AppRoutes.Review}
+          element={
+            <PrivateRoute>
+              <ReviewPage />
+            </PrivateRoute>
+          }
+        />
         <Route path={AppRoutes.Player} element={<PlayerPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

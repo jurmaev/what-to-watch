@@ -19,7 +19,7 @@ function getTimeLeft(seconds: number): string {
 
 export default function PlayerPage() {
   const movie = useAppSelector(getMovie);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const progressRef = useRef<HTMLProgressElement | null>(null);
@@ -39,6 +39,7 @@ export default function PlayerPage() {
   if (isFetchingData) {
     return <Spinner isActive />;
   }
+
   if (!movie || !id) {
     return <NotFoundPage />;
   }
@@ -90,6 +91,7 @@ export default function PlayerPage() {
         src={movie.videoLink}
         className="player__video"
         poster={movie.backgroundImage}
+        autoPlay
         ref={videoRef}
         onTimeUpdate={handleTimeUpdate}
       >
@@ -127,7 +129,7 @@ export default function PlayerPage() {
             type="button"
             className="player__play"
             onClick={handleControlClick}
-            data-testid='videoControl'
+            data-testid="videoControl"
           >
             {isPlaying ? (
               <>
