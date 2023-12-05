@@ -6,21 +6,25 @@ import { withHistory } from '../../services/mocks';
 import userEvent from '@testing-library/user-event';
 
 describe('Tabs', () => {
+  const preparedComponent = withHistory(
+    <Tabs movie={mockMovie} reviews={mockReviews} />
+  );
+
   it('renders correctly', () => {
-    render(withHistory(<Tabs movie={mockMovie} reviews={mockReviews} />));
+    render(preparedComponent);
 
     expect(screen.getByRole('navigation')).toBeInTheDocument();
   });
 
   it('renders overview tab', () => {
-    render(withHistory(<Tabs movie={mockMovie} reviews={mockReviews} />));
+    render(preparedComponent);
 
     expect(screen.getByText(mockMovie.rating)).toBeInTheDocument();
     expect(screen.getByText(mockMovie.description)).toBeInTheDocument();
   });
 
   it('renders details tab', async () => {
-    render(withHistory(<Tabs movie={mockMovie} reviews={mockReviews} />));
+    render(preparedComponent);
 
     await userEvent.click(screen.getByTestId('detailsLink'));
 
@@ -30,7 +34,7 @@ describe('Tabs', () => {
   });
 
   it('renders reviews tab', async () => {
-    render(withHistory(<Tabs movie={mockMovie} reviews={mockReviews} />));
+    render(preparedComponent);
 
     await userEvent.click(screen.getByTestId('reviewsLink'));
 

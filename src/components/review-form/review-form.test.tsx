@@ -6,9 +6,11 @@ import { ApiRoute } from '../../const';
 import { postReview } from '../../store/api-actions';
 
 describe('ReviewForm', () => {
-  it('renders correctly', () => {
-    const { withStoreComponent } = withStore(<ReviewForm id="1" />);
+  const { withStoreComponent, mockStore, mockAxiosAdapter } = withStore(
+    <ReviewForm id="1" />
+  );
 
+  it('renders correctly', () => {
     render(withStoreComponent);
 
     expect(screen.getAllByTestId('rating')).toHaveLength(10);
@@ -16,8 +18,6 @@ describe('ReviewForm', () => {
   });
 
   it('checks rating on click', async () => {
-    const { withStoreComponent } = withStore(<ReviewForm id="1" />);
-
     render(withStoreComponent);
     await userEvent.click(screen.getAllByTestId('rating')[4]);
 
@@ -25,7 +25,6 @@ describe('ReviewForm', () => {
   });
 
   it('types text in textarea', async () => {
-    const { withStoreComponent } = withStore(<ReviewForm id="1" />);
     const expectedText = 'good movie';
 
     render(withStoreComponent);
@@ -38,10 +37,6 @@ describe('ReviewForm', () => {
   });
 
   it('sends review on submit click', async () => {
-    const { withStoreComponent, mockStore, mockAxiosAdapter } = withStore(
-      <ReviewForm id="1" />
-    );
-
     render(withStoreComponent);
     mockAxiosAdapter.onPost(`${ApiRoute.Reviews}/1`).reply(200);
     await userEvent.click(screen.getAllByTestId('rating')[4]);

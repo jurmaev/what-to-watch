@@ -8,19 +8,19 @@ import { mockMovie } from '../../mocks/movie';
 import userEvent from '@testing-library/user-event';
 
 describe('PlayerPage', () => {
-  it('renders correctly', () => {
-    const mockHistory = createMemoryHistory();
-    const { withStoreComponent } = withStore(
-      withHistory(
-        <Routes>
-          <Route path={AppRoutes.Player} element={<PlayerPage />}></Route>
-        </Routes>,
-        mockHistory
-      ),
-      makeFakeStore()
-    );
-    mockHistory.push(`/player/${mockMovie.id}`);
+  const mockHistory = createMemoryHistory();
+  const { withStoreComponent } = withStore(
+    withHistory(
+      <Routes>
+        <Route path={AppRoutes.Player} element={<PlayerPage />}></Route>
+      </Routes>,
+      mockHistory
+    ),
+    makeFakeStore()
+  );
+  mockHistory.push(`/player/${mockMovie.id}`);
 
+  it('renders correctly', () => {
     render(withStoreComponent);
 
     expect(screen.getByText('Exit')).toBeInTheDocument();
@@ -30,18 +30,6 @@ describe('PlayerPage', () => {
   });
 
   it('plays video', async () => {
-    const mockHistory = createMemoryHistory();
-    const { withStoreComponent } = withStore(
-      withHistory(
-        <Routes>
-          <Route path={AppRoutes.Player} element={<PlayerPage />}></Route>
-        </Routes>,
-        mockHistory
-      ),
-      makeFakeStore()
-    );
-    mockHistory.push(`/player/${mockMovie.id}`);
-
     render(withStoreComponent);
     await userEvent.click(screen.getByTestId('videoControl'));
 

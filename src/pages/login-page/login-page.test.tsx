@@ -13,12 +13,17 @@ import { login } from '../../store/api-actions';
 import { redirectToRoute } from '../../store/action';
 
 describe('LoginPage', () => {
-  it('renders correctly', () => {
-    const { withStoreComponent } = withStore(
-      withHistory(<LoginPage />),
-      makeFakeStore()
-    );
+  const mockHistory = createMemoryHistory();
+  const { withStoreComponent, mockStore, mockAxiosAdapter } = withStore(
+    withHistory(<LoginPage />),
+    makeFakeStore()
+  );
+  const email = 'test@gmail.com';
+  const password = 'password123';
+  const wrongEmail = 'wrongEmail';
+  const wrongPassword = '123';
 
+  it('renders correctly', () => {
     render(withStoreComponent);
 
     expect(screen.getByLabelText('Email address')).toBeInTheDocument();
@@ -27,81 +32,46 @@ describe('LoginPage', () => {
   });
 
   it('types in email field', async () => {
-    const { withStoreComponent } = withStore(
-      withHistory(<LoginPage />),
-      makeFakeStore()
-    );
-    const expectedText = 'test@gmail.com';
-
     render(withStoreComponent);
-    await userEvent.type(
-      screen.getByPlaceholderText('Email address'),
-      expectedText
-    );
+    await userEvent.type(screen.getByPlaceholderText('Email address'), email);
 
-    expect(screen.getByDisplayValue(expectedText)).toBeInTheDocument();
+    expect(screen.getByDisplayValue(email)).toBeInTheDocument();
   });
 
   it('types in password field', async () => {
-    const { withStoreComponent } = withStore(
-      withHistory(<LoginPage />),
-      makeFakeStore()
-    );
-    const expectedText = 'password123';
-
     render(withStoreComponent);
-    await userEvent.type(screen.getByPlaceholderText('Password'), expectedText);
+    await userEvent.type(screen.getByPlaceholderText('Password'), password);
 
-    expect(screen.getByDisplayValue(expectedText)).toBeInTheDocument();
+    expect(screen.getByDisplayValue(password)).toBeInTheDocument();
   });
 
   it('displays email error', async () => {
-    const { withStoreComponent } = withStore(
-      withHistory(<LoginPage />),
-      makeFakeStore()
-    );
-    const expectedEmail = 'wrongEmail';
-    const expectedPassword = 'password123';
-
     render(withStoreComponent);
     await userEvent.type(
       screen.getByPlaceholderText('Email address'),
-      expectedEmail
+      wrongEmail
     );
-    await userEvent.type(
-      screen.getByPlaceholderText('Password'),
-      expectedPassword
-    );
+    await userEvent.type(screen.getByPlaceholderText('Password'), password);
     await userEvent.click(screen.getByRole('button'));
 
-    expect(screen.getByDisplayValue(expectedEmail)).toBeInTheDocument();
-    expect(screen.getByDisplayValue(expectedPassword)).toBeInTheDocument();
+    expect(screen.getByDisplayValue(wrongEmail)).toBeInTheDocument();
+    expect(screen.getByDisplayValue(password)).toBeInTheDocument();
     expect(
       screen.getByText('Please enter a valid email address')
     ).toBeInTheDocument();
   });
 
   it('displays password error', async () => {
-    const { withStoreComponent } = withStore(
-      withHistory(<LoginPage />),
-      makeFakeStore()
-    );
-    const expectedEmail = 'test@gmail.com';
-    const expectedPassword = '123';
-
     render(withStoreComponent);
-    await userEvent.type(
-      screen.getByPlaceholderText('Email address'),
-      expectedEmail
-    );
+    await userEvent.type(screen.getByPlaceholderText('Email address'), email);
     await userEvent.type(
       screen.getByPlaceholderText('Password'),
-      expectedPassword
+      wrongPassword
     );
     await userEvent.click(screen.getByRole('button'));
 
-    expect(screen.getByDisplayValue(expectedEmail)).toBeInTheDocument();
-    expect(screen.getByDisplayValue(expectedPassword)).toBeInTheDocument();
+    expect(screen.getByDisplayValue(email)).toBeInTheDocument();
+    expect(screen.getByDisplayValue(wrongPassword)).toBeInTheDocument();
     expect(
       screen.getByText(
         'Password should contain at least one letter and one number'
@@ -110,24 +80,10 @@ describe('LoginPage', () => {
   });
 
   it('logs in user and redirects to main page', async () => {
-    const mockHistory = createMemoryHistory();
-    const { withStoreComponent, mockStore, mockAxiosAdapter } = withStore(
-      withHistory(<LoginPage />),
-      makeFakeStore()
-    );
-    const expectedEmail = 'test@gmail.com';
-    const expectedPassword = 'password123';
-
     render(withStoreComponent);
     mockAxiosAdapter.onPost(ApiRoute.Login).reply(200, { avatarUrl: '' });
-    await userEvent.type(
-      screen.getByPlaceholderText('Email address'),
-      expectedEmail
-    );
-    await userEvent.type(
-      screen.getByPlaceholderText('Password'),
-      expectedPassword
-    );
+    await userEvent.type(screen.getByPlaceholderText('Email address'), email);
+    await userEvent.type(screen.getByPlaceholderText('Password'), password);
     await userEvent.click(screen.getByRole('button'));
     const actions = extractActionTypes(mockStore.getActions());
 

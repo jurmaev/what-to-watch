@@ -14,6 +14,7 @@ import {
   fetchPromoMovie,
   fetchReviews,
   fetchSimilarMovies,
+  login,
   logout,
   postFavoriteStatus,
   postReview,
@@ -25,6 +26,8 @@ import { mockPromoMovie } from '../mocks/promo-movie';
 import { mockReviews } from '../mocks/reviews';
 import { FavoriteStatus } from '../types/movies';
 import { mockFavoriteMovie } from '../mocks/favorite-movie';
+import { redirectToRoute } from './action';
+import * as tokenStorage from '../services/token';
 
 describe('Api actions', () => {
   const axios = createApi();
@@ -118,6 +121,44 @@ describe('Api actions', () => {
       const actions = extractActionTypes(store.getActions());
 
       expect(actions).toEqual([logout.pending.type, logout.fulfilled.type]);
+    });
+  });
+
+  describe('login action', () => {
+    it('dispatches pending, fulfilled and redirectToRoute when server responds with success', async () => {
+      const userData = { email: '', password: '' };
+      const avatarUrl = internet.url();
+      mockAxiosAdapter
+        .onPost(ApiRoute.Login)
+        .reply(200, { token: '', avatarUrl: avatarUrl });
+      const mockSaveToken = vi.spyOn(tokenStorage, 'setToken');
+
+      await store.dispatch(login(userData));
+
+      const emittedActions = store.getActions();
+      const extractedActionTypes = extractActionTypes(emittedActions);
+      const loginFulfilled = emittedActions.at(2) as ReturnType<
+        typeof login.fulfilled
+      >;
+
+      expect(extractedActionTypes).toEqual([
+        login.pending.type,
+        redirectToRoute.type,
+        login.fulfilled.type,
+      ]);
+      expect(loginFulfilled.payload).toBe(avatarUrl);
+      expect(mockSaveToken).toBeCalledTimes(1);
+    });
+
+    it('dispatches pending, rejected when server responds with failure', async () => {
+      const userData = { email: '', password: '' };
+      mockAxiosAdapter.onPost(ApiRoute.Login).reply(400);
+
+      await store.dispatch(login(userData));
+
+      const actions = extractActionTypes(store.getActions());
+
+      expect(actions).toEqual([login.pending.type, login.rejected.type]);
     });
   });
 

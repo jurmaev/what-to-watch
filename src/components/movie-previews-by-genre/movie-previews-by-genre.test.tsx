@@ -5,12 +5,13 @@ import { Genres, GenresValues, Namespace } from '../../const';
 import { mockMoviePreviews } from '../../mocks/movie-previews';
 
 describe('MoviePreviewsByGenre', () => {
+  const moviePreview = mockMoviePreviews[0];
+
   it('renders correctly', () => {
     const { withStoreComponent } = withStore(
       withHistory(<MoviePreviewsByGenre />),
       makeFakeStore()
     );
-    const moviePreview = mockMoviePreviews[0];
 
     render(withStoreComponent);
 
@@ -23,7 +24,6 @@ describe('MoviePreviewsByGenre', () => {
   });
 
   it('selects correct genre', () => {
-    const moviePreview = mockMoviePreviews[0];
     const { withStoreComponent } = withStore(
       withHistory(<MoviePreviewsByGenre />),
       makeFakeStore({

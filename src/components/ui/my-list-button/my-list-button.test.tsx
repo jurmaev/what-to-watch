@@ -43,7 +43,7 @@ describe('MyListButton', () => {
     expect(screen.getByTestId('add')).toBeInTheDocument();
   });
 
-  it('dispatches action on click', async () => {
+  it('changes favorite status on click', async () => {
     const { withStoreComponent, mockStore, mockAxiosAdapter } = withStore(
       <MyListButton id="1" isFavorite={false} category="movie" />,
       makeFakeStore()
