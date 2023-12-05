@@ -127,6 +127,7 @@ export default function PlayerPage() {
             type="button"
             className="player__play"
             onClick={handleControlClick}
+            data-testid='videoControl'
           >
             {isPlaying ? (
               <>
