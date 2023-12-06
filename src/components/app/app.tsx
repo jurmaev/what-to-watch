@@ -9,12 +9,10 @@ import ReviewPage from '../../pages/review-page/review-page';
 import PlayerPage from '../../pages/player-page/player-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
-import ScrollToTop from '../scroll-to-top/scroll-to-top';
 
 export default function App() {
   return (
     <HelmetProvider>
-      <ScrollToTop />
       <Routes>
         <Route path={AppRoutes.Main} element={<MainPage />} />
         <Route path={AppRoutes.Login} element={<LoginPage />} />

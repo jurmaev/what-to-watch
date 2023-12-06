@@ -9,7 +9,6 @@ import { mockMovie } from '../../mocks/movie';
 
 describe('Application routing', () => {
   let mockHistory: MemoryHistory;
-  window.scrollTo = vi.fn();
 
   beforeEach(() => {
     mockHistory = createMemoryHistory();
