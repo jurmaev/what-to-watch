@@ -360,7 +360,7 @@ describe('Api actions', () => {
   });
 
   describe('postReview action', () => {
-    it('dispatches pending, fulfilled when server responds with success', async () => {
+    it('dispatches pending, fulfilled and redirectToRoute when server responds with success', async () => {
       const id = crypto.randomUUID();
       const review = { id: id, comment: '', rating: 0 };
       mockAxiosAdapter
@@ -373,6 +373,7 @@ describe('Api actions', () => {
 
       expect(actions).toEqual([
         postReview.pending.type,
+        redirectToRoute.type,
         postReview.fulfilled.type,
       ]);
     });

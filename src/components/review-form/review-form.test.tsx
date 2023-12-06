@@ -4,6 +4,7 @@ import { extractActionTypes, withStore } from '../../services/mocks';
 import userEvent from '@testing-library/user-event';
 import { ApiRoute } from '../../const';
 import { postReview } from '../../store/api-actions';
+import { redirectToRoute } from '../../store/action';
 
 describe('ReviewForm', () => {
   const { withStoreComponent, mockStore, mockAxiosAdapter } = withStore(
@@ -40,13 +41,17 @@ describe('ReviewForm', () => {
     render(withStoreComponent);
     mockAxiosAdapter.onPost(`${ApiRoute.Reviews}/1`).reply(200);
     await userEvent.click(screen.getAllByTestId('rating')[4]);
-    await userEvent.type(screen.getByPlaceholderText('Review text'), 'review');
+    await userEvent.type(
+      screen.getByPlaceholderText('Review text'),
+      'review text with at least 50 symbols to pass length check'
+    );
     await userEvent.click(screen.getByRole('button'));
 
     const actions = extractActionTypes(mockStore.getActions());
 
     expect(actions).toEqual([
       postReview.pending.type,
+      redirectToRoute.type,
       postReview.fulfilled.type,
     ]);
   });

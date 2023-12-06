@@ -25,7 +25,7 @@ describe('PlayerPage', () => {
 
     expect(screen.getByText('Exit')).toBeInTheDocument();
     expect(screen.getByText('Toggler')).toBeInTheDocument();
-    expect(screen.getByText('Play')).toBeInTheDocument();
+    expect(screen.getByText('Pause')).toBeInTheDocument();
     expect(screen.getByText('Full screen')).toBeInTheDocument();
   });
 
@@ -33,6 +33,6 @@ describe('PlayerPage', () => {
     render(withStoreComponent);
     await userEvent.click(screen.getByTestId('videoControl'));
 
-    expect(screen.getByText('Pause')).toBeInTheDocument();
+    expect(screen.getByText('Play')).toBeInTheDocument();
   });
 });
