@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ReviewsProcess } from '../../types/state';
-import { NameSpace } from '../../const';
+import { Namespace } from '../../const';
 import { fetchReviews } from '../api-actions';
 
 const initialState: ReviewsProcess = {
@@ -9,7 +9,7 @@ const initialState: ReviewsProcess = {
 };
 
 export const reviewsProcess = createSlice({
-  name: NameSpace.Reviews,
+  name: Namespace.Reviews,
   initialState,
   reducers: {},
   extraReducers(builder) {

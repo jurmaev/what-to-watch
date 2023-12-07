@@ -1,4 +1,4 @@
-import { Link, generatePath } from 'react-router-dom';
+import { Link, generatePath, useNavigate } from 'react-router-dom';
 import { AppRoutes } from '../../const';
 import VideoPlayer from '../video-player/video-player';
 import { useState } from 'react';
@@ -13,6 +13,7 @@ type MovieCardProps = {
 
 export default function MovieCard(props: MovieCardProps) {
   const [isActive, setIsActive] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <article
@@ -20,7 +21,10 @@ export default function MovieCard(props: MovieCardProps) {
       onMouseLeave={() => setIsActive(false)}
       className="small-film-card catalog__films-card"
     >
-      <div className="small-film-card__image">
+      <div
+        className="small-film-card__image"
+        onClick={() => navigate(`/films/${props.id}`)}
+      >
         <VideoPlayer
           isMuted={props.isMuted}
           isActive={isActive}

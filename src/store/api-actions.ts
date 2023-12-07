@@ -24,23 +24,27 @@ export const fetchMoviePreviews = createAsyncThunk<
 });
 
 export const checkAuth = createAsyncThunk<
-  void,
+  string,
   undefined,
   { dispatch: AppDispatch; state: State; extra: AxiosInstance }
 >('user/checkAuth', async (_arg, { extra: api }) => {
-  await api.get(ApiRoute.Login);
+  const {
+    data: { avatarUrl },
+  } = await api.get<UserData>(ApiRoute.Login);
+  return avatarUrl;
 });
 
 export const login = createAsyncThunk<
-  void,
+  string,
   AuthData,
   { dispatch: AppDispatch; extra: AxiosInstance }
 >('user/login', async ({ email, password }, { dispatch, extra: api }) => {
   const {
-    data: { token },
+    data: { token, avatarUrl },
   } = await api.post<UserData>(ApiRoute.Login, { email, password });
   setToken(token);
   dispatch(redirectToRoute(AppRoutes.Main));
+  return avatarUrl;
 });
 
 export const logout = createAsyncThunk<
@@ -102,17 +106,21 @@ export const postFavoriteStatus = createAsyncThunk<
   FavoriteMovie,
   FavoriteStatus,
   { dispatch: AppDispatch; extra: AxiosInstance }
->('movie/setFavoriteStatus', async ({ id, status }, { extra: api }) => {
-  const { data } = await api.post<FavoriteMovie>(
-    `${ApiRoute.MyList}/${id}/${status}`
-  );
-  return data;
-});
+>(
+  'movie/setFavoriteStatus',
+  async ({ id, status, category }, { extra: api }) => {
+    const { data } = await api.post<FavoriteMovie>(
+      `${ApiRoute.MyList}/${id}/${status}`
+    );
+    return { ...data, category: category };
+  }
+);
 
 export const postReview = createAsyncThunk<
   void,
   ReviewBase,
   { dispatch: AppDispatch; extra: AxiosInstance }
->('review/post', async ({ id, comment, rating }, { extra: api }) => {
+>('review/post', async ({ id, comment, rating }, { dispatch, extra: api }) => {
   await api.post(`${ApiRoute.Reviews}/${id}`, { comment, rating });
+  dispatch(redirectToRoute(`/films/${id}`));
 });

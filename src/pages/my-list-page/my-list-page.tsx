@@ -1,16 +1,16 @@
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
 import MovieList from '../../components/movie-list/movie-list';
-import { AppRoutes } from '../../const';
-import UserBlock from '../../components/user-block/user-block';
+import UserBlock from '../../components/ui/user-block/user-block';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { fetchMyList } from '../../store/api-actions';
-import Spinner from '../../components/spinner/spinner';
+import Spinner from '../../components/ui/spinner/spinner';
 import {
   getMovieFetchingStatus,
   getMyList,
 } from '../../store/movie-process/selectors';
+import Logo from '../../components/ui/logo/logo';
+import Footer from '../../components/ui/footer/footer';
 
 export default function MyListPage() {
   const dispatch = useAppDispatch();
@@ -32,13 +32,7 @@ export default function MyListPage() {
       </Helmet>
 
       <header className="page-header user-page__head">
-        <div className="logo">
-          <Link to={AppRoutes.Main} className="logo__link">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </Link>
-        </div>
+        <Logo />
 
         <h1 className="page-title user-page__title">
           My list <span className="user-page__film-count">{myList.length}</span>
@@ -51,19 +45,7 @@ export default function MyListPage() {
         <MovieList moviePreviews={myList} length={myList.length} />
       </section>
 
-      <footer className="page-footer">
-        <div className="logo">
-          <Link to={AppRoutes.Main} className="logo__link logo__link--light">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </Link>
-        </div>
-
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

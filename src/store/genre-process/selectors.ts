@@ -1,5 +1,5 @@
-import { GenresValues, NameSpace } from '../../const';
+import { GenresValues, Namespace } from '../../const';
 import { State } from '../../types/state';
 
-export const getGenre = (state: State): GenresValues =>
-  state[NameSpace.Genre].genre;
+export const getGenre = (state: Pick<State, typeof Namespace.Genre>): GenresValues =>
+  state[Namespace.Genre].genre;

@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { Link, generatePath, useNavigate, useParams } from 'react-router-dom';
+import { Link, generatePath, useParams } from 'react-router-dom';
 import MovieList from '../../components/movie-list/movie-list';
 import { AppRoutes, AuthorizationStatus } from '../../const';
 import Tabs from '../../components/tabs/tabs';
@@ -8,16 +8,14 @@ import {
   fetchMovie,
   fetchReviews,
   fetchSimilarMovies,
-  postFavoriteStatus,
 } from '../../store/api-actions';
 import { useEffect } from 'react';
 import NotFoundPage from '../not-found-page/not-found-page';
-import UserBlock from '../../components/user-block/user-block';
-import Spinner from '../../components/spinner/spinner';
+import UserBlock from '../../components/ui/user-block/user-block';
+import Spinner from '../../components/ui/spinner/spinner';
 import {
   getMovie,
   getMovieFetchingStatus,
-  getMyListLength,
   getSimilarMovies,
 } from '../../store/movie-process/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
@@ -25,6 +23,10 @@ import {
   getReviews,
   getReviewsFetchingStatus,
 } from '../../store/reviews-process/selectors';
+import Logo from '../../components/ui/logo/logo';
+import Footer from '../../components/ui/footer/footer';
+import MyListButton from '../../components/ui/my-list-button/my-list-button';
+import PlayButton from '../../components/ui/play-button/play-button';
 
 export default function MoviePage() {
   const movie = useAppSelector(getMovie);
@@ -33,8 +35,6 @@ export default function MoviePage() {
   const isFetchingMovies = useAppSelector(getMovieFetchingStatus);
   const isFetchingReviews = useAppSelector(getReviewsFetchingStatus);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const myListLength = useAppSelector(getMyListLength);
-  const navigate = useNavigate();
   const { id } = useParams();
   const dispatch = useAppDispatch();
 
@@ -70,13 +70,7 @@ export default function MoviePage() {
           <h1 className="visually-hidden">WTW</h1>
 
           <header className="page-header film-card__head">
-            <div className="logo">
-              <Link to={AppRoutes.Main} className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </Link>
-            </div>
+            <Logo />
 
             <UserBlock />
           </header>
@@ -90,41 +84,12 @@ export default function MoviePage() {
               </p>
 
               <div className="film-card__buttons">
-                <button
-                  className="btn btn--play film-card__button"
-                  type="button"
-                  onClick={() => navigate(`/player/${movie.id}`)}
-                >
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <button
-                  className="btn btn--list film-card__button"
-                  type="button"
-                  onClick={() => {
-                    dispatch(
-                      postFavoriteStatus({
-                        id: movie.id,
-                        status: Number(!movie.isFavorite),
-                      })
-                    );
-                    navigate('/mylist');
-                  }}
-                >
-                  {movie.isFavorite ? (
-                    <svg width="18" height="14" viewBox="0 0 18 14">
-                      <use xlinkHref="#in-list"></use>
-                    </svg>
-                  ) : (
-                    <svg viewBox="0 0 19 20" width="19" height="20">
-                      <use xlinkHref="#add"></use>
-                    </svg>
-                  )}
-                  <span>My list</span>
-                  <span className="film-card__count">{myListLength}</span>
-                </button>
+                <PlayButton id={movie.id} />
+                <MyListButton
+                  id={movie.id}
+                  isFavorite={movie.isFavorite}
+                  category="movie"
+                />
                 {authorizationStatus === AuthorizationStatus.Auth && (
                   <Link
                     to={generatePath(AppRoutes.Review, { id: movie.id })}
@@ -159,19 +124,7 @@ export default function MoviePage() {
           <MovieList moviePreviews={similarMovies} length={4} />
         </section>
 
-        <footer className="page-footer">
-          <div className="logo">
-            <Link to={AppRoutes.Main} className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </Link>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );

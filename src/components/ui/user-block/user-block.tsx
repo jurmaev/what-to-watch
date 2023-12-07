@@ -1,12 +1,17 @@
-import { Link } from 'react-router-dom';
-import { AppRoutes, AuthorizationStatus } from '../../const';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { logout } from '../../store/api-actions';
-import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { Link, useNavigate } from 'react-router-dom';
+import { AppRoutes, AuthorizationStatus } from '../../../const';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { logout } from '../../../store/api-actions';
+import {
+  getAuthorizationStatus,
+  getAvatarUrl,
+} from '../../../store/user-process/selectors';
 
 export default function UserBlock() {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const avatarUrl = useAppSelector(getAvatarUrl);
 
   function getAuthBlock() {
     if (authorizationStatus === AuthorizationStatus.Auth) {
@@ -15,10 +20,11 @@ export default function UserBlock() {
           <li className="user-block__item">
             <div className="user-block__avatar">
               <img
-                src="img/avatar.jpg"
+                src={avatarUrl}
                 alt="User avatar"
                 width="63"
                 height="63"
+                onClick={() => navigate(AppRoutes.MyList)}
               />
             </div>
           </li>
@@ -27,6 +33,7 @@ export default function UserBlock() {
             onClick={() => {
               dispatch(logout());
             }}
+            data-testid="logOut"
           >
             <a className="user-block__link">Sign out</a>
           </li>

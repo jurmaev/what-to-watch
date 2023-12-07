@@ -1,6 +1,10 @@
-import { AuthorizationStatusValues, NameSpace } from '../../const';
+import { AuthorizationStatusValues, Namespace } from '../../const';
 import { State } from '../../types/state';
 
 export const getAuthorizationStatus = (
-  state: State
-): AuthorizationStatusValues => state[NameSpace.User].authorizationStatus;
+  state: Pick<State, typeof Namespace.User>
+): AuthorizationStatusValues => state[Namespace.User].authorizationStatus;
+
+export const getAvatarUrl = (
+  state: Pick<State, typeof Namespace.User>
+): string => state[Namespace.User].avatarUrl;

@@ -1,10 +1,13 @@
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
-import { AppRoutes } from '../../const';
 import { FormEvent, useRef, useState } from 'react';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { login } from '../../store/api-actions';
-import UserBlock from '../../components/user-block/user-block';
+import UserBlock from '../../components/ui/user-block/user-block';
+import Logo from '../../components/ui/logo/logo';
+import Footer from '../../components/ui/footer/footer';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { useNavigate } from 'react-router-dom';
+import { AppRoutes, AuthorizationStatus } from '../../const';
 
 function containsAnyLetters(password: string) {
   return /[a-zA-Z]/.test(password);
@@ -20,6 +23,8 @@ function isValidEmail(email: string) {
 
 export default function LoginPage() {
   const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const navigate = useNavigate();
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -47,6 +52,10 @@ export default function LoginPage() {
     }
   }
 
+  if (authorizationStatus === AuthorizationStatus.Auth) {
+    navigate(AppRoutes.Main);
+  }
+
   return (
     <div className="user-page">
       <Helmet>
@@ -54,13 +63,7 @@ export default function LoginPage() {
       </Helmet>
 
       <header className="page-header user-page__head">
-        <div className="logo">
-          <Link to={AppRoutes.Main} className="logo__link">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </Link>
-        </div>
+        <Logo />
 
         <UserBlock />
       </header>
@@ -121,19 +124,7 @@ export default function LoginPage() {
         </form>
       </div>
 
-      <footer className="page-footer">
-        <div className="logo">
-          <Link to={AppRoutes.Main} className="logo__link logo__link--light">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </Link>
-        </div>
-
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

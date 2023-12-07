@@ -1,24 +1,31 @@
-import { NameSpace } from '../../const';
+import { Namespace } from '../../const';
 import { Movie, MoviePreviews, PromoMovie } from '../../types/movies';
 import { State } from '../../types/state';
 
-export const getMoviePreviews = (state: State): MoviePreviews =>
-  state[NameSpace.Movie].moviePreviews;
+export const getMoviePreviews = (
+  state: Pick<State, typeof Namespace.Movie>
+): MoviePreviews => state[Namespace.Movie].moviePreviews;
 
-export const getMovie = (state: State): Movie | null =>
-  state[NameSpace.Movie].movie;
+export const getMovie = (
+  state: Pick<State, typeof Namespace.Movie>
+): Movie | null => state[Namespace.Movie].movie;
 
-export const getPromoMovie = (state: State): PromoMovie | null =>
-  state[NameSpace.Movie].promoMovie;
+export const getPromoMovie = (
+  state: Pick<State, typeof Namespace.Movie>
+): PromoMovie | null => state[Namespace.Movie].promoMovie;
 
-export const getMyList = (state: State): MoviePreviews =>
-  state[NameSpace.Movie].myList;
+export const getMyList = (
+  state: Pick<State, typeof Namespace.Movie>
+): MoviePreviews => state[Namespace.Movie].myList;
 
-export const getMyListLength = (state: State): number =>
-  state[NameSpace.Movie].myListLength;
+export const getMyListLength = (
+  state: Pick<State, typeof Namespace.Movie>
+): number => state[Namespace.Movie].myListLength;
 
-export const getSimilarMovies = (state: State): MoviePreviews =>
-  state[NameSpace.Movie].similarMovies;
+export const getSimilarMovies = (
+  state: Pick<State, typeof Namespace.Movie>
+): MoviePreviews => state[Namespace.Movie].similarMovies;
 
-export const getMovieFetchingStatus = (state: State): boolean =>
-  state[NameSpace.Movie].isFetchingMovieData;
+export const getMovieFetchingStatus = (
+  state: Pick<State, typeof Namespace.Movie>
+): boolean => state[Namespace.Movie].isFetchingMovieData;

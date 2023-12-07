@@ -9,7 +9,7 @@ export default function Spinner({ isActive }: SpinnerProps) {
     return null;
   }
   return (
-    <div className="spinner__container">
+    <div className="spinner__container" data-testid="spinner">
       <div className="spinner">
         <div></div>
         <div></div>

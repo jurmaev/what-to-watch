@@ -52,6 +52,7 @@ export default function VideoPlayer(props: VideoPlayerProps) {
       width={280}
       height={175}
       muted={props.isMuted}
+      data-testid="video"
     >
     </video>
   );

@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { Genres, GenresValues, NameSpace } from '../../const';
+import { Genres, GenresValues, Namespace } from '../../const';
 import { GenreProcess } from '../../types/state';
 
 const initialState: GenreProcess = {
@@ -7,7 +7,7 @@ const initialState: GenreProcess = {
 };
 
 export const genreProcess = createSlice({
-  name: NameSpace.Genre,
+  name: Namespace.Genre,
   initialState,
   reducers: {
     changeGenre: (state, action: PayloadAction<GenresValues>) => {

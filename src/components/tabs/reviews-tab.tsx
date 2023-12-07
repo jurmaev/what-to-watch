@@ -36,7 +36,7 @@ function getDateWithComma(dateString: string) {
 export default function ReviewsTab({ reviews }: ReviewsTabProps) {
   function sliceReviews(start: number, end: number) {
     return reviews.slice(start, end).map((review) => (
-      <div key={review.id} className="review">
+      <div key={review.id} className="review" data-testid='review'>
         <blockquote className="review__quote">
           <p className="review__text">{review.comment}</p>
 

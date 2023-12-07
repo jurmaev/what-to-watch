@@ -4,7 +4,7 @@ import NotFoundPage from '../not-found-page/not-found-page';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect, useRef, useState } from 'react';
 import { fetchMovie } from '../../store/api-actions';
-import Spinner from '../../components/spinner/spinner';
+import Spinner from '../../components/ui/spinner/spinner';
 import {
   getMovie,
   getMovieFetchingStatus,
@@ -19,7 +19,7 @@ function getTimeLeft(seconds: number): string {
 
 export default function PlayerPage() {
   const movie = useAppSelector(getMovie);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const progressRef = useRef<HTMLProgressElement | null>(null);
@@ -39,6 +39,7 @@ export default function PlayerPage() {
   if (isFetchingData) {
     return <Spinner isActive />;
   }
+
   if (!movie || !id) {
     return <NotFoundPage />;
   }
@@ -54,11 +55,12 @@ export default function PlayerPage() {
 
   function handleFullScreenClick() {
     if (!isFullScreen) {
-      videoRef.current?.requestFullscreen({ navigationUI: 'hide' });
+      videoRef.current
+        ?.requestFullscreen({ navigationUI: 'hide' })
+        .then(() => setIsFullScreen(true));
     } else {
-      document.exitFullscreen();
+      document.exitFullscreen().then(() => setIsFullScreen(false));
     }
-    setIsFullScreen(!isFullScreen);
   }
 
   function handleTimeUpdate() {
@@ -89,6 +91,7 @@ export default function PlayerPage() {
         src={movie.videoLink}
         className="player__video"
         poster={movie.backgroundImage}
+        autoPlay
         ref={videoRef}
         onTimeUpdate={handleTimeUpdate}
       >
@@ -126,6 +129,7 @@ export default function PlayerPage() {
             type="button"
             className="player__play"
             onClick={handleControlClick}
+            data-testid="videoControl"
           >
             {isPlaying ? (
               <>

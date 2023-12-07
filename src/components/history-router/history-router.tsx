@@ -21,7 +21,7 @@ export default function HistoryRouter({
   return (
     <Router
       basename={basename}
-      location={location}
+      location={state.location}
       navigationType={state.action}
       navigator={history}
     >

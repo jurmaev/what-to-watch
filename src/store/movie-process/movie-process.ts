@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { MovieProcess } from '../../types/state';
-import { NameSpace } from '../../const';
+import { Namespace } from '../../const';
 import {
   fetchMovie,
   fetchMoviePreviews,
@@ -21,7 +21,7 @@ const initialState: MovieProcess = {
 };
 
 export const movieProcess = createSlice({
-  name: NameSpace.Movie,
+  name: Namespace.Movie,
   initialState,
   reducers: {},
   extraReducers(builder) {
@@ -66,10 +66,17 @@ export const movieProcess = createSlice({
         const favoriteMovie = action.payload;
         if (favoriteMovie.isFavorite) {
           state.myList.push(favoriteMovie);
-          state.myListLength++;
+          state.myListLength = state.myList.length;
         } else {
-          state.myList.filter((movie) => movie.id !== favoriteMovie.id);
-          state.myListLength--;
+          state.myList = state.myList.filter(
+            (movie) => movie.id !== favoriteMovie.id
+          );
+          state.myListLength = state.myList.length;
+        }
+        if (favoriteMovie.category === 'promoMovie' && state.promoMovie) {
+          state.promoMovie.isFavorite = favoriteMovie.isFavorite;
+        } else if (favoriteMovie.category === 'movie' && state.movie) {
+          state.movie.isFavorite = favoriteMovie.isFavorite;
         }
       });
   },
