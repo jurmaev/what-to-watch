@@ -55,4 +55,16 @@ describe('ReviewForm', () => {
       postReview.fulfilled.type,
     ]);
   });
+
+  it('disables post review button', async () => {
+    render(withStoreComponent);
+
+    await userEvent.click(screen.getAllByTestId('rating')[4]);
+    await userEvent.type(
+      screen.getByPlaceholderText('Review text'),
+      'short review'
+    );
+
+    expect(screen.getByRole('button')).toBeDisabled();
+  });
 });

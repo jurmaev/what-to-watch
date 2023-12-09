@@ -2,7 +2,7 @@ import { mockMovie } from '../../mocks/movie';
 import OverviewTab from './overview-tab';
 import { render, screen } from '@testing-library/react';
 
-describe('Component: OverviewTab', () => {
+describe('OverviewTab', () => {
   it('renders correctly', () => {
     render(<OverviewTab movie={mockMovie} />);
 

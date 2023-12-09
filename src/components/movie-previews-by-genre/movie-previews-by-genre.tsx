@@ -52,7 +52,7 @@ export default function MoviePreviewsByGenre() {
               dispatch(changeGenre(genre as GenresValues));
               setMovieLength(INITIAL_MOVIE_LENGTH);
             }}
-            data-testid={genre}
+            data-testid={`tab-${genre}`}
           >
             <Link to="#" className="catalog__genres-link">
               {genre}

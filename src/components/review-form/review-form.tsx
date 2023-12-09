@@ -1,6 +1,7 @@
 import { FormEvent, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { postReview } from '../../store/api-actions';
+import { isButtonDisabled } from '../../services/review-form';
 
 const STARS = 10;
 
@@ -12,17 +13,6 @@ export default function ReviewForm({ id }: ReviewFormProps) {
   const dispatch = useAppDispatch();
   const [form, setForm] = useState({ rating: '0', reviewText: '' });
   const ratings = [...Array(STARS).keys()].map((_, i) => i + 1).reverse();
-
-  function isButtonDisabled() {
-    if (
-      form.rating === '0' ||
-      form.reviewText.length < 50 ||
-      form.reviewText.length > 400
-    ) {
-      return true;
-    }
-    return false;
-  }
 
   function handleSubmit(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
@@ -78,7 +68,7 @@ export default function ReviewForm({ id }: ReviewFormProps) {
             <button
               className="add-review__btn"
               type="submit"
-              disabled={isButtonDisabled()}
+              disabled={isButtonDisabled(form)}
             >
               Post
             </button>

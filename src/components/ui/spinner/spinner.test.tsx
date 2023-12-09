@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import Spinner from './spinner';
 
-describe('Component: Spinner', () => {
+describe('Spinner', () => {
   it('renders when active', () => {
     render(<Spinner isActive />);
 
