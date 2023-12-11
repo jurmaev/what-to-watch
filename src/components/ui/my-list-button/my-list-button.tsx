@@ -1,6 +1,9 @@
+import { useNavigate } from 'react-router-dom';
+import { AppRoutes, AuthorizationStatus } from '../../../const';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { postFavoriteStatus } from '../../../store/api-actions';
 import { getMyListLength } from '../../../store/movie-process/selectors';
+import { getAuthorizationStatus } from '../../../store/user-process/selectors';
 
 type MyListButtonProps = {
   id: string;
@@ -14,21 +17,29 @@ export default function MyListButton({
   category,
 }: MyListButtonProps) {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const myListLength = useAppSelector(getMyListLength);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+
+  function handleClick() {
+    if (authorizationStatus !== AuthorizationStatus.Auth) {
+      navigate(AppRoutes.Login);
+    } else {
+      dispatch(
+        postFavoriteStatus({
+          id: id,
+          status: Number(!isFavorite),
+          category: category,
+        })
+      );
+    }
+  }
 
   return (
     <button
       className="btn btn--list film-card__button"
       type="button"
-      onClick={() => {
-        dispatch(
-          postFavoriteStatus({
-            id: id,
-            status: Number(!isFavorite),
-            category: category,
-          })
-        );
-      }}
+      onClick={handleClick}
     >
       {isFavorite ? (
         <svg width="18" height="14" viewBox="0 0 18 14" data-testid="inList">

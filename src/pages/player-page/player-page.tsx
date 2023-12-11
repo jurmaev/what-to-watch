@@ -20,7 +20,6 @@ function getTimeLeft(seconds: number): string {
 export default function PlayerPage() {
   const movie = useAppSelector(getMovie);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [isFullScreen, setIsFullScreen] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const progressRef = useRef<HTMLProgressElement | null>(null);
   const togglerRef = useRef<HTMLDivElement | null>(null);
@@ -54,13 +53,7 @@ export default function PlayerPage() {
   }
 
   function handleFullScreenClick() {
-    if (!isFullScreen) {
-      videoRef.current
-        ?.requestFullscreen({ navigationUI: 'hide' })
-        .then(() => setIsFullScreen(true));
-    } else {
-      document.exitFullscreen().then(() => setIsFullScreen(false));
-    }
+    videoRef.current?.requestFullscreen({ navigationUI: 'hide' });
   }
 
   function handleTimeUpdate() {

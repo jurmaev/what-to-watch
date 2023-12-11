@@ -28,7 +28,7 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   function handleSubmit(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
