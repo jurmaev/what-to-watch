@@ -20,6 +20,9 @@ export const reviewsProcess = createSlice({
       .addCase(fetchReviews.fulfilled, (state, action) => {
         state.reviews = action.payload;
         state.isFetchingReviewsData = false;
+      })
+      .addCase(fetchReviews.rejected, (state) => {
+        state.isFetchingReviewsData = false;
       });
   },
 });

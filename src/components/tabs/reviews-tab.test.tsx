@@ -2,7 +2,7 @@ import { mockReviews } from '../../mocks/reviews';
 import ReviewsTab from './reviews-tab';
 import { render, screen } from '@testing-library/react';
 
-describe('Component: ReviewsTab', () => {
+describe('ReviewsTab', () => {
   it('renders correctly', () => {
     const expectedReview = mockReviews[0];
 

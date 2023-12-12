@@ -16,11 +16,11 @@ describe('MoviePreviewsByGenre', () => {
     render(withStoreComponent);
 
     expect(screen.getByText('Catalog')).toBeInTheDocument();
-    expect(screen.getByTestId(Genres.All)).toBeInTheDocument();
-    expect(screen.getByTestId(Genres.All)).toHaveClass(
+    expect(screen.getByTestId(`tab-${Genres.All}`)).toBeInTheDocument();
+    expect(screen.getByTestId(`tab-${Genres.All}`)).toHaveClass(
       'catalog__genres-item--active'
     );
-    expect(screen.getByTestId(moviePreview.genre)).toBeInTheDocument();
+    expect(screen.getByTestId(`tab-${moviePreview.genre}`)).toBeInTheDocument();
   });
 
   it('selects correct genre', () => {
@@ -33,7 +33,7 @@ describe('MoviePreviewsByGenre', () => {
 
     render(withStoreComponent);
 
-    expect(screen.getByTestId(moviePreview.genre)).toHaveClass(
+    expect(screen.getByTestId(`tab-${moviePreview.genre}`)).toHaveClass(
       'catalog__genres-item--active'
     );
   });

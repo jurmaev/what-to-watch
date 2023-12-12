@@ -1,22 +1,9 @@
+import { getRatingText } from '../../services/rating';
 import { Movie } from '../../types/movies';
 
 type OverviewTabProps = {
   movie: Movie;
 };
-
-function getRatingText(rating: number) {
-  if (rating <= 3) {
-    return 'Bad';
-  } else if (rating > 3 && rating <= 5) {
-    return 'Normal';
-  } else if (rating > 5 && rating <= 8) {
-    return 'Good';
-  } else if (rating > 8 && rating < 10) {
-    return 'Very good';
-  } else {
-    return 'Awesome';
-  }
-}
 
 export default function OverviewTab({ movie }: OverviewTabProps) {
   return (

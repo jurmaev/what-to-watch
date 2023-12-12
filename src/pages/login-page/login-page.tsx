@@ -8,6 +8,7 @@ import Footer from '../../components/ui/footer/footer';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { useNavigate } from 'react-router-dom';
 import { AppRoutes, AuthorizationStatus } from '../../const';
+import cn from 'classnames';
 
 function containsAnyLetters(password: string) {
   return /[a-zA-Z]/.test(password);
@@ -27,7 +28,7 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   function handleSubmit(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
@@ -81,7 +82,11 @@ export default function LoginPage() {
             </div>
           )}
           <div className="sign-in__fields">
-            <div className="sign-in__field">
+            <div
+              className={cn('sign-in__field', {
+                'sign-in__field--error': errorMessage !== '',
+              })}
+            >
               <input
                 className="sign-in__input"
                 type="email"

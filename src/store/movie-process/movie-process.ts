@@ -40,6 +40,9 @@ export const movieProcess = createSlice({
         state.movie = action.payload;
         state.isFetchingMovieData = false;
       })
+      .addCase(fetchMovie.rejected, (state) => {
+        state.isFetchingMovieData = false;
+      })
       .addCase(fetchPromoMovie.pending, (state) => {
         state.isFetchingMovieData = true;
       })
@@ -52,6 +55,9 @@ export const movieProcess = createSlice({
       })
       .addCase(fetchSimilarMovies.fulfilled, (state, action) => {
         state.similarMovies = action.payload;
+        state.isFetchingMovieData = false;
+      })
+      .addCase(fetchSimilarMovies.rejected, (state) => {
         state.isFetchingMovieData = false;
       })
       .addCase(fetchMyList.pending, (state) => {

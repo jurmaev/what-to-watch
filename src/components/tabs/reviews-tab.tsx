@@ -34,9 +34,9 @@ function getDateWithComma(dateString: string) {
 }
 
 export default function ReviewsTab({ reviews }: ReviewsTabProps) {
-  function sliceReviews(start: number, end: number) {
+  function sliceReviews(start: number, end?: number) {
     return reviews.slice(start, end).map((review) => (
-      <div key={review.id} className="review" data-testid='review'>
+      <div key={review.id} className="review" data-testid="review">
         <blockquote className="review__quote">
           <p className="review__text">{review.comment}</p>
 
@@ -61,10 +61,10 @@ export default function ReviewsTab({ reviews }: ReviewsTabProps) {
       {reviews.length > 1 ? (
         <>
           <div className="film-card__reviews-col">
-            {sliceReviews(0, reviews.length / 2 + 1)}
+            {sliceReviews(0, Math.ceil(reviews.length / 2))}
           </div>
           <div className="film-card__reviews-col">
-            {sliceReviews(reviews.length / 2 + 1, reviews.length)}
+            {sliceReviews(Math.ceil(reviews.length / 2))}
           </div>
         </>
       ) : (
