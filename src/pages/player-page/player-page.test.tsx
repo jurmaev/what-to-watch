@@ -18,6 +18,7 @@ describe('PlayerPage', () => {
     ),
     makeFakeStore()
   );
+  HTMLVideoElement.prototype.pause = vi.fn();
   mockHistory.push(`/player/${mockMovie.id}`);
 
   it('renders correctly', () => {

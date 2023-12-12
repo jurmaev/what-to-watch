@@ -9,9 +9,10 @@ import {
   getMovie,
   getMovieFetchingStatus,
 } from '../../store/movie-process/selectors';
+import { MINUTES } from '../../const';
 
 function getTimeLeft(seconds: number): string {
-  if (seconds / 3600 < 1) {
+  if (seconds / MINUTES / MINUTES < 1) {
     return new Date(seconds * 1000).toISOString().slice(14, 19);
   }
   return new Date(seconds * 1000).toISOString().slice(11, 19);

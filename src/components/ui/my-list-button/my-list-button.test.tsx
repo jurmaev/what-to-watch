@@ -3,16 +3,17 @@ import MyListButton from './my-list-button';
 import {
   extractActionTypes,
   makeFakeStore,
+  withHistory,
   withStore,
 } from '../../../services/mocks';
 import { postFavoriteStatus } from '../../../store/api-actions';
 import userEvent from '@testing-library/user-event';
-import { ApiRoute } from '../../../const';
+import { ApiRoute, AuthorizationStatus, Namespace } from '../../../const';
 
 describe('MyListButton', () => {
   it('renders correctly', () => {
     const { withStoreComponent } = withStore(
-      <MyListButton id="1" isFavorite category="movie" />,
+      withHistory(<MyListButton id="1" isFavorite category="movie" />),
       makeFakeStore()
     );
 
@@ -23,7 +24,7 @@ describe('MyListButton', () => {
 
   it('shows in list svg if movie is in my list', () => {
     const { withStoreComponent } = withStore(
-      <MyListButton id="1" isFavorite category="movie" />,
+      withHistory(<MyListButton id="1" isFavorite category="movie" />),
       makeFakeStore()
     );
 
@@ -34,7 +35,7 @@ describe('MyListButton', () => {
 
   it('shows add svg if movie is not in my list', () => {
     const { withStoreComponent } = withStore(
-      <MyListButton id="1" isFavorite={false} category="movie" />,
+      withHistory(<MyListButton id="1" isFavorite={false} category="movie" />),
       makeFakeStore()
     );
 
@@ -45,8 +46,13 @@ describe('MyListButton', () => {
 
   it('changes favorite status on click', async () => {
     const { withStoreComponent, mockStore, mockAxiosAdapter } = withStore(
-      <MyListButton id="1" isFavorite={false} category="movie" />,
-      makeFakeStore()
+      withHistory(<MyListButton id="1" isFavorite={false} category="movie" />),
+      makeFakeStore({
+        [Namespace.User]: {
+          authorizationStatus: AuthorizationStatus.Auth,
+          avatarUrl: '',
+        },
+      })
     );
 
     render(withStoreComponent);
