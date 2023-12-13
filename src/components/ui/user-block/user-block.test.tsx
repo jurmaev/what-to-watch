@@ -6,14 +6,11 @@ import {
   withHistory,
   withStore,
 } from '../../../services/mocks';
-import {
-  ApiRoute,
-  AuthorizationStatus,
-  Namespace,
-} from '../../../const';
+import { ApiRoute, AuthorizationStatus, Namespace } from '../../../const';
 import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import { logout } from '../../../store/api-actions';
+import { clearMyList } from '../../../store/movie-process/movie-process';
 
 describe('UserBlock', () => {
   it('renders avatar when authorized', () => {
@@ -46,7 +43,11 @@ describe('UserBlock', () => {
     await userEvent.click(screen.getByTestId('logOut'));
     const actions = extractActionTypes(mockStore.getActions());
 
-    expect(actions).toEqual([logout.pending.type, logout.fulfilled.type]);
+    expect(actions).toEqual([
+      logout.pending.type,
+      clearMyList.type,
+      logout.fulfilled.type,
+    ]);
   });
 
   it('renders sign in link when unauthorized', () => {

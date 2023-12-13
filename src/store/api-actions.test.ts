@@ -28,6 +28,7 @@ import { FavoriteStatus } from '../types/movies';
 import { mockFavoriteMovie } from '../mocks/favorite-movie';
 import { redirectToRoute } from './action';
 import * as tokenStorage from '../services/token';
+import { clearMyList } from './movie-process/movie-process';
 
 describe('Api actions', () => {
   const axios = createApi();
@@ -120,7 +121,11 @@ describe('Api actions', () => {
 
       const actions = extractActionTypes(store.getActions());
 
-      expect(actions).toEqual([logout.pending.type, logout.fulfilled.type]);
+      expect(actions).toEqual([
+        logout.pending.type,
+        clearMyList.type,
+        logout.fulfilled.type,
+      ]);
     });
   });
 
@@ -137,13 +142,14 @@ describe('Api actions', () => {
 
       const emittedActions = store.getActions();
       const extractedActionTypes = extractActionTypes(emittedActions);
-      const loginFulfilled = emittedActions.at(2) as ReturnType<
+      const loginFulfilled = emittedActions.at(3) as ReturnType<
         typeof login.fulfilled
       >;
 
       expect(extractedActionTypes).toEqual([
         login.pending.type,
         redirectToRoute.type,
+        fetchMyList.pending.type,
         login.fulfilled.type,
       ]);
       expect(loginFulfilled.payload).toBe(avatarUrl);

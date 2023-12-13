@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { AppRoutes } from '../../const';
+import { AppRoutes, AuthorizationStatus } from '../../const';
 import MainPage from '../../pages/main-page/main-page';
 import LoginPage from '../../pages/login-page/login-page';
 import MyListPage from '../../pages/my-list-page/my-list-page';
@@ -15,11 +15,24 @@ export default function App() {
     <HelmetProvider>
       <Routes>
         <Route path={AppRoutes.Main} element={<MainPage />} />
-        <Route path={AppRoutes.Login} element={<LoginPage />} />
+        <Route
+          path={AppRoutes.Login}
+          element={
+            <PrivateRoute
+              withStatus={AuthorizationStatus.NoAuth}
+              navigateTo={AppRoutes.Main}
+            >
+              <LoginPage />
+            </PrivateRoute>
+          }
+        />
         <Route
           path={AppRoutes.MyList}
           element={
-            <PrivateRoute>
+            <PrivateRoute
+              withStatus={AuthorizationStatus.Auth}
+              navigateTo={AppRoutes.Login}
+            >
               <MyListPage />
             </PrivateRoute>
           }
@@ -28,7 +41,10 @@ export default function App() {
         <Route
           path={AppRoutes.Review}
           element={
-            <PrivateRoute>
+            <PrivateRoute
+              withStatus={AuthorizationStatus.Auth}
+              navigateTo={AppRoutes.Login}
+            >
               <ReviewPage />
             </PrivateRoute>
           }
