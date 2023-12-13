@@ -36,6 +36,8 @@ export type GenresValues = ValueOf<typeof Genres>;
 
 export const MINUTES = 60;
 
+export const MILLISECONDS = 1000;
+
 export const ApiRoute = {
   Films: '/films',
   Login: '/login',

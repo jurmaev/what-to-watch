@@ -30,7 +30,7 @@ export default function LoginPage() {
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
-  function handleSubmit(evt: FormEvent<HTMLFormElement>) {
+  function handleFormSubmit(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
     if (emailRef.current && passwordRef.current) {
       if (!isValidEmail(emailRef.current.value)) {
@@ -73,7 +73,7 @@ export default function LoginPage() {
         <form
           action=""
           className="sign-in__form"
-          onSubmit={handleSubmit}
+          onSubmit={handleFormSubmit}
           noValidate
         >
           {errorMessage && (

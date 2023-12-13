@@ -21,7 +21,7 @@ export default function MyListButton({
   const myListLength = useAppSelector(getMyListLength);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
-  function handleClick() {
+  function handleButtonClick() {
     if (authorizationStatus !== AuthorizationStatus.Auth) {
       navigate(AppRoutes.Login);
     } else {
@@ -39,7 +39,7 @@ export default function MyListButton({
     <button
       className="btn btn--list film-card__button"
       type="button"
-      onClick={handleClick}
+      onClick={handleButtonClick}
     >
       {isFavorite ? (
         <svg width="18" height="14" viewBox="0 0 18 14" data-testid="inList">

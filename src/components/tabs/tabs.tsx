@@ -21,7 +21,7 @@ type TabsProps = {
 export default function Tabs({ movie, reviews }: TabsProps) {
   const [activeTab, setActiveTab] = useState<string>(TabNames.Overview);
 
-  function handleClick(tabName: string) {
+  function handleTabClick(tabName: string) {
     setActiveTab(tabName);
   }
 
@@ -44,7 +44,7 @@ export default function Tabs({ movie, reviews }: TabsProps) {
             className={cn('film-nav__item', {
               'film-nav__item--active': activeTab === TabNames.Overview,
             })}
-            onClick={() => handleClick(TabNames.Overview)}
+            onClick={() => handleTabClick(TabNames.Overview)}
           >
             <Link to="#" className="film-nav__link">
               {TabNames.Overview}
@@ -54,7 +54,7 @@ export default function Tabs({ movie, reviews }: TabsProps) {
             className={cn('film-nav__item', {
               'film-nav__item--active': activeTab === TabNames.Details,
             })}
-            onClick={() => handleClick(TabNames.Details)}
+            onClick={() => handleTabClick(TabNames.Details)}
             data-testid='detailsLink'
           >
             <Link to="#" className="film-nav__link">
@@ -65,7 +65,7 @@ export default function Tabs({ movie, reviews }: TabsProps) {
             className={cn('film-nav__item', {
               'film-nav__item--active': activeTab === TabNames.Reviews,
             })}
-            onClick={() => handleClick(TabNames.Reviews)}
+            onClick={() => handleTabClick(TabNames.Reviews)}
             data-testid='reviewsLink'
           >
             <Link to="#" className="film-nav__link">
