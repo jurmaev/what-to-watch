@@ -41,7 +41,7 @@ export default function MyListButton({
       type="button"
       onClick={handleButtonClick}
     >
-      {isFavorite ? (
+      {isFavorite && authorizationStatus === AuthorizationStatus.Auth ? (
         <svg width="18" height="14" viewBox="0 0 18 14" data-testid="inList">
           <use xlinkHref="#in-list"></use>
         </svg>
