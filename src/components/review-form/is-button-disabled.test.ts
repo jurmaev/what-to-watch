@@ -1,4 +1,4 @@
-import { isButtonDisabled } from './review-form';
+import { isButtonDisabled } from './is-button-disabled';
 
 const correctReview =
   'review text with at least 50 symbols to pass length check';

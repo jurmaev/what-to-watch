@@ -1,7 +1,7 @@
 import { FormEvent, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { postReview } from '../../store/api-actions';
-import { isButtonDisabled } from '../../services/review-form';
+import { isButtonDisabled } from './is-button-disabled';
 
 const STARS = 10;
 
