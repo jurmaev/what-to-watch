@@ -23,7 +23,12 @@ const initialState: MovieProcess = {
 export const movieProcess = createSlice({
   name: Namespace.Movie,
   initialState,
-  reducers: {},
+  reducers: {
+    clearMyList: (state) => {
+      state.myList = [];
+      state.myListLength = 0;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchMoviePreviews.pending, (state) => {
@@ -87,3 +92,5 @@ export const movieProcess = createSlice({
       });
   },
 });
+
+export const { clearMyList } = movieProcess.actions;

@@ -25,7 +25,12 @@ describe('MyListButton', () => {
   it('shows in list svg if movie is in my list', () => {
     const { withStoreComponent } = withStore(
       withHistory(<MyListButton id="1" isFavorite category="movie" />),
-      makeFakeStore()
+      makeFakeStore({
+        [Namespace.User]: {
+          authorizationStatus: AuthorizationStatus.Auth,
+          avatarUrl: '',
+        },
+      })
     );
 
     render(withStoreComponent);

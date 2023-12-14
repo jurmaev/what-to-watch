@@ -1,13 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 import { FormEvent, useRef, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch } from '../../hooks';
 import { login } from '../../store/api-actions';
 import UserBlock from '../../components/ui/user-block/user-block';
 import Logo from '../../components/ui/logo/logo';
 import Footer from '../../components/ui/footer/footer';
-import { getAuthorizationStatus } from '../../store/user-process/selectors';
-import { useNavigate } from 'react-router-dom';
-import { AppRoutes, AuthorizationStatus } from '../../const';
 import cn from 'classnames';
 
 function containsAnyLetters(password: string) {
@@ -24,13 +21,11 @@ function isValidEmail(email: string) {
 
 export default function LoginPage() {
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const navigate = useNavigate();
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
-  function handleSubmit(evt: FormEvent<HTMLFormElement>) {
+  function handleFormSubmit(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
     if (emailRef.current && passwordRef.current) {
       if (!isValidEmail(emailRef.current.value)) {
@@ -53,10 +48,6 @@ export default function LoginPage() {
     }
   }
 
-  if (authorizationStatus === AuthorizationStatus.Auth) {
-    navigate(AppRoutes.Main);
-  }
-
   return (
     <div className="user-page">
       <Helmet>
@@ -73,7 +64,7 @@ export default function LoginPage() {
         <form
           action=""
           className="sign-in__form"
-          onSubmit={handleSubmit}
+          onSubmit={handleFormSubmit}
           noValidate
         >
           {errorMessage && (

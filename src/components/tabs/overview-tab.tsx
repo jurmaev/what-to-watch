@@ -1,4 +1,4 @@
-import { getRatingText } from '../../services/rating';
+import { getRatingText } from './get-rating';
 import { Movie } from '../../types/movies';
 
 type OverviewTabProps = {

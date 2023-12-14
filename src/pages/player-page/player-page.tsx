@@ -9,13 +9,13 @@ import {
   getMovie,
   getMovieFetchingStatus,
 } from '../../store/movie-process/selectors';
-import { MINUTES } from '../../const';
+import { MILLISECONDS, MINUTES } from '../../const';
 
 function getTimeLeft(seconds: number): string {
   if (seconds / MINUTES / MINUTES < 1) {
-    return new Date(seconds * 1000).toISOString().slice(14, 19);
+    return new Date(seconds * MILLISECONDS).toISOString().slice(14, 19);
   }
-  return new Date(seconds * 1000).toISOString().slice(11, 19);
+  return new Date(seconds * MILLISECONDS).toISOString().slice(11, 19);
 }
 
 export default function PlayerPage() {

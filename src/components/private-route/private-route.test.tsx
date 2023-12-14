@@ -17,7 +17,7 @@ describe('PrivateRoute', () => {
     mockHistory.push(AppRoutes.MyList);
   });
 
-  it('renders component for public route, when user not authorized', () => {
+  it('renders component for public route, when status does not match', () => {
     const expectedText = 'public route';
     const notExpectedText = 'private route';
     const withHistoryComponent = withHistory(
@@ -26,7 +26,10 @@ describe('PrivateRoute', () => {
         <Route
           path={AppRoutes.MyList}
           element={
-            <PrivateRoute>
+            <PrivateRoute
+              withStatus={AuthorizationStatus.Auth}
+              navigateTo={AppRoutes.Login}
+            >
               <span>{notExpectedText}</span>
             </PrivateRoute>
           }
@@ -47,7 +50,7 @@ describe('PrivateRoute', () => {
     expect(screen.queryByText(notExpectedText)).not.toBeInTheDocument();
   });
 
-  it('renders component for private route, when user authorized', () => {
+  it('renders component for private route, when status is matched', () => {
     const expectedText = 'private route';
     const notExpectedText = 'public route';
     const withHistoryComponent = withHistory(
@@ -59,7 +62,10 @@ describe('PrivateRoute', () => {
         <Route
           path={AppRoutes.MyList}
           element={
-            <PrivateRoute>
+            <PrivateRoute
+              withStatus={AuthorizationStatus.Auth}
+              navigateTo={AppRoutes.Login}
+            >
               <span>{expectedText}</span>
             </PrivateRoute>
           }

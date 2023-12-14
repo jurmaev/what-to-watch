@@ -9,7 +9,7 @@ import LoginPage from './login-page';
 import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import { ApiRoute, AppRoutes } from '../../const';
-import { login } from '../../store/api-actions';
+import { fetchMyList, login } from '../../store/api-actions';
 import { redirectToRoute } from '../../store/action';
 
 describe('LoginPage', () => {
@@ -82,6 +82,7 @@ describe('LoginPage', () => {
   it('logs in user and redirects to main page', async () => {
     render(withStoreComponent);
     mockAxiosAdapter.onPost(ApiRoute.Login).reply(200, { avatarUrl: '' });
+    mockAxiosAdapter.onGet(ApiRoute.MyList).reply(200, {});
     await userEvent.type(screen.getByPlaceholderText('Email address'), email);
     await userEvent.type(screen.getByPlaceholderText('Password'), password);
     await userEvent.click(screen.getByRole('button'));
@@ -91,7 +92,9 @@ describe('LoginPage', () => {
     expect(actions).toEqual([
       login.pending.type,
       redirectToRoute.type,
+      fetchMyList.pending.type,
       login.fulfilled.type,
+      fetchMyList.fulfilled.type,
     ]);
   });
 });

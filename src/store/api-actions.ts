@@ -13,6 +13,7 @@ import { redirectToRoute } from './action';
 import { AuthData, UserData } from '../types/user';
 import { setToken } from '../services/token';
 import { ReviewBase, Reviews } from '../types/reviews';
+import { clearMyList } from './movie-process/movie-process';
 
 export const fetchMoviePreviews = createAsyncThunk<
   MoviePreviews,
@@ -34,6 +35,15 @@ export const checkAuth = createAsyncThunk<
   return avatarUrl;
 });
 
+export const fetchMyList = createAsyncThunk<
+  MoviePreviews,
+  undefined,
+  { dispatch: AppDispatch; extra: AxiosInstance }
+>('movie/fetchMyList', async (_arg, { extra: api }) => {
+  const { data } = await api.get<MoviePreviews>(ApiRoute.MyList);
+  return data;
+});
+
 export const login = createAsyncThunk<
   string,
   AuthData,
@@ -44,6 +54,7 @@ export const login = createAsyncThunk<
   } = await api.post<UserData>(ApiRoute.Login, { email, password });
   setToken(token);
   dispatch(redirectToRoute(AppRoutes.Main));
+  dispatch(fetchMyList());
   return avatarUrl;
 });
 
@@ -51,8 +62,9 @@ export const logout = createAsyncThunk<
   void,
   undefined,
   { dispatch: AppDispatch; extra: AxiosInstance }
->('user/logout', async (_arg, { extra: api }) => {
+>('user/logout', async (_arg, { extra: api, dispatch }) => {
   await api.delete(ApiRoute.Login);
+  dispatch(clearMyList());
 });
 
 export const fetchMovie = createAsyncThunk<
@@ -90,15 +102,6 @@ export const fetchSimilarMovies = createAsyncThunk<
   const { data } = await api.get<MoviePreviews>(
     `${ApiRoute.Films}/${id}/similar`
   );
-  return data;
-});
-
-export const fetchMyList = createAsyncThunk<
-  MoviePreviews,
-  undefined,
-  { dispatch: AppDispatch; extra: AxiosInstance }
->('movie/fetchMyList', async (_arg, { extra: api }) => {
-  const { data } = await api.get<MoviePreviews>(ApiRoute.MyList);
   return data;
 });
 

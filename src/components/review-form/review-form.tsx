@@ -1,7 +1,7 @@
 import { FormEvent, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { postReview } from '../../store/api-actions';
-import { isButtonDisabled } from '../../services/review-form';
+import { isButtonDisabled } from './is-button-disabled';
 
 const STARS = 10;
 
@@ -14,7 +14,7 @@ export default function ReviewForm({ id }: ReviewFormProps) {
   const [form, setForm] = useState({ rating: '0', reviewText: '' });
   const ratings = [...Array(STARS).keys()].map((_, i) => i + 1).reverse();
 
-  function handleSubmit(evt: FormEvent<HTMLFormElement>) {
+  function handleFormSubmit(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
     dispatch(
       postReview({
@@ -27,7 +27,7 @@ export default function ReviewForm({ id }: ReviewFormProps) {
 
   return (
     <div className="add-review">
-      <form action="" className="add-review__form" onSubmit={handleSubmit}>
+      <form action="" className="add-review__form" onSubmit={handleFormSubmit}>
         <div className="rating">
           <div className="rating__stars">
             {ratings.map((rating) => [

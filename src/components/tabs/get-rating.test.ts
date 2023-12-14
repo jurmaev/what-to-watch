@@ -1,4 +1,4 @@
-import { getRatingText } from './rating';
+import { getRatingText } from './get-rating';
 
 describe.each([
   { rating: 2.5, expectedMessage: 'Bad' },
